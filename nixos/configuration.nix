@@ -161,6 +161,8 @@
     discord
 
     # gaming
+    gamemode
+    gamescope
 
     # software development
     vscode
