@@ -18,6 +18,21 @@
       fsType = "ext4";
     };
 
+  fileSystems."/games-small" =
+    { device = "/dev/disk/by-uuid/6ee4693c-1b99-4bc5-b885-4f50871c179a";
+      fsType = "ext4";
+    };
+
+  fileSystems."/games" =
+    { device = "/dev/disk/by-uuid/381fbad5-2650-4d6e-8520-1a0eefd76fe2";
+      fsType = "ext4";
+    };
+
+  fileSystems."/stuff" =
+    { device = "/dev/disk/by-uuid/34d47541-9d62-4595-b784-c586deca8306";
+      fsType = "ext4";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/a4c78951-86cc-4789-b273-074962a90528"; }
     ];
