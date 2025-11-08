@@ -139,11 +139,17 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Enable completion for system packages
+  environment.pathsToLink = [ "/share/zsh" ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.basti = {
     isNormalUser = true;
     description = "Sebastian Di Luzio";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
+    ignoreShellProgramCheck = true; # We install it on home-manager level
+
     packages = with pkgs; [
     ];
   };
@@ -167,11 +173,17 @@ in
   ];
 
   home-manager.users.basti = { pkgs, ... }: {
-    home.shellAliases = {
-      ll = "ls -la";
-      wip = "git commit -nam 'wip' --no-verify && git push";
-      rb = "sudo nixos-rebuild switch";
-      steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam -- steam";
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      shellAliases = {
+        ll = "ls -la";
+        wip = "git commit -nam 'wip' --no-verify && git push";
+        rb = "sudo nixos-rebuild switch";
+        steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam -- steam";
+      };
     };
 
     home.packages = with pkgs; [
