@@ -172,6 +172,7 @@ in
       thunderbird
       discord
       signal-desktop
+      tidal-hifi
 
       # gaming
       gamemode
