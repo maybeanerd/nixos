@@ -32,7 +32,10 @@ in
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
+
+  services.pulseaudio.support32Bit = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -154,12 +157,14 @@ in
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-};
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # We use home-manager instead
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [
+    wineWowPackages.stable
+  ];
 
   home-manager.users.basti = { pkgs, ... }: {
 
@@ -177,6 +182,7 @@ in
       # gaming
       gamemode
       gamescope
+      vulkan-tools
       lutris
 
       # software development
