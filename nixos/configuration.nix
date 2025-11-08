@@ -2,12 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+
+let
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+in
 {
+    # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Make Home Manager use the system nixpkgs configuration so it respects
+  # the `nixpkgs.config` settings (e.g. allowUnfree).
+  home-manager.useGlobalPkgs = true;
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      (import "${home-manager}/nixos")
     ];
 
   # Bootloader.
@@ -130,8 +142,6 @@
     description = "Sebastian Di Luzio";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
     ];
   };
 
@@ -146,33 +156,38 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
 };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  # TODO: move all of this to home-manager
+  # We use home-manager instead
+  environment.systemPackages = with pkgs; [ ];
 
+  home-manager.users.basti = { pkgs, ... }: {
 
-    # os utilities
-    home-manager
+    home.packages = with pkgs; [
+      # desktop environment
+      kdePackages.kate
 
-    # general apps
-    bitwarden-desktop
-    thunderbird
-    discord
+      # general apps
+      bitwarden-desktop
+      thunderbird
+      discord
+      signal-desktop
 
-    # gaming
-    gamemode
-    gamescope
+      # gaming
+      gamemode
+      gamescope
+      lutris
 
-    # software development
-    vscode
-    git
-    github-desktop
+      # software development
+      vscode
+      git
+      github-desktop
+    ];
 
-  ];
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home.stateVersion = "25.05";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
