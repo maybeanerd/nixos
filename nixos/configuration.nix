@@ -26,6 +26,7 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # Attempt to fix audio issues
 
   # Graphics
 
@@ -34,8 +35,6 @@ in
     enable = true;
     enable32Bit = true;
   };
-
-  services.pulseaudio.support32Bit = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
