@@ -157,24 +157,6 @@ in
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Add extra dependencies to steam for gamescope https://github.com/NixOS/nixpkgs/issues/162562#issuecomment-1229444338
-  nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override {
-      extraPkgs = pkgs: with pkgs; [
-        xorg.libXcursor
-        xorg.libXi
-        xorg.libXinerama
-        xorg.libXScrnSaver
-        libpng
-        libpulseaudio
-        libvorbis
-        stdenv.cc.cc.lib
-        libkrb5
-        keyutils
-      ];
-    };
-  };
-
   # Install steam
   programs.steam = {
     enable = true;
@@ -199,7 +181,7 @@ in
         ll = "ls -la";
         wip = "git commit -nam 'wip' --no-verify && git push";
         rb = "sudo nixos-rebuild switch";
-        steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam --expose-wayland -- steam";
+        # steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam --expose-wayland -- steam";
         # In steam, use the launch option:
         # gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --expose-wayland -- %command% -nolauncher
       };
@@ -215,7 +197,6 @@ in
       discord
       signal-desktop
       tidal-hifi
-      chromium
       vlc
 
       # gaming
