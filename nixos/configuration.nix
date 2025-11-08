@@ -167,6 +167,12 @@ in
   ];
 
   home-manager.users.basti = { pkgs, ... }: {
+    home.shellAliases = {
+      ll = "ls -la";
+      wip = "git commit -nam 'wip' --no-verify && git push";
+      rb = "sudo nixos-rebuild switch";
+      steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam -- steam";
+    };
 
     home.packages = with pkgs; [
       # desktop environment
