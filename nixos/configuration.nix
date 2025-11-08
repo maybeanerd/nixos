@@ -183,6 +183,7 @@ in
       vscode
       git
       github-desktop
+      nodejs_24
     ];
 
     # The state version is required and should stay at the version you
