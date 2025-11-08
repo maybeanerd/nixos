@@ -152,6 +152,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+  # TODO: move all of this to home-manager
+
+
     # os utilities
     home-manager
 
