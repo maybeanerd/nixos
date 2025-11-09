@@ -178,9 +178,16 @@ in
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git"
+          "git-auto-fetch"
+        ];
+        theme = "jonathan";
+      };
       shellAliases = {
         ll = "ls -la";
-        wip = "git commit -nam 'wip' --no-verify && git push";
         rb = "sudo nixos-rebuild switch";
         # steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam --expose-wayland -- steam";
         # In steam, use the launch option:
