@@ -211,7 +211,6 @@ in
       gamemode
       gamescope
       vulkan-tools
-      lutris
 
       # software development
       vscode
