@@ -18,8 +18,8 @@ in
   home-manager.useGlobalPkgs = true;
 
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      ./hardware-configuration.nix # Include the results of the hardware scan
       (import "${home-manager}/nixos")
       aagl-gtk-on-nix.module
     ];
