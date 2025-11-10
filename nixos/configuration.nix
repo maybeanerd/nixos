@@ -149,6 +149,12 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
+  # Enable running AppImages more easily
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   # List packages installed in system profile.
   # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
