@@ -39,9 +39,14 @@ in
     home.packages = with pkgs; [
       # general apps
       bitwarden-desktop
+
+      # communication
       thunderbird
       discord
       signal-desktop
+      element-desktop
+
+      # media
       tidal-hifi
       vlc
 
