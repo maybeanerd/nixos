@@ -6,23 +6,17 @@
 
 
 let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
   aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
 in
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Make Home Manager use the system nixpkgs configuration so it respects
-  # the `nixpkgs.config` settings (e.g. allowUnfree).
-  home-manager.useGlobalPkgs = true;
-
   imports =
     [
       ./hardware-configuration.nix # Include the results of the hardware scan
-      (import "${home-manager}/nixos")
+      ./configs/home-manager.nix
       aagl-gtk-on-nix.module
-      ./configs/virtualisation.nix
     ];
 
   # Bootloader.
@@ -171,59 +165,7 @@ in
   # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
-    gnome-boxes # VM management
-    dnsmasq # VM networking
-    # phodav # (optional) Share files with guest VMs
   ];
-
-  home-manager.users.basti = { pkgs, ... }: {
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      oh-my-zsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "git-auto-fetch"
-        ];
-        theme = "jonathan";
-      };
-      shellAliases = {
-        ll = "ls -la";
-        rb = "sudo nixos-rebuild switch";
-        # steamscope = "gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --steam --expose-wayland -- steam";
-        # In steam, use the launch option:
-        # gamescope -w 3440 -h 1440 -f -r 175 --adaptive-sync --rt --expose-wayland -- %command% -nolauncher
-      };
-    };
-
-    home.packages = with pkgs; [
-      # general apps
-      bitwarden-desktop
-      thunderbird
-      discord
-      signal-desktop
-      tidal-hifi
-      vlc
-
-      # gaming
-      gamemode
-      gamescope
-      vulkan-tools
-
-      # software development
-      vscode
-      git
-      github-desktop
-      nodejs_24
-    ];
-
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "25.05";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
