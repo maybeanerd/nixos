@@ -219,9 +219,6 @@ in
     };
 
     home.packages = with pkgs; [
-      # desktop environment
-      kdePackages.kate
-
       # general apps
       bitwarden-desktop
       thunderbird
