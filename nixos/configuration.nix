@@ -4,10 +4,6 @@
 
 { config, pkgs, lib, ... }:
 
-
-let
-  aagl-gtk-on-nix = import (builtins.fetchTarball "https://github.com/ezKEa/aagl-gtk-on-nix/archive/main.tar.gz");
-in
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -16,7 +12,7 @@ in
     [
       ./hardware-configuration.nix # Include the results of the hardware scan
       ./configs/home-manager.nix
-      aagl-gtk-on-nix.module
+      ./configs/zenless-zone-zero.nix
     ];
 
   # Bootloader.
@@ -138,8 +134,8 @@ in
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true; # We install it on home-manager level
 
-    packages = with pkgs; [
-    ];
+    # We use home-manager for user level packages instead
+    packages = with pkgs; [ ];
   };
 
   # Install firefox.
@@ -152,14 +148,6 @@ in
     dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
-
-  # caching for Zenless Zone Zero sleepy launcher https://github.com/an-anime-team/sleepy-launcher/wiki/Installation#-nixos-nixpkg
-  nix.settings = {
-    substituters = [ "https://ezkea.cachix.org" ];
-    trusted-public-keys = [ "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI=" ];
-  };
-  # Game launcher for Zenless Zone Zero https://github.com/an-anime-team/sleepy-launcher/wiki/Installation#-nixos-nixpkg
-  programs.sleepy-launcher.enable = true;
 
   # List packages installed in system profile.
   # We use home-manager for user level packages instead
@@ -193,5 +181,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
