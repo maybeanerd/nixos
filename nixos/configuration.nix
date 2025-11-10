@@ -152,7 +152,6 @@
   # List packages installed in system profile.
   # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
-    wineWowPackages.stable
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
