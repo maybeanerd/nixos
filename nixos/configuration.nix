@@ -22,7 +22,7 @@ in
       ./hardware-configuration.nix # Include the results of the hardware scan
       (import "${home-manager}/nixos")
       aagl-gtk-on-nix.module
-      ./virtualisation.nix
+      ./configs/virtualisation.nix
     ];
 
   # Bootloader.
