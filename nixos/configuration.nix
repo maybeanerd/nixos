@@ -166,10 +166,33 @@ in
   # Game launcher for Zenless Zone Zero https://github.com/an-anime-team/sleepy-launcher/wiki/Installation#-nixos-nixpkg
   programs.sleepy-launcher.enable = true;
 
+  # Setup for VMs and virtualisation
+
+  # Set up virtualisation
+  virtualisation.libvirtd = {
+      enable = true;
+
+      # Enable TPM emulation (for Windows 11)
+      qemu = {
+        swtpm.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+  # Enable USB redirection
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  # Allow VM management
+  users.groups.libvirtd.members = [ "basti" ];
+  users.groups.kvm.members = [ "basti" ];
+
+
   # List packages installed in system profile.
-  # We use home-manager instead
+  # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
+    gnome-boxes # VM management
+    dnsmasq # VM networking
+    # phodav # (optional) Share files with guest VMs
   ];
 
   home-manager.users.basti = { pkgs, ... }: {
