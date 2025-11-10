@@ -8,6 +8,11 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Ventoy is considered insecure, so we need to explicitly allow it
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-1.1.05"
+  ];
+
   imports =
     [
       ./hardware-configuration.nix # Include the results of the hardware scan
@@ -153,7 +158,7 @@
   # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
-    bootiso # https://jsamr.github.io/bootiso/
+    ventoy
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
