@@ -130,7 +130,7 @@
   users.users.basti = {
     isNormalUser = true;
     description = "Sebastian Di Luzio";
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true; # We install it on home-manager level
 
