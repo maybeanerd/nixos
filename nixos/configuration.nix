@@ -153,6 +153,7 @@
   # We use home-manager for user level packages instead
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
+    bootiso # https://jsamr.github.io/bootiso/
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
