@@ -6,7 +6,7 @@ in
 {
   imports =
     [
-      (import "${home-manager}/nixos")
+      (import "${home-manager}/nix-darwin")
     ];
 
   # Make Home Manager use the system nixpkgs configuration so it respects
