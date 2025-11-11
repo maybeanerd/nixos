@@ -38,7 +38,7 @@
       # software development
       vscode
       git
-      github-desktop
+      # github-desktop
       nodejs_24
     ];
 
