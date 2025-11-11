@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
-in
 {
-  imports =
-    [
-      (import "${home-manager}/nix-darwin")
-    ];
 
   # Make Home Manager use the system nixpkgs configuration so it respects
   # the `nixpkgs.config` settings (e.g. allowUnfree).
