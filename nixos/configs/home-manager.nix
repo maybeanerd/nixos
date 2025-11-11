@@ -2,6 +2,8 @@
 
 let
   home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+  # Use nixpkgs-unstable for latest packages
+  unstablePkgs = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz) {};
 in
 {
   imports =
@@ -54,6 +56,7 @@ in
       gamemode
       gamescope
       vulkan-tools
+      unstablePkgs.satisfactorymodmanager
 
       # software development
       vscode
