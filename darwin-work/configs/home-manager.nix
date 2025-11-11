@@ -33,7 +33,7 @@
       # communication
 
       # media
-      tidal-hifi
+      # tidal-hifi
 
       # software development
       vscode
