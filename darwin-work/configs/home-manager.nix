@@ -6,7 +6,7 @@
   # the `nixpkgs.config` settings (e.g. allowUnfree).
   home-manager.useGlobalPkgs = true;
 
-  home-manager.users.basti = { pkgs, ... }: {
+  home-manager.users."sebastian.di-luzio" = { pkgs, ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
