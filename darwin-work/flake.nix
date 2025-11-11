@@ -25,6 +25,12 @@
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
+      # Use the existing user
+      users.users."sebastian.di-luzio" = {
+        name = "sebastian.di-luzio";
+        home = "/Users/sebastian.di-luzio";
+      };
+
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
 
