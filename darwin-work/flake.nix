@@ -11,10 +11,13 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    configuration = { pkgs, ... }: {
+    # Get the current user from the environment
+    username = builtins.getEnv "USER";
+    
+    configuration = { pkgs, config, ... }: {
 
       imports = [
-        ./configs/home-manager.nix
+        (import ./configs/home-manager.nix { inherit username; })
       ];
 
       # List packages installed in system profile. To search by name, run:
@@ -28,10 +31,10 @@
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
-      # Use the existing user
-      users.users."sebastian.di-luzio" = {
-        name = "sebastian.di-luzio";
-        home = "/Users/sebastian.di-luzio";
+      # Use the existing user (dynamically determined)
+      users.users.${username} = {
+        name = username;
+        home = "/Users/${username}";
       };
 
       # Enable alternative shell support in nix-darwin.

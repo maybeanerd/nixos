@@ -1,3 +1,5 @@
+{ username }:
+
 { config, pkgs, ... }:
 
 {
@@ -6,7 +8,7 @@
   # the `nixpkgs.config` settings (e.g. allowUnfree).
   home-manager.useGlobalPkgs = true;
 
-  home-manager.users."sebastian.di-luzio" = { pkgs, ... }: {
+  home-manager.users.${username} = { pkgs, ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
