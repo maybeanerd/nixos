@@ -1,5 +1,5 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Darwin work system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
@@ -50,8 +50,8 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#IUGMQ7JVJV62M2
-    darwinConfigurations."IUGMQ7JVJV62M2" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild switch --flake .#work-laptop
+    darwinConfigurations."work-laptop" = nix-darwin.lib.darwinSystem {
       modules = [ 
         configuration
         home-manager.darwinModules.home-manager
