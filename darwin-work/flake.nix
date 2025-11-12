@@ -11,58 +11,56 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    # Get the current user from the environment
-    username = builtins.getEnv "USER";
-    
-    # Get the current hostname (strips domain suffix)
-    hostname = builtins.head (builtins.split "\\." (builtins.getEnv "HOST"));
-    
-    configuration = { pkgs, config, ... }: {
+    mkDarwinSystem = username: nix-darwin.lib.darwinSystem {
+      modules = [
+        home-manager.darwinModules.home-manager
+        ({ pkgs, config, ... }: {
+          imports = [
+            (import ./configs/home-manager.nix { inherit username; })
+          ];
 
-      imports = [
-        (import ./configs/home-manager.nix { inherit username; })
+          # List packages installed in system profile. To search by name, run:
+          # $ nix-env -qaP | grep wget
+          environment.systemPackages = [ ];
+
+          # Allow unfree packages
+          nixpkgs.config.allowUnfree = true;
+
+          # Necessary for using flakes on this system.
+          nix.settings.experimental-features = "nix-command flakes";
+
+          # Use the provided user
+          users.users.${username} = {
+            name = username;
+            home = "/Users/${username}";
+          };
+
+          # Enable alternative shell support in nix-darwin.
+          # programs.fish.enable = true;
+
+          # Set Git commit hash for darwin-version.
+          system.configurationRevision = self.rev or self.dirtyRev or null;
+
+          # Used for backwards compatibility, please read the changelog before changing.
+          # $ darwin-rebuild changelog
+          system.stateVersion = 6;
+
+          # The platform the configuration will be used on.
+          nixpkgs.hostPlatform = "aarch64-darwin";
+        })
       ];
-
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ ];
-
-      # Allow unfree packages
-      nixpkgs.config.allowUnfree = true;
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Use the existing user (dynamically determined)
-      users.users.${username} = {
-        name = username;
-        home = "/Users/${username}";
-      };
-
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 6;
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
     };
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild switch
-    # The configuration will automatically use the current hostname
-    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
-      modules = [ 
-        configuration
-        home-manager.darwinModules.home-manager
-      ];
+    # $ darwin-rebuild switch --flake .#<hostname>
+    # You need to create an entry for each machine's hostname
+    darwinConfigurations = {
+      # Your current machine
+      "IUGMQ7JVJV62M2" = mkDarwinSystem "sebastian.di-luzio";
+      
+      # Add more machines here as needed:
+      # "other-hostname" = mkDarwinSystem "other-username";
     };
   };
 }
