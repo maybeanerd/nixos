@@ -1,0 +1,79 @@
+name: Nix Flake
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Check flake validity
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v8
+
+      - name: Check flake
+        run: nix flake check --all-systems --no-build
+
+      - name: Show flake metadata
+        run: nix flake metadata
+
+      - name: Show flake outputs
+        run: nix flake show
+
+  # Build all configurations
+  build:
+    runs-on: ${{ matrix.os }}
+    needs: flake-check
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: nixos
+            platform: nixos
+            os: ubuntu-latest
+          - config: IUGMQ7JVJV62M2
+            platform: darwin
+            os: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Free up disk space (Linux only)
+        if: matrix.platform == 'nixos'
+        run: |
+          echo "Before cleanup:"
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          echo "After cleanup:"
+          df -h
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v8
+
+      - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
+        run: |
+          if [ "${{ matrix.platform }}" = "nixos" ]; then
+            ATTR="nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel"
+          else
+            ATTR="darwinConfigurations.${{ matrix.config }}.system"
+          fi
+
+          nix build .#$ATTR \
+            --print-build-logs \
+            --fallback
