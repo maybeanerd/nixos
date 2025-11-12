@@ -14,6 +14,9 @@
     # Get the current user from the environment
     username = builtins.getEnv "USER";
     
+    # Get the current hostname (strips domain suffix)
+    hostname = builtins.head (builtins.split "\\." (builtins.getEnv "HOST"));
+    
     configuration = { pkgs, config, ... }: {
 
       imports = [
@@ -53,8 +56,9 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild switch --flake .#work-laptop
-    darwinConfigurations."work-laptop" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild switch
+    # The configuration will automatically use the current hostname
+    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       modules = [ 
         configuration
         home-manager.darwinModules.home-manager
