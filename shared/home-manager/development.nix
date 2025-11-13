@@ -50,10 +50,8 @@ in
       '';
     };
     
-    # Git has excellent Home Manager support
     git = {
       enable = true;
-      # Thou mayest configure thy git settings here
       # userName = "Thy Name";
       # userEmail = "thy@email.com";
       # extraConfig = {
@@ -69,14 +67,10 @@ in
     
     vscode = {
       enable = true;
-      # Thou mayest add extensions, settings, and keybindings here
       # Example:
       # extensions = with pkgs.vscode-extensions; [
       #   jnoortheen.nix-ide
       # ];
-      # userSettings = {
-      #   "editor.fontSize" = 14;
-      # };
     };
   };
 }

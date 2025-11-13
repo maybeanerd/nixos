@@ -42,10 +42,10 @@ in
     {
       programs.firefox = {
         enable = true;
-        # Thou mayest add profiles, extensions, settings here
         # profiles = { ... };
       };
       
+      programs.firefox.enable = true;
       home.packages = allPackages;
       home.stateVersion = "25.05";
     }
