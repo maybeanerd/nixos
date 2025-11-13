@@ -11,17 +11,17 @@ let
   # Enhance pkgs with unstable attribute
   enhancedPkgs = pkgs // { unstable = unstablePkgs; };
   
-  # Import package lists based on what's enabled
-  personalPackages = if includePersonal 
+  # Import package lists and configs based on what's enabled
+  personalConfig = if includePersonal 
     then import ./personal.nix { pkgs = enhancedPkgs; inherit platform; }
-    else [];
+    else { packages = []; programs = {}; };
     
-  developmentPackages = if includeDevelopment
-    then import ./development.nix { pkgs = enhancedPkgs; inherit platform; }
-    else [];
+  developmentConfig = if includeDevelopment
+    then import ./development.nix { pkgs = enhancedPkgs; inherit platform shellAliases; }
+    else { packages = []; programs = {}; };
   
   # Combine all packages
-  allPackages = personalPackages ++ developmentPackages;
+  allPackages = personalConfig.packages ++ developmentConfig.packages;
   
   # Shell aliases based on platform
   shellAliases = {
@@ -37,43 +37,23 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   
-  home-manager.users.${username} = { pkgs, ... }: {
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      oh-my-zsh = {
+  home-manager.users.${username} = { pkgs, ... }: lib.mkMerge [
+    # Base configuration
+    {
+      programs.firefox = {
         enable = true;
-        plugins = [
-          "git"
-          "git-auto-fetch"
-          "nvm"
-        ] ++ lib.optionals (platform == "darwin") [
-          "brew"
-        ];
-        theme = "jonathan";
+        # Thou mayest add profiles, extensions, settings here
+        # profiles = { ... };
       };
-      inherit shellAliases;
-      initContent = ''
-        # nvm configuration (external installation)
-        # The oh-my-zsh nvm plugin handles loading nvm and provides zsh completions
-        export NVM_DIR="$HOME/.nvm"
-      '';
-    };
+      
+      home.packages = allPackages;
+      home.stateVersion = "25.05";
+    }
     
-    programs.firefox = {
-      enable = true;
-      # TODO: Add profiles, extensions, settings here
-    };
+    # Merge personal program configurations
+    (if includePersonal then { inherit (personalConfig) programs; } else {})
     
-    programs.thefuck = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-    
-    home.packages = allPackages;
-    
-    home.stateVersion = "25.05";
-  };
+    # Merge development program configurations
+    (if includeDevelopment then { inherit (developmentConfig) programs; } else {})
+  ];
 }
