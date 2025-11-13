@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -18,7 +23,7 @@
   };
 
   # NVIDIA configuration
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -29,7 +34,7 @@
   };
 
   # Audio configuration
-  services.pipewire.enable = lib.mkForce false; 
+  services.pipewire.enable = lib.mkForce false;
   services.pulseaudio = {
     enable = true;
     support32Bit = true;
@@ -39,7 +44,7 @@
 
   # Networking
   networking.networkmanager.enable = true;
-  
+
   # Time zone
   time.timeZone = "Europe/Berlin";
 
@@ -74,4 +79,3 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 }
-

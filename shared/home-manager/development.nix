@@ -1,30 +1,38 @@
-{ pkgs, platform, shellAliases }:
+{
+  pkgs,
+  platform,
+  shellAliases,
+}:
 
 let
   inherit (pkgs) lib;
-  
+
   # Software-engineering packages that don't have Home Manager program options
   commonSoftwareEngineering = with pkgs; [
     nodejs_24
     nodePackages.pnpm
     nixfmt-rfc-style
   ];
-  
+
   # Software-engineering packages specific to NixOS/Linux
-  nixosSoftwareEngineering = with pkgs; lib.optionals (platform == "nixos") [
-    github-desktop
-  ];
-  
+  nixosSoftwareEngineering =
+    with pkgs;
+    lib.optionals (platform == "nixos") [
+      github-desktop
+    ];
+
   # Software-engineering packages specific to macOS/Darwin
-  darwinSoftwareEngineering = with pkgs; lib.optionals (platform == "darwin") [
-    # Add darwin-specific software-engineering apps here
-  ];
-  
+  darwinSoftwareEngineering =
+    with pkgs;
+    lib.optionals (platform == "darwin") [
+      # Add darwin-specific software-engineering apps here
+    ];
+
 in
 {
   # Return packages list (only those without Home Manager program options)
   packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering;
-  
+
   # Home Manager program configurations for development tools
   programs = {
     zsh = {
@@ -38,7 +46,8 @@ in
           "git"
           "git-auto-fetch"
           "nvm"
-        ] ++ lib.optionals (platform == "darwin") [
+        ]
+        ++ lib.optionals (platform == "darwin") [
           "brew"
         ];
         theme = "jonathan";
@@ -50,28 +59,27 @@ in
         export NVM_DIR="$HOME/.nvm"
       '';
     };
-    
+
     git = {
       enable = true;
       userName = "maybeanerd";
       userEmail = "sebastian@diluz.io";
       extraConfig = {
-         init.defaultBranch = "main";
-         pull.rebase = true;
+        init.defaultBranch = "main";
+        pull.rebase = true;
       };
     };
-    
+
     thefuck = {
       enable = true;
       enableZshIntegration = true;
     };
-    
+
     vscode = {
       enable = true;
       extensions = with pkgs.vscode-extensions; [
-         jnoortheen.nix-ide
-       ];
+        jnoortheen.nix-ide
+      ];
     };
   };
 }
-
