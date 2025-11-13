@@ -78,47 +78,62 @@ in
     vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
-        # Nix
-        jnoortheen.nix-ide
-
-        # Git
+        adpyke.codesnap
+        antfu.goto-alias
+        antfu.iconify
+        antfu.unocss
+        arrterian.nix-env-selector
+        aster.vscode-subtitles
+        bradlc.vscode-tailwindcss
+        christian-kohler.npm-intellisense
+        ckolkman.vscode-postgres
+        csstools.postcss
+        dbaeumer.vscode-eslint
+        docker.docker
         eamodio.gitlens
+        esbenp.prettier-vscode
+        github.copilot
+        github.copilot-chat
         github.vscode-github-actions
-
-        # Docker
-        ms-azuretools.vscode-docker
-
-        # Python
-        ms-python.python
-        ms-python.vscode-pylance
-
-        # Go
+        gleam.gleam
         golang.go
-
-        # Rust
-        rust-lang.rust-analyzer
-
-        # GraphQL
         graphql.vscode-graphql
         graphql.vscode-graphql-syntax
-
-        # TypeScript Tooling
-        esbenp.prettier-vscode
-        dbaeumer.vscode-eslint
-        bradlc.vscode-tailwindcss
-        vue.volar
-
-        # YAML
-        redhat.vscode-yaml
-
-        # Markdown
-        yzhang.markdown-all-in-one
-
-        # Other
-        ms-vsliveshare.vsliveshare
+        grapecity.gc-excelviewer
         gruntfuggly.todo-tree
-        hashicorp.terraform
+        hollowtree.vue-snippets
+        icrawl.discord-vscode
+        ipedrazas.kubernetes-snippets
+        jnoortheen.nix-ide
+        kokororin.vscode-phpfmt
+        lokalise.i18n-ally
+        matthewpi.caddyfile-support
+        mechatroner.rainbow-csv
+        mikestead.dotenv
+        mkhl.direnv
+        ms-azuretools.vscode-containers
+        ms-azuretools.vscode-docker
+        ms-kubernetes-tools.vscode-kubernetes-tools
+        ms-python.debugpy
+        ms-python.python
+        ms-python.vscode-pylance
+        ms-python.vscode-python-envs
+        ms-vsliveshare.vsliveshare
+        pinage404.nix-extension-pack
+        prisma.prisma
+        redhat.vscode-yaml
+        rikurouvila.typehole
+        ritwickdey.liveserver
+        rust-lang.rust-analyzer
+        steoates.autoimport
         tauri-apps.tauri-vscode
+        tim-koehler.helm-intellisense
+        tomoki1207.pdf
+        vitest.explorer
+        vue.volar
+        yoavbls.pretty-ts-errors
+        yzhang.markdown-all-in-one
+        hashicorp.terraform
       ];
     };
   };
