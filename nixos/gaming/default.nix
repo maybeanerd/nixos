@@ -6,7 +6,6 @@
     ./zenless-zone-zero.nix
   ];
 
-  # Steam
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -14,7 +13,6 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # Gaming packages for the main user
   users.users.${username}.packages = with pkgs; [
     gamemode
     gamescope

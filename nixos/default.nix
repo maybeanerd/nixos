@@ -11,7 +11,7 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
 
-  # Graphics - Enable OpenGL with 32-bit support
+  # Graphics
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -28,7 +28,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Audio configuration (PulseAudio for better game compatibility)
+  # Audio configuration
   services.pipewire.enable = lib.mkForce false; 
   services.pulseaudio = {
     enable = true;
@@ -64,7 +64,7 @@
   services.xserver.xkb.layout = "de";
   console.keyMap = "de";
 
-  # Printing
+  # Basic services
   services.printing.enable = true;
 
   # Shell completion paths

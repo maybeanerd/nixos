@@ -13,11 +13,11 @@ let
   
   # Import package lists based on what's enabled
   personalPackages = if includePersonal 
-    then import ./personal/packages.nix { pkgs = enhancedPkgs; inherit platform; }
+    then import ./personal.nix { pkgs = enhancedPkgs; inherit platform; }
     else [];
     
   developmentPackages = if includeDevelopment
-    then import ./development/packages.nix { pkgs = enhancedPkgs; inherit platform; }
+    then import ./development.nix { pkgs = enhancedPkgs; inherit platform; }
     else [];
   
   # Combine all packages
@@ -48,13 +48,14 @@ in
         plugins = [
           "git"
           "git-auto-fetch"
-        ] ++ lib.optionals (platform == "darwin") [
           "nvm"
+        ] ++ lib.optionals (platform == "darwin") [
+          "brew"
         ];
         theme = "jonathan";
       };
       inherit shellAliases;
-      initContent = lib.optionalString (platform == "darwin") ''
+      initContent = ''
         # nvm configuration (external installation)
         # The oh-my-zsh nvm plugin handles loading nvm and provides zsh completions
         export NVM_DIR="$HOME/.nvm"
@@ -66,8 +67,7 @@ in
       # TODO: Add profiles, extensions, settings here
     };
     
-    # thefuck integration (darwin only for now)
-    programs.thefuck = lib.mkIf (platform == "darwin") {
+    programs.thefuck = {
       enable = true;
       enableZshIntegration = true;
     };
