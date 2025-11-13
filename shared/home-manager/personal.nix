@@ -4,7 +4,6 @@ let
   inherit (pkgs) lib;
 
   commonPersonal = with pkgs; [
-    vlc
   ];
 
   nixosPersonal =
@@ -15,11 +14,13 @@ let
       signal-desktop
       element-desktop
       tidal-hifi
+      vlc
     ];
 
   darwinPersonal =
     with pkgs;
     lib.optionals (platform == "darwin") [
+      # TODO add supported apps here
     ];
 
 in
