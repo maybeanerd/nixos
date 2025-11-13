@@ -7,6 +7,7 @@ let
   commonSoftwareEngineering = with pkgs; [
     nodejs_24
     nodePackages.pnpm
+    nixfmt-rfc-style
   ];
   
   # Software-engineering packages specific to NixOS/Linux
