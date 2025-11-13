@@ -45,7 +45,6 @@ in
         # profiles = { ... };
       };
       
-      programs.firefox.enable = true;
       home.packages = allPackages;
       home.stateVersion = "25.05";
     }
