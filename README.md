@@ -14,7 +14,7 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 
 ```bash
 # Build and switch to the new configuration
-sudo darwin-rebuild switch --flake .#IUGMQ7JVJV62M2
+sudo darwin-rebuild switch --flake .#macbookName
 
 # Or use the alias (after first build)
 rb

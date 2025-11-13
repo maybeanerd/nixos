@@ -46,7 +46,7 @@ jobs:
           - config: nixos
             platform: nixos
             os: ubuntu-latest
-          - config: IUGMQ7JVJV62M2
+          - config: Big-M1ac
             platform: darwin
             os: macos-latest
     steps:
