@@ -78,7 +78,47 @@ in
     vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
+        # Nix
         jnoortheen.nix-ide
+
+        # Git
+        eamodio.gitlens
+        github.vscode-github-actions
+
+        # Docker
+        ms-azuretools.vscode-docker
+
+        # Python
+        ms-python.python
+        ms-python.vscode-pylance
+
+        # Go
+        golang.go
+
+        # Rust
+        rust-lang.rust-analyzer
+
+        # GraphQL
+        graphql.vscode-graphql
+        graphql.vscode-graphql-syntax
+
+        # TypeScript Tooling
+        esbenp.prettier-vscode
+        dbaeumer.vscode-eslint
+        bradlc.vscode-tailwindcss
+        vue.volar
+
+        # YAML
+        redhat.vscode-yaml
+
+        # Markdown
+        yzhang.markdown-all-in-one
+
+        # Other
+        ms-vsliveshare.vsliveshare
+        gruntfuggly.todo-tree
+        hashicorp.terraform
+        tauri-apps.tauri-vscode
       ];
     };
   };
