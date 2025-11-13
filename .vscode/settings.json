@@ -1,0 +1,12 @@
+{
+  "[nix]": {
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "**/nixos/hardware-configuration.nix": "nix-noformat"
+  },
+  "[nix-noformat]": {
+    "editor.formatOnSave": false
+  }
+}
+
