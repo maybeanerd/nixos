@@ -12,7 +12,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     
-    # Anime game launchers (for Zenless Zone Zero)
+    # Downstream dependencies
     aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -69,7 +69,7 @@
         };
         
         # Home-manager configuration
-        homeManagerConfig = import ./shared/home-manager.nix {
+        homeManagerConfig = import ./shared/home-manager {
           inherit username platform includePersonal includeDevelopment;
         };
         
