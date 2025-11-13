@@ -73,6 +73,9 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
+  # Keep textual backups of files managed by home-manager with .backup extension
+  home-manager.backupFileExtension = "backup";
+
   home-manager.users.${username} =
     { pkgs, ... }:
     lib.mkMerge [
