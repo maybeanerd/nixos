@@ -26,7 +26,7 @@ in
 {
   packages = commonPersonal ++ nixosPersonal ++ darwinPersonal;
 
-  programs = lib.optionalAttrs (platform == "nixos") {
+  programs = {
     thunderbird = {
       enable = true;
       profiles.default = {
