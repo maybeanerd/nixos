@@ -19,6 +19,8 @@ jobs:
 
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
 
       - name: Check flake
         run: nix flake check --all-systems --no-build
@@ -65,6 +67,8 @@ jobs:
 
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: false
 
       - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
         run: |
