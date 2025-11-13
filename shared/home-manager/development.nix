@@ -52,12 +52,12 @@ in
     
     git = {
       enable = true;
-      # userName = "Thy Name";
-      # userEmail = "thy@email.com";
-      # extraConfig = {
-      #   init.defaultBranch = "main";
-      #   pull.rebase = true;
-      # };
+      userName = "maybeanerd";
+      userEmail = "sebastian@diluz.io";
+      extraConfig = {
+         init.defaultBranch = "main";
+         pull.rebase = true;
+      };
     };
     
     thefuck = {
@@ -67,10 +67,9 @@ in
     
     vscode = {
       enable = true;
-      # Example:
-      # extensions = with pkgs.vscode-extensions; [
-      #   jnoortheen.nix-ide
-      # ];
+      extensions = with pkgs.vscode-extensions; [
+         jnoortheen.nix-ide
+       ];
     };
   };
 }
