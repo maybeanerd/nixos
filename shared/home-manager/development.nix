@@ -79,17 +79,17 @@ in
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
         adpyke.codesnap
-        antfu.goto-alias
-        antfu.iconify
-        antfu.unocss
+        # antfu.goto-alias # seems to be missing
+        # antfu.iconify
+        # antfu.unocss
         arrterian.nix-env-selector
-        aster.vscode-subtitles
+        # aster.vscode-subtitles
         bradlc.vscode-tailwindcss
         christian-kohler.npm-intellisense
-        ckolkman.vscode-postgres
-        csstools.postcss
+        # ckolkman.vscode-postgres
+        # csstools.postcss
         dbaeumer.vscode-eslint
-        docker.docker
+        # docker.docker
         eamodio.gitlens
         esbenp.prettier-vscode
         github.copilot
@@ -101,35 +101,30 @@ in
         graphql.vscode-graphql-syntax
         grapecity.gc-excelviewer
         gruntfuggly.todo-tree
-        hollowtree.vue-snippets
-        icrawl.discord-vscode
-        ipedrazas.kubernetes-snippets
+        # hollowtree.vue-snippets
+        # icrawl.discord-vscode
+        # ipedrazas.kubernetes-snippets
         jnoortheen.nix-ide
-        kokororin.vscode-phpfmt
         lokalise.i18n-ally
         matthewpi.caddyfile-support
         mechatroner.rainbow-csv
         mikestead.dotenv
         mkhl.direnv
-        ms-azuretools.vscode-containers
         ms-azuretools.vscode-docker
         ms-kubernetes-tools.vscode-kubernetes-tools
         ms-python.debugpy
         ms-python.python
         ms-python.vscode-pylance
-        ms-python.vscode-python-envs
         ms-vsliveshare.vsliveshare
-        pinage404.nix-extension-pack
+        # pinage404.nix-extension-pack
         prisma.prisma
         redhat.vscode-yaml
-        rikurouvila.typehole
         ritwickdey.liveserver
         rust-lang.rust-analyzer
-        steoates.autoimport
         tauri-apps.tauri-vscode
         tim-koehler.helm-intellisense
         tomoki1207.pdf
-        vitest.explorer
+        # vitest.explorer
         vue.volar
         yoavbls.pretty-ts-errors
         yzhang.markdown-all-in-one
