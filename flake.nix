@@ -140,11 +140,11 @@
     in
     {
       darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
-        # Work laptop @ IU
-        "IUGMQ7JVJV62M2" = {
-          username = "sebastian.di-luzio";
+        # Personal MacBook Pro
+        "Big-M1ac" = {
+          username = "basti";
           platform = "darwin";
-          includePersonal = false;
+          includePersonal = true;
           includeDevelopment = true;
         };
       };
