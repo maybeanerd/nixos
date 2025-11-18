@@ -28,7 +28,7 @@ let
   # Import package lists and configs based on what's enabled
   personalConfig =
     if includePersonal then
-      import ./personal.nix {
+      import ./personal {
         pkgs = enhancedPkgs;
         inherit platform;
       }
@@ -36,6 +36,7 @@ let
       {
         packages = [ ];
         programs = { };
+        file = { };
       };
 
   developmentConfig =
@@ -48,10 +49,15 @@ let
       {
         packages = [ ];
         programs = { };
+        file = { };
       };
 
-  # Combine all packages
+  # Combine configs
   allPackages = personalConfig.packages ++ developmentConfig.packages;
+  allFiles = lib.mkMerge [
+    personalConfig.file
+    developmentConfig.file
+  ];
 
   # Shell aliases based on platform
   shellAliases = {
@@ -87,13 +93,15 @@ in
         };
 
         home.packages = allPackages;
+        home.file = allFiles;
+
         home.stateVersion = "25.05";
       }
 
-      # Merge personal program configurations
-      (if includePersonal then { inherit (personalConfig) programs; } else { })
+      # Merge personal program configuration
+      ({ inherit (personalConfig) programs; })
 
-      # Merge development program configurations
-      (if includeDevelopment then { inherit (developmentConfig) programs; } else { })
+      # Merge development program configuration
+      ({ inherit (developmentConfig) programs; })
     ];
 }
