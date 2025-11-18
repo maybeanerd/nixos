@@ -23,6 +23,6 @@
     gamemode
     gamescope
     vulkan-tools
-    unstable.satisfactorymodmanager
+    satisfactorymodmanager
   ];
 }

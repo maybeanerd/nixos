@@ -13,18 +13,6 @@
 }:
 
 let
-  # Make unstable packages available
-  unstablePkgs =
-    if builtins.hasAttr "nixpkgs-unstable" config._module.specialArgs then
-      config._module.specialArgs.nixpkgs-unstable.legacyPackages.${pkgs.system}
-    else
-      pkgs;
-
-  # Enhance pkgs with unstable attribute
-  enhancedPkgs = pkgs // {
-    unstable = unstablePkgs;
-  };
-
   # Import package lists and configs based on what's enabled
   personalConfig =
     if includePersonal then
