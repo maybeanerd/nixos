@@ -2,7 +2,6 @@
   username,
   platform,
   includePersonal ? true,
-  includeDevelopment ? true,
 }:
 
 {
@@ -26,17 +25,9 @@ let
         file = { };
       };
 
-  developmentConfig =
-    if includeDevelopment then
-      import ./development {
-        inherit platform pkgs shellAliases;
-      }
-    else
-      {
-        packages = [ ];
-        programs = { };
-        file = { };
-      };
+  developmentConfig = import ./development {
+    inherit platform pkgs username;
+  };
 
   # Combine configs
   allPackages = personalConfig.packages ++ developmentConfig.packages;
@@ -44,21 +35,6 @@ let
     personalConfig.file
     developmentConfig.file
   ];
-
-  # Shell aliases based on platform
-  shellAliases = {
-    ll = "ls -la";
-  }
-  // (
-    if platform == "darwin" then
-      {
-        rb = "sudo darwin-rebuild switch";
-      }
-    else
-      {
-        rb = "sudo nixos-rebuild switch";
-      }
-  );
 
 in
 {
@@ -79,25 +55,18 @@ in
         };
 
         home.packages = allPackages;
-        home.file = lib.mkMerge [
-          {
-            # YubiKey U2F mapping file deployment (pam_u2f)
-            # This file contains per-user U2F registrations generated via pamu2fcfg.
-            ".config/Yubico/u2f_keys" = {
-              target = ".config/Yubico/u2f_keys";
-              text = "${username}:JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence:V26nRWI7mQpkDaifK6VqzAj4MSzhI2z+rvoeULWQGYYZltWrnn2djgp7Cs3daGm4KpIAFJVaM/SB4WgABzQoYA==,ZpRIVW6cvSuv6Ipj/tkP26Iovym/7Brsil7AFcBFzuPTteD8HYeT/BFQTv34mP05+h3lVOZrIs0AYLVtxJ5qLw==,es256,+presence";
-            };
-          }
-          allFiles
-        ];
+        home.file = allFiles;
 
         home.stateVersion = "25.05";
       }
 
-      # Merge personal program configuration
+      # Merge development programs
+      ({ inherit (developmentConfig) programs; })
+      # Merge development services
+      ({ inherit (developmentConfig) services; })
+
+      # Merge personal programs
       ({ inherit (personalConfig) programs; })
 
-      # Merge development program configuration
-      ({ inherit (developmentConfig) programs; })
     ];
 }

@@ -80,15 +80,11 @@
   programs.appimage.binfmt = true;
 
   # Configure Yubikey support
+  # following https://joinemm.dev/blog/yubikey-nixos-guide and https://github.com/drduh/YubiKey-Guide
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.pcscd.enable = true;
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
-  };
-  # TODO: move to development module of home-manager
-  # https://home-manager-options.extranix.com/?query=gpg&release=release-25.05
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 }

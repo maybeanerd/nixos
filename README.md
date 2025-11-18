@@ -8,7 +8,6 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 - `username`: The primary user's username
 - `platform`: Either `"darwin"` or `"nixos"`
 - `includePersonal`: Include personal apps (default: `true`)
-- `includeDevelopment`: Include development tools (default: `true`)
 
 ### macOS (Darwin)
 
@@ -42,7 +41,6 @@ darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
     username = "your-username";
     platform = "darwin";
     includePersonal = true;
-    includeDevelopment = true;
   };
 };
 
@@ -52,7 +50,6 @@ nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
     username = "your-username";
     platform = "nixos";
     includePersonal = true;
-    includeDevelopment = true;
   };
 };
 ```

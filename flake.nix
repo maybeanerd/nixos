@@ -32,7 +32,6 @@
           username,
           platform,
           includePersonal ? true,
-          includeDevelopment ? true,
         }:
         let
           # Determine system architecture
@@ -84,7 +83,6 @@
               username
               platform
               includePersonal
-              includeDevelopment
               ;
           };
 
@@ -128,7 +126,6 @@
           username = "basti";
           platform = "darwin";
           includePersonal = true;
-          includeDevelopment = true;
         };
       };
 
@@ -138,7 +135,6 @@
           username = "basti";
           platform = "nixos";
           includePersonal = true;
-          includeDevelopment = true;
         };
       };
     };
