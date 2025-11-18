@@ -75,7 +75,14 @@
   # Shell completion paths
   environment.pathsToLink = [ "/share/zsh" ];
 
-  # Programs
+  # Allow running applications packaged as AppImages
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+
+  # Configure Yubikey support
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 }
