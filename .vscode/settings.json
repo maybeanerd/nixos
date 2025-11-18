@@ -7,6 +7,6 @@
   },
   "[nix-noformat]": {
     "editor.formatOnSave": false
-  }
+  },
+  "editor.defaultFormatter": "jnoortheen.nix-ide"
 }
-
