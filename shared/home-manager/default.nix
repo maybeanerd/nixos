@@ -28,7 +28,7 @@ let
   # Import package lists and configs based on what's enabled
   personalConfig =
     if includePersonal then
-      import ./personal/default.nix {
+      import ./personal {
         pkgs = enhancedPkgs;
         inherit platform;
       }
