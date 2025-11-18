@@ -1,7 +1,7 @@
 {
   pkgs,
   platform,
-  shellAliases,
+  username,
 }:
 
 let
@@ -33,7 +33,35 @@ in
   # Return packages list (only those without Home Manager program options)
   packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering;
 
-  file = { };
+  file = {
+    # YubiKey U2F mapping file deployment (pam_u2f)
+    # This file contains per-user U2F registrations generated via pamu2fcfg.
+    ".config/Yubico/u2f_keys" = {
+      target = ".config/Yubico/u2f_keys";
+      text = lib.concatStrings [
+        username
+        ":JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence"
+        ":V26nRWI7mQpkDaifK6VqzAj4MSzhI2z+rvoeULWQGYYZltWrnn2djgp7Cs3daGm4KpIAFJVaM/SB4WgABzQoYA==,ZpRIVW6cvSuv6Ipj/tkP26Iovym/7Brsil7AFcBFzuPTteD8HYeT/BFQTv34mP05+h3lVOZrIs0AYLVtxJ5qLw==,es256,+presence"
+      ];
+
+    };
+  };
+
+  services = {
+    gpg-agent = {
+      enable = true;
+
+      # https://github.com/drduh/config/blob/master/gpg-agent.conf
+      defaultCacheTtl = 60;
+      maxCacheTtl = 120;
+      pinentry = {
+        package = pkgs.pinentry-curses;
+      };
+      extraConfig = ''
+        ttyname $GPG_TTY
+      '';
+    };
+  };
 
   # Home Manager program configurations for development tools
   programs = {
@@ -54,7 +82,20 @@ in
         ];
         theme = "jonathan";
       };
-      inherit shellAliases;
+      # Shell aliases based on platform
+      shellAliases = {
+        ll = "ls -la";
+      }
+      // (
+        if platform == "darwin" then
+          {
+            rb = "sudo darwin-rebuild switch";
+          }
+        else
+          {
+            rb = "sudo nixos-rebuild switch";
+          }
+      );
       initContent = ''
         # nvm configuration (external installation)
         # The oh-my-zsh nvm plugin handles loading nvm and provides zsh completions
@@ -62,19 +103,55 @@ in
       '';
     };
 
-    git = {
+    gpg = {
       enable = true;
-      userName = "maybeanerd";
-      userEmail = "sebastian@diluz.io";
-      extraConfig = {
-        init.defaultBranch = "main";
-        pull.rebase = true;
+
+      # https://support.yubico.com/hc/en-us/articles/4819584884124-Resolving-GPG-s-CCID-conflicts
+      scdaemonSettings = {
+        disable-ccid = true;
+      };
+
+      # https://github.com/drduh/config/blob/master/gpg.conf
+      settings = {
+        personal-cipher-preferences = "AES256 AES192 AES";
+        personal-digest-preferences = "SHA512 SHA384 SHA256";
+        personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
+        default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
+        cert-digest-algo = "SHA512";
+        s2k-digest-algo = "SHA512";
+        s2k-cipher-algo = "AES256";
+        charset = "utf-8";
+        no-comments = true;
+        no-emit-version = true;
+        no-greeting = true;
+        keyid-format = "0xlong";
+        list-options = "show-uid-validity";
+        verify-options = "show-uid-validity";
+        with-fingerprint = true;
+        require-cross-certification = true;
+        require-secmem = true;
+        no-symkey-cache = true;
+        armor = true;
+        use-agent = true;
+        throw-keyids = true;
+        # Default key ID to use (helpful with throw-keyids)
+        #default-key 0xFF00000000000001
+        #trusted-key 0xFF00000000000001
       };
     };
 
-    thefuck = {
+    git = {
       enable = true;
-      enableZshIntegration = true;
+      settings = {
+        user = {
+          name = "maybeanerd";
+          email = "sebastian@diluz.io";
+        };
+        init.defaultBranch = "main";
+        pull.rebase = true;
+        signing.key = "$KEYID"; # TODO add actual key id
+        commit.gpgsign = false; # true; TODO: enable once GPG is properly set up
+      };
     };
 
     vscode = {
@@ -92,7 +169,7 @@ in
         # csstools.postcss
         dbaeumer.vscode-eslint
         # docker.docker
-        eamodio.gitlens
+        # eamodio.gitlens
         esbenp.prettier-vscode
         github.copilot
         github.copilot-chat

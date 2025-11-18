@@ -2,14 +2,12 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Downstream dependencies
@@ -21,8 +19,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-darwin,
-      nixpkgs-unstable,
       nix-darwin,
       home-manager,
       aagl-gtk-on-nix,
@@ -36,12 +32,8 @@
           username,
           platform,
           includePersonal ? true,
-          includeDevelopment ? true,
         }:
         let
-          # Select the appropriate nixpkgs based on platform
-          pkgs-input = if platform == "darwin" then nixpkgs-darwin else nixpkgs;
-
           # Determine system architecture
           system = if platform == "darwin" then "aarch64-darwin" else "x86_64-linux";
 
@@ -58,15 +50,6 @@
                 "flakes"
               ];
 
-              # Add unstable overlay
-              nixpkgs.overlays = [
-                (final: prev: {
-                  unstable = import nixpkgs-unstable {
-                    inherit system;
-                    config.allowUnfree = true;
-                  };
-                })
-              ];
             };
 
           # User configuration
@@ -100,7 +83,6 @@
               username
               platform
               includePersonal
-              includeDevelopment
               ;
           };
 
@@ -108,7 +90,6 @@
         if platform == "darwin" then
           nix-darwin.lib.darwinSystem {
             inherit system;
-            specialArgs = { inherit nixpkgs-unstable; };
             modules = [
               commonConfig
               userConfig
@@ -124,7 +105,7 @@
         else
           nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = { inherit nixpkgs-unstable aagl-gtk-on-nix username; };
+            specialArgs = { inherit aagl-gtk-on-nix username; };
             modules = [
               commonConfig
               userConfig
@@ -145,7 +126,6 @@
           username = "basti";
           platform = "darwin";
           includePersonal = true;
-          includeDevelopment = true;
         };
       };
 
@@ -155,7 +135,6 @@
           username = "basti";
           platform = "nixos";
           includePersonal = true;
-          includeDevelopment = true;
         };
       };
     };
