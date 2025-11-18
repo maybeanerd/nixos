@@ -34,16 +34,13 @@
   };
 
   # Audio configuration
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+  services.pipewire.enable = lib.mkForce false;
+  services.pulseaudio = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-    pulse.enable = true;
-    socketActivation = true;
+    support32Bit = true;
+    package = pkgs.pulseaudioFull;
   };
+  nixpkgs.config.pulseaudio = true;
 
   # Networking
   networking.networkmanager.enable = true;
