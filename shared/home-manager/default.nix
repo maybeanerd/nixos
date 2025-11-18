@@ -17,8 +17,7 @@ let
   personalConfig =
     if includePersonal then
       import ./personal {
-        pkgs = enhancedPkgs;
-        inherit platform;
+        inherit platform pkgs;
       }
     else
       {
@@ -30,8 +29,7 @@ let
   developmentConfig =
     if includeDevelopment then
       import ./development.nix {
-        pkgs = enhancedPkgs;
-        inherit platform shellAliases;
+        inherit platform pkgs shellAliases;
       }
     else
       {
