@@ -33,6 +33,8 @@ in
   # Return packages list (only those without Home Manager program options)
   packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering;
 
+  file = { };
+
   # Home Manager program configurations for development tools
   programs = {
     zsh = {
