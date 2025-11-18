@@ -28,7 +28,7 @@ let
 
   developmentConfig =
     if includeDevelopment then
-      import ./development.nix {
+      import ./development {
         inherit platform pkgs shellAliases;
       }
     else
@@ -79,7 +79,17 @@ in
         };
 
         home.packages = allPackages;
-        home.file = allFiles;
+        home.file = lib.mkMerge [
+          {
+            # YubiKey U2F mapping file deployment (pam_u2f)
+            # This file contains per-user U2F registrations generated via pamu2fcfg.
+            ".config/Yubico/u2f_keys" = {
+              target = ".config/Yubico/u2f_keys";
+              text = "${username}:JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence:V26nRWI7mQpkDaifK6VqzAj4MSzhI2z+rvoeULWQGYYZltWrnn2djgp7Cs3daGm4KpIAFJVaM/SB4WgABzQoYA==,ZpRIVW6cvSuv6Ipj/tkP26Iovym/7Brsil7AFcBFzuPTteD8HYeT/BFQTv34mP05+h3lVOZrIs0AYLVtxJ5qLw==,es256,+presence";
+            };
+          }
+          allFiles
+        ];
 
         home.stateVersion = "25.05";
       }
