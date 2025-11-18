@@ -83,8 +83,14 @@
   # following https://joinemm.dev/blog/yubikey-nixos-guide and https://github.com/drduh/YubiKey-Guide
   services.udev.packages = [ pkgs.yubikey-personalization ];
   services.pcscd.enable = true;
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security.pam = {
+    services = {
+      login.u2fAuth = true;
+      sudo.u2fAuth = true;
+      # unlock.u2fAuth = true; TODO: find a way to use ubikey to unlock KDE
+    };
+    u2f.settings = {
+      cue = true;
+    };
   };
 }
