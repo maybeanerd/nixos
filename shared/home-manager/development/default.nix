@@ -64,9 +64,11 @@ in
 
     git = {
       enable = true;
-      userName = "maybeanerd";
-      userEmail = "sebastian@diluz.io";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "maybeanerd";
+          email = "sebastian@diluz.io";
+        };
         init.defaultBranch = "main";
         pull.rebase = true;
       };
