@@ -3,10 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +19,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-darwin,
       nix-darwin,
       home-manager,
       aagl-gtk-on-nix,
@@ -37,9 +35,6 @@
           includeDevelopment ? true,
         }:
         let
-          # Select the appropriate nixpkgs based on platform
-          pkgs-input = if platform == "darwin" then nixpkgs-darwin else nixpkgs;
-
           # Determine system architecture
           system = if platform == "darwin" then "aarch64-darwin" else "x86_64-linux";
 
