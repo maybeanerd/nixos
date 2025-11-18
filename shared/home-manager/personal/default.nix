@@ -35,4 +35,19 @@ in
       };
     };
   };
+
+  # YubiKey U2F mapping file deployment (pam_u2f)
+  # This file contains per-user U2F registrations generated via pamu2fcfg.
+  file = {
+    ".config/Yubico" = {
+      target = ".config/Yubico";
+      directory = true;
+      mode = "o700";
+    };
+
+    ".config/Yubico/u2f_keys" = {
+      source = ./u2f_keys;
+      mode = "o600";
+    };
+  };
 }

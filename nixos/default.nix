@@ -81,6 +81,12 @@
 
   # Configure Yubikey support
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+  # TODO: move to development module of home-manager
+  # https://home-manager-options.extranix.com/?query=gpg&release=release-25.05
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
