@@ -169,7 +169,7 @@ in
         # csstools.postcss
         dbaeumer.vscode-eslint
         # docker.docker
-        eamodio.gitlens
+        # eamodio.gitlens
         esbenp.prettier-vscode
         github.copilot
         github.copilot-chat
