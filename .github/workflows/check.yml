@@ -49,6 +49,9 @@ jobs:
           - config: Big-M1ac
             platform: darwin
             os: macos-latest
+          - config: TODONAME
+            platform: darwin
+            os: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

@@ -2,6 +2,7 @@
   pkgs,
   platform,
   username,
+  gitConfig,
 }:
 
 let
@@ -90,10 +91,12 @@ in
         if platform == "darwin" then
           {
             rb = "sudo darwin-rebuild switch";
+            rbb = "sudo darwin-rebuild build";
           }
         else
           {
             rb = "sudo nixos-rebuild switch";
+            rbb = "sudo nixos-rebuild build";
           }
       );
       initContent = ''
@@ -144,12 +147,12 @@ in
       enable = true;
       settings = {
         user = {
-          name = "maybeanerd";
-          email = "sebastian@diluz.io";
+          name = "Sebastian Di Luzio";
+          email = gitConfig.email or "sebastian@diluz.io";
         };
         init.defaultBranch = "main";
         pull.rebase = true;
-        signing.key = "$KEYID"; # TODO add actual key id
+        signing.key = gitConfig.signingKey or "$KEYID"; # TODO add actual key id
         commit.gpgsign = false; # true; TODO: enable once GPG is properly set up
       };
     };

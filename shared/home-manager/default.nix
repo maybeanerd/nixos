@@ -1,7 +1,8 @@
 {
   username,
   platform,
-  includePersonal ? true,
+  includePersonal,
+  gitConfig,
 }:
 
 {
@@ -26,7 +27,12 @@ let
       };
 
   developmentConfig = import ./development {
-    inherit platform pkgs username;
+    inherit
+      platform
+      pkgs
+      username
+      gitConfig
+      ;
   };
 
   # Combine configs
