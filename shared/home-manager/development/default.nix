@@ -91,10 +91,12 @@ in
         if platform == "darwin" then
           {
             rb = "sudo darwin-rebuild switch";
+            rbb = "sudo darwin-rebuild build";
           }
         else
           {
             rb = "sudo nixos-rebuild switch";
+            rbb = "sudo nixos-rebuild build";
           }
       );
       initContent = ''
