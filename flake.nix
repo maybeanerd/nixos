@@ -32,6 +32,7 @@
           username,
           platform,
           includePersonal ? true,
+          gitConfig ? { },
         }:
         let
           # Determine system architecture
@@ -83,6 +84,7 @@
               username
               platform
               includePersonal
+              gitConfig
               ;
           };
 
@@ -126,6 +128,18 @@
           username = "basti";
           platform = "darwin";
           includePersonal = true;
+        };
+
+        # Work MacBook Pro @liqid
+        # TODO: add real data
+        "TODONAME" = {
+          username = "TODObasti";
+          platform = "darwin";
+          includePersonal = false;
+          gitConfig = {
+            email = "";
+            signingKey = "";
+          };
         };
       };
 
