@@ -138,7 +138,6 @@
           includePersonal = false;
           gitConfig = {
             email = "";
-            signingKey = "";
           };
         };
       };

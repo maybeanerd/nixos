@@ -31,6 +31,20 @@ let
       # Add darwin-specific software-engineering apps here
     ];
 
+  /*
+    To add the key from the yubikey:
+    gpg --edit-card
+    gpg/card> fetch
+    gpg/card> quit
+
+    gpg --edit-key 0x175DFE07EC04518E
+    gpg> trust
+    Your decision? 5
+    Do you really want to set this key to ultimate trust? (y/N) y
+    gpg> quit
+  */
+  gpgKeyID = "0x175DFE07EC04518E";
+
 in
 {
   # Return packages list (only those without Home Manager program options)
@@ -139,9 +153,8 @@ in
         armor = true;
         use-agent = true;
         throw-keyids = true;
-        # Default key ID to use (helpful with throw-keyids)
-        #default-key 0xFF00000000000001
-        #trusted-key 0xFF00000000000001
+        default-key = gpgKeyID;
+        trusted-key = gpgKeyID; # TODO: check if this makes it unecessary to manually trust the key
       };
     };
 
@@ -154,8 +167,8 @@ in
         };
         init.defaultBranch = "main";
         pull.rebase = true;
-        signing.key = gitConfig.signingKey or "$KEYID"; # TODO add actual key id
-        commit.gpgsign = false; # true; TODO: enable once GPG is properly set up
+        signing.key = gpgKeyID;
+        commit.gpgsign = true;
       };
     };
 
