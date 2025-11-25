@@ -69,8 +69,8 @@ in
       enable = true;
 
       # https://github.com/drduh/config/blob/master/gpg-agent.conf
-      defaultCacheTtl = 60;
-      maxCacheTtl = 120;
+      defaultCacheTtl = 28800; # 8 hours
+      maxCacheTtl = 86400; # 24 hours
       pinentry = {
         package = pkgs.pinentry-curses;
       };
