@@ -14,7 +14,6 @@ let
     nodePackages.pnpm
     nixfmt-rfc-style
     nil
-    jdk
   ];
 
   # Software-engineering packages specific to NixOS/Linux
