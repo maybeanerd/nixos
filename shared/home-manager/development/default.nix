@@ -43,7 +43,7 @@ let
     Do you really want to set this key to ultimate trust? (y/N) y
     gpg> quit
   */
-  gpgKeyID = "0x175DFE07EC04518E";
+  gpgKeyID = "175DFE07EC04518E";
 
 in
 {
