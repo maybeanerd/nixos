@@ -13,6 +13,7 @@ let
     nodejs_24
     nodePackages.pnpm
     nixfmt-rfc-style
+    nil
   ];
 
   # Software-engineering packages specific to NixOS/Linux
