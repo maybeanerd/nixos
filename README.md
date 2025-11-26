@@ -13,7 +13,7 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 
 ```bash
 # First time use
-sudo darwin-rebuild switch --flake --experimental-features 'nix-command flakes'
+sudo darwin-rebuild switch --flake --experimental-features 'flakes'
 
 # Or use the alias (after first build)
 rb
@@ -23,7 +23,7 @@ rb
 
 ```bash
 # First time use
-sudo nixos-rebuild switch --flake --experimental-features 'nix-command flakes'
+sudo nixos-rebuild switch --flake --experimental-features 'flakes'
 
 
 # Or use the alias (after first build)
