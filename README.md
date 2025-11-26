@@ -12,8 +12,8 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 ### macOS (Darwin)
 
 ```bash
-# Build and switch to the new configuration
-sudo darwin-rebuild switch --flake .#macbookName
+# First time use
+sudo darwin-rebuild switch --flake --experimental-features 'flakes'
 
 # Or use the alias (after first build)
 rb
@@ -22,8 +22,9 @@ rb
 ### NixOS
 
 ```bash
-# Build and switch to the new configuration
-sudo nixos-rebuild switch --flake .#nixos
+# First time use
+sudo nixos-rebuild switch --flake --experimental-features 'flakes'
+
 
 # Or use the alias (after first build)
 rb
