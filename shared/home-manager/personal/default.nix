@@ -15,6 +15,7 @@ let
       element-desktop
       tidal-hifi
       vlc
+      libreoffice-fresh
     ];
 
   darwinPersonal =
