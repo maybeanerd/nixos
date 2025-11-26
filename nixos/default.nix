@@ -95,7 +95,8 @@
     services = {
       login.u2fAuth = true;
       sudo.u2fAuth = true;
-      # unlock.u2fAuth = true; TODO: find a way to use ubikey to unlock KDE
+      # For login, KDE already uses the 'login' service, but for some reason after locking the screen, it uses the 'kde' service
+      kde.u2fAuth = true;
     };
     u2f.settings = {
       cue = true;
