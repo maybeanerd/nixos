@@ -101,6 +101,7 @@ in
       # Shell aliases based on platform
       shellAliases = {
         ll = "ls -la";
+        fu = "nix flake update";
       }
       // (
         if platform == "darwin" then
