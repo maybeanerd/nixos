@@ -46,11 +46,13 @@
               nixpkgs.config.allowUnfree = true;
 
               # Enable flakes
-              nix.settings.experimental-features = [
-                "nix-command"
-                "flakes"
-              ];
-
+              nix.settings = {
+                experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
+                download-buffer-size = 524288000; # 500 MiB
+              };
             };
 
           # User configuration
