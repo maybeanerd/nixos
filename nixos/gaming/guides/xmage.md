@@ -16,5 +16,6 @@ Getting mage running on NixOS is sadly not trivial, as there are some pitfalls t
 ### Quick come-back
 If you expect no updates, you can also attempt to quickly jump back in using the following command:
 
-`nix-shell -p jre8 --run 'java -Xmx4000m -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8 -Djava.net.preferIPv4Stack=true -jar ./xmage/mage-client/lib/mage-client-1.4.58.jar &'
+`
+nix-shell -p jre8 --run 'java -Xmx4000m -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8 -Djava.net.preferIPv4Stack=true -jar ./xmage/mage-client/lib/mage-client-1.4.58.jar &'
 `
