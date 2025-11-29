@@ -14,6 +14,7 @@ let
     nodePackages.pnpm
     nixfmt-rfc-style
     nil
+    htop
   ];
 
   # Software-engineering packages specific to NixOS/Linux

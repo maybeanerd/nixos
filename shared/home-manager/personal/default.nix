@@ -16,6 +16,7 @@ let
       tidal-hifi
       vlc
       libreoffice-fresh
+      pavucontrol # for audio management
     ];
 
   darwinPersonal =
