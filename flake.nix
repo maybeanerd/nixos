@@ -10,6 +10,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # Downstream dependencies
     aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +24,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      sops-nix,
       aagl-gtk-on-nix,
     }:
     let
@@ -99,6 +103,7 @@
               userConfig
               homeManagerConfig
               home-manager.darwinModules.home-manager
+              sops-nix.darwinModules.sops
               {
                 networking.hostName = hostname;
                 system.stateVersion = 6;
@@ -115,6 +120,7 @@
               userConfig
               homeManagerConfig
               home-manager.nixosModules.home-manager
+              sops-nix.nixosModules.sops
               ./nixos
               {
                 networking.hostName = hostname;
