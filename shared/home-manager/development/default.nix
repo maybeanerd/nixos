@@ -15,6 +15,7 @@ let
     nixfmt-rfc-style
     nil
     htop
+    sops
   ];
 
   # Software-engineering packages specific to NixOS/Linux
