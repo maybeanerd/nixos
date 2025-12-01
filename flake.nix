@@ -129,7 +129,14 @@
           nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
-              inherit aagl-gtk-on-nix username platform includePersonal includeWork gitConfig;
+              inherit
+                aagl-gtk-on-nix
+                username
+                platform
+                includePersonal
+                includeWork
+                gitConfig
+                ;
             };
             modules = [
               commonConfig
