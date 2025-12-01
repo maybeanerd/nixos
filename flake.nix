@@ -104,8 +104,11 @@
               homeManagerConfig
               home-manager.darwinModules.home-manager
               sops-nix.darwinModules.sops
+              ./darwin
               {
                 networking.hostName = hostname;
+                # Required by nix-darwin for options like homebrew.enable
+                system.primaryUser = username;
                 system.stateVersion = 6;
                 nixpkgs.hostPlatform = system;
               }
@@ -139,13 +142,12 @@
         };
 
         # Work MacBook Pro @liqid
-        # TODO: add real data
-        "TODONAME" = {
-          username = "TODObasti";
+        "MacBook-Pro-MBP-L1682" = {
+          username = "sebastiandiluzio";
           platform = "darwin";
           includePersonal = false;
           gitConfig = {
-            email = "";
+            email = "sebastian.diluzio@liqid.de";
           };
         };
       };

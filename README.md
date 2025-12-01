@@ -9,27 +9,6 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 - `platform`: Either `"darwin"` or `"nixos"`
 - `includePersonal`: Include personal apps (default: `true`)
 
-### macOS (Darwin)
-
-```bash
-# First time use
-sudo darwin-rebuild switch --flake --experimental-features 'flakes'
-
-# Or use the alias (after first build)
-rb
-```
-
-### NixOS
-
-```bash
-# First time use
-sudo nixos-rebuild switch --flake --experimental-features 'flakes'
-
-
-# Or use the alias (after first build)
-rb
-```
-
 ## Adding New Machines
 
 ### 1. Add Configuration to flake.nix
@@ -69,6 +48,31 @@ NIXOS_REPO="/path/to/your/nixos/repo"
 sudo ln -sf "$NIXOS_REPO/flake.nix" /etc/nix-darwin/flake.nix
 sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
 ```
+
+#### First-time setup on macOS (Darwin)
+
+- **One-time Homebrew install (required for `darwin/homebrew`)**
+
+  The `darwin/homebrew` module expects Homebrew to already be installed. Do this **once per machine** as your normal user (no `sudo`):
+
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+
+- **First-time nix-darwin activation**
+
+  Once Homebrew is installed:
+
+  ```bash
+  # First time use (from this repo)
+  cd /path/to/your/nixos/repo
+  sudo -H nix run nix-darwin/master#darwin-rebuild \
+    --extra-experimental-features 'nix-command flakes' \
+    -- switch --flake .#your-darwin-hostname
+
+  # Or use the alias (after first build)
+  rb
+  ```
 
 #### On NixOS
 
