@@ -21,6 +21,7 @@ darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
     username = "your-username";
     platform = "darwin";
     includePersonal = true;
+    includeWork = false;
   };
 };
 
@@ -34,7 +35,7 @@ nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
 };
 ```
 
-### 2. Set Up Symlinks
+### 2. Set Up
 
 #### On macOS (Darwin)
 
@@ -49,9 +50,8 @@ sudo ln -sf "$NIXOS_REPO/flake.nix" /etc/nix-darwin/flake.nix
 sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
 ```
 
-#### First-time setup on macOS (Darwin)
 
-- **One-time Homebrew install (required for `darwin/homebrew`)**
+##### One-time Homebrew install (required for `darwin/homebrew`)
 
   The `darwin/homebrew` module expects Homebrew to already be installed. Do this **once per machine** as your normal user (no `sudo`):
 
@@ -59,13 +59,12 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ```
 
-- **First-time nix-darwin activation**
+##### First-time nix-darwin activation
 
   Once Homebrew is installed:
 
   ```bash
-  # First time use (from this repo)
-  cd /path/to/your/nixos/repo
+  # First time use
   sudo -H nix run nix-darwin/master#darwin-rebuild \
     --extra-experimental-features 'nix-command flakes' \
     -- switch --flake .#your-darwin-hostname
@@ -88,6 +87,14 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nixos/flake.lock
 
 # Link hardware configuration (generated during NixOS installation)
 sudo ln -sf "$NIXOS_REPO/nixos/hardware-configuration.nix" /etc/nixos/hardware-configuration.nix
+```
+
+```bash
+# First time use
+sudo nixos-rebuild switch --flake --experimental-features 'flakes'
+
+# Or use the alias (after first build)
+rb
 ```
 
 **Note:** For NixOS, you should first generate the hardware configuration. The setup currently only supports a single shared one, though. In any case, you can do so by running:
