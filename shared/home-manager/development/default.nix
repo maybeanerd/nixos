@@ -105,6 +105,7 @@ in
           "git"
           "git-auto-fetch"
           "nvm"
+          "asdf"
         ]
         ++ lib.optionals (platform == "darwin") [
           "brew"
