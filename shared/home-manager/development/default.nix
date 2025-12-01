@@ -23,14 +23,14 @@ let
   nixosSoftwareEngineering =
     with pkgs;
     lib.optionals (platform == "nixos") [
-      github-desktop
+      github-desktop # Needs to be installed using brew on darwin
     ];
 
   # Software-engineering packages specific to macOS/Darwin
   darwinSoftwareEngineering =
     with pkgs;
     lib.optionals (platform == "darwin") [
-      # Add darwin-specific software-engineering apps here
+      stats # macOS only package https://github.com/exelban/stats
     ];
 
   workConfig =
