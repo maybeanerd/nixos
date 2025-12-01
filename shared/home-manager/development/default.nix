@@ -3,6 +3,7 @@
   platform,
   username,
   gitConfig,
+  includeWork,
 }:
 
 let
@@ -10,7 +11,7 @@ let
 
   # Software-engineering packages that don't have Home Manager program options
   commonSoftwareEngineering = with pkgs; [
-    nodejs_24
+    asdf-vm
     nodePackages.pnpm
     nixfmt-rfc-style
     nil
@@ -32,6 +33,16 @@ let
       # Add darwin-specific software-engineering apps here
     ];
 
+  workConfig =
+    if includeWork then
+      import ./work.nix { inherit pkgs; }
+    else {
+      packages = [ ];
+      file = { };
+      services = { };
+      programs = { };
+    };
+
   /*
     To add the key from the yubikey:
     gpg --edit-card
@@ -49,7 +60,7 @@ let
 in
 {
   # Return packages list (only those without Home Manager program options)
-  packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering;
+  packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering ++ workConfig.packages;
 
   file = {
     # YubiKey U2F mapping file deployment (pam_u2f)

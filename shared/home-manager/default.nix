@@ -2,6 +2,7 @@
   username,
   platform,
   includePersonal,
+  includeWork,
   gitConfig,
 }:
 
@@ -32,6 +33,7 @@ let
       pkgs
       username
       gitConfig
+      includeWork
       ;
   };
 
