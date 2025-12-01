@@ -36,12 +36,13 @@ let
   workConfig =
     if includeWork then
       import ./work.nix { inherit pkgs; }
-    else {
-      packages = [ ];
-      file = { };
-      services = { };
-      programs = { };
-    };
+    else
+      {
+        packages = [ ];
+        file = { };
+        services = { };
+        programs = { };
+      };
 
   /*
     To add the key from the yubikey:
@@ -60,7 +61,11 @@ let
 in
 {
   # Return packages list (only those without Home Manager program options)
-  packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering ++ workConfig.packages;
+  packages =
+    commonSoftwareEngineering
+    ++ nixosSoftwareEngineering
+    ++ darwinSoftwareEngineering
+    ++ workConfig.packages;
 
   file = {
     # YubiKey U2F mapping file deployment (pam_u2f)

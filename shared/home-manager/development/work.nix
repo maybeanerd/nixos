@@ -3,13 +3,11 @@
 }:
 
 let
-  inherit (pkgs);
+  inherit (pkgs) ;
 
-  workPackages =
-    with pkgs;
-     [
-      _1password-cli
-    ];
+  workPackages = with pkgs; [
+    _1password-cli
+  ];
 in
 {
   packages = workPackages;
@@ -19,5 +17,3 @@ in
   services = { };
   programs = { };
 }
-
-
