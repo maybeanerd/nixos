@@ -36,6 +36,7 @@
           username,
           platform,
           includePersonal ? true,
+          includeWork ? false,
           gitConfig ? { },
         }:
         let
@@ -90,6 +91,7 @@
               username
               platform
               includePersonal
+              includeWork
               gitConfig
               ;
           };
@@ -98,14 +100,26 @@
         if platform == "darwin" then
           nix-darwin.lib.darwinSystem {
             inherit system;
+            specialArgs = {
+              inherit
+                username
+                platform
+                includePersonal
+                includeWork
+                gitConfig
+                ;
+            };
             modules = [
               commonConfig
               userConfig
               homeManagerConfig
               home-manager.darwinModules.home-manager
               sops-nix.darwinModules.sops
+              ./darwin
               {
                 networking.hostName = hostname;
+                # Required by nix-darwin for options like homebrew.enable
+                system.primaryUser = username;
                 system.stateVersion = 6;
                 nixpkgs.hostPlatform = system;
               }
@@ -114,7 +128,16 @@
         else
           nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = { inherit aagl-gtk-on-nix username; };
+            specialArgs = {
+              inherit
+                aagl-gtk-on-nix
+                username
+                platform
+                includePersonal
+                includeWork
+                gitConfig
+                ;
+            };
             modules = [
               commonConfig
               userConfig
@@ -139,13 +162,13 @@
         };
 
         # Work MacBook Pro @liqid
-        # TODO: add real data
-        "TODONAME" = {
-          username = "TODObasti";
+        "MacBook-Pro-MBP-L1682" = {
+          username = "sebastiandiluzio";
           platform = "darwin";
           includePersonal = false;
+          includeWork = true;
           gitConfig = {
-            email = "";
+            email = "sebastian.diluzio@liqid.de";
           };
         };
       };

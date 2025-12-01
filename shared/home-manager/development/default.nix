@@ -3,6 +3,7 @@
   platform,
   username,
   gitConfig,
+  includeWork,
 }:
 
 let
@@ -10,7 +11,7 @@ let
 
   # Software-engineering packages that don't have Home Manager program options
   commonSoftwareEngineering = with pkgs; [
-    nodejs_24
+    asdf-vm
     nodePackages.pnpm
     nixfmt-rfc-style
     nil
@@ -22,15 +23,26 @@ let
   nixosSoftwareEngineering =
     with pkgs;
     lib.optionals (platform == "nixos") [
-      github-desktop
+      github-desktop # Needs to be installed using brew on darwin
     ];
 
   # Software-engineering packages specific to macOS/Darwin
   darwinSoftwareEngineering =
     with pkgs;
     lib.optionals (platform == "darwin") [
-      # Add darwin-specific software-engineering apps here
+      stats # macOS only package https://github.com/exelban/stats
     ];
+
+  workConfig =
+    if includeWork then
+      import ./work.nix { inherit pkgs; }
+    else
+      {
+        packages = [ ];
+        file = { };
+        services = { };
+        programs = { };
+      };
 
   /*
     To add the key from the yubikey:
@@ -49,7 +61,11 @@ let
 in
 {
   # Return packages list (only those without Home Manager program options)
-  packages = commonSoftwareEngineering ++ nixosSoftwareEngineering ++ darwinSoftwareEngineering;
+  packages =
+    commonSoftwareEngineering
+    ++ nixosSoftwareEngineering
+    ++ darwinSoftwareEngineering
+    ++ workConfig.packages;
 
   file = {
     # YubiKey U2F mapping file deployment (pam_u2f)
@@ -94,6 +110,7 @@ in
           "git"
           "git-auto-fetch"
           "nvm"
+          "asdf"
         ]
         ++ lib.optionals (platform == "darwin") [
           "brew"

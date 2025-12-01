@@ -53,7 +53,7 @@ jobs:
           - config: Big-M1ac
             platform: darwin
             os: macos-latest
-          - config: TODONAME
+          - config: MacBook-Pro-MBP-L1682
             platform: darwin
             os: macos-latest
     steps:
