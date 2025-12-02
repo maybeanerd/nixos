@@ -34,32 +34,13 @@
   };
 
   # Audio configuration
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+  services.pipewire.enable = lib.mkForce false;
+  services.pulseaudio = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-    pulse.enable = true;
-    socketActivation = true;
-
-    # Prevents audio devices from being suspended when idle
-    extraConfig.pipewire."99-suspend-timeout" = {
-      "context.properties" = {
-        "session.suspend-timeout-seconds" = 0; # Set to 0 to disable
-      };
-    };
-
-    # Prevents nodes from being destroyed when unlinked (helpful for games/applications)
-    wireplumber.extraConfig."99-node-dont-destroy" = {
-      "wireplumber.settings" = {
-        "node.autoconnect" = true;
-        "node.dont-reconnect" = false;
-        "node.dont-fallback" = false;
-      };
-    };
+    support32Bit = true;
+    package = pkgs.pulseaudioFull;
   };
+  nixpkgs.config.pulseaudio = true;
 
   # Networking
   networking.networkmanager.enable = true;
