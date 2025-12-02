@@ -1,5 +1,35 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  includeWork,
+  ...
+}:
+let
+  workCasks =
+    if includeWork then
+      [
+        "android-studio"
+      ]
+    else
+      [ ];
+  allCasks = [
+    "github" # GitHub Desktop
+  ]
+  ++ workCasks;
 
+  workBrews =
+    if includeWork then
+      [
+        # TODO: Add more work-specific brews here
+      ]
+    else
+      [ ];
+  allBrews = [
+    # TODO: Add more shared brews here
+  ]
+  ++ workBrews;
+
+in
 {
   # System-wide Homebrew configuration for all darwin hosts
   homebrew = {
@@ -11,10 +41,10 @@
       cleanup = "uninstall";
     };
 
+    # CLI tools installed via Homebrew formulas
+    brews = allBrews;
+
     # GUI applications installed via Homebrew casks
-    casks = [
-      # GitHub Desktop
-      "github"
-    ];
+    casks = allCasks;
   };
 }

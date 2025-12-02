@@ -3,10 +3,15 @@
 }:
 
 let
-  inherit (pkgs) ;
-
   workPackages = with pkgs; [
+    # General dev tooling
     _1password-cli
+    tableplus # database GUI
+    bruno # API spec GUI
+
+    # React native tooling
+    watchman
+    cocoapods
   ];
 in
 {

@@ -138,6 +138,11 @@ in
         # nvm configuration (external installation)
         # The oh-my-zsh nvm plugin handles loading nvm and provides zsh completions
         export NVM_DIR="$HOME/.nvm"
+
+        # Android SDK configuration
+        export ANDROID_HOME=$HOME/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME/emulator
+        export PATH=$PATH:$ANDROID_HOME/platform-tools
       '';
     };
 
