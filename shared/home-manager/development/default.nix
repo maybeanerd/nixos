@@ -205,6 +205,7 @@ in
         # antfu.unocss
         arrterian.nix-env-selector
         # aster.vscode-subtitles
+        blazejkustra.react-compiler-marker
         bradlc.vscode-tailwindcss
         christian-kohler.npm-intellisense
         # ckolkman.vscode-postgres
