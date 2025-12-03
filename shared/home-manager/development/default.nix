@@ -192,7 +192,7 @@ in
         init.defaultBranch = "main";
         pull.rebase = true;
         signing.key = gpgKeyID;
-        commit.gpgsign = true;
+        commit.gpgsign = gitConfig.sign or true;
       };
     };
 
