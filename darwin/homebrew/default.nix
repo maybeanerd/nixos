@@ -8,7 +8,11 @@ let
   workCasks =
     if includeWork then
       [
+        "cursor"
         "android-studio"
+        "gather"
+        "linear-linear"
+        "figma"
       ]
     else
       [ ];
