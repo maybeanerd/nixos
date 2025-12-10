@@ -18,6 +18,7 @@ let
       [ ];
   allCasks = [
     "github" # GitHub Desktop
+    "tidal"
   ]
   ++ workCasks;
 
