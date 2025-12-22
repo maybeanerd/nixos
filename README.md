@@ -2,16 +2,16 @@
 
 the nixos config for my PC, laptops, and whatever else I can find
 
-## Usage
-
+## General Config Overview
 The unified flake provides a `mkSystem` function. The hostname is automatically derived from the attribute name. It accepts:
 - `username`: The primary user's username
 - `platform`: Either `"darwin"` or `"nixos"`
 - `includePersonal`: Include personal apps (default: `true`)
+- `includeWork`: Include work specific apps (default: `false`)
 
-## Adding New Machines
-
-### 1. Add Configuration to flake.nix
+# Adding New Machines
+  
+## 1. Add Configuration to flake.nix
 
 Edit `flake.nix` and add a new configuration. The hostname is automatically derived from the attribute name:
 
@@ -35,9 +35,9 @@ nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
 };
 ```
 
-### 2. Set Up
+## 2. Set Up
 
-#### On macOS (Darwin)
+### On macOS (Darwin)
 
 Set the path to your repository and create symlinks:
 
@@ -51,7 +51,7 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
 ```
 
 
-##### One-time Homebrew install (required for `darwin/homebrew`)
+#### One-time Homebrew install (required for `darwin/homebrew`)
 
   The `darwin/homebrew` module expects Homebrew to already be installed. Do this **once per machine** as your normal user (no `sudo`):
 
@@ -59,7 +59,7 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   ```
 
-##### First-time nix-darwin activation
+#### First-time nix-darwin activation
 
   Once Homebrew is installed:
 
@@ -73,7 +73,7 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
   rb
   ```
 
-#### On NixOS
+### On NixOS
 
 Set the path and create symlinks:
 
