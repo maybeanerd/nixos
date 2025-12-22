@@ -12,6 +12,7 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 ## General Commands
 - `rb`: Alias for rebuilding the current system
 - `fu`: Alias for updating the flake
+
 # Adding New Machines
   
 ## 1. Add Configuration to flake.nix
