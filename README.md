@@ -2,6 +2,10 @@
 
 the nixos config for my PC, laptops, and whatever else I can find
 
+## General Commands
+- `rb`: Alias for rebuilding the current system
+- `fu`: Alias for updating the flake
+
 ## General Config Overview
 The unified flake provides a `mkSystem` function. The hostname is automatically derived from the attribute name. It accepts:
 - `username`: The primary user's username
