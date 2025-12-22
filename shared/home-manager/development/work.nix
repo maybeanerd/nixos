@@ -12,6 +12,7 @@ let
     # React native tooling
     watchman
     cocoapods
+    maestro
   ];
 in
 {
