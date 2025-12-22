@@ -2,10 +2,6 @@
 
 the nixos config for my PC, laptops, and whatever else I can find
 
-## General Commands
-- `rb`: Alias for rebuilding the current system
-- `fu`: Alias for updating the flake
-
 ## General Config Overview
 The unified flake provides a `mkSystem` function. The hostname is automatically derived from the attribute name. It accepts:
 - `username`: The primary user's username
@@ -13,6 +9,9 @@ The unified flake provides a `mkSystem` function. The hostname is automatically 
 - `includePersonal`: Include personal apps (default: `true`)
 - `includeWork`: Include work specific apps (default: `false`)
 
+## General Commands
+- `rb`: Alias for rebuilding the current system
+- `fu`: Alias for updating the flake
 # Adding New Machines
   
 ## 1. Add Configuration to flake.nix
