@@ -4,6 +4,7 @@ let
   inherit (pkgs) lib;
 
   commonPersonal = with pkgs; [
+    immich-go
   ];
 
   nixosPersonal =
