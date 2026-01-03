@@ -15,6 +15,7 @@ let
     nixfmt-rfc-style
     nil
     htop
+    tldr
     sops
   ];
 
