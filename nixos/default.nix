@@ -75,6 +75,12 @@
   # Shell completion paths
   environment.pathsToLink = [ "/share/zsh" ];
 
+  # Allow running appimages
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   # Clean up nix store and remove old generations automatically
   nix.gc = {
     automatic = true;
