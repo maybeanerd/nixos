@@ -136,6 +136,7 @@
               inherit
                 aagl-gtk-on-nix
                 xmage
+                system
                 username
                 platform
                 includePersonal
