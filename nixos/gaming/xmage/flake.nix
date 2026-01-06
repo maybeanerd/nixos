@@ -18,9 +18,9 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         # XMage version and source
-        version = "0.4.99"; # Update this to change the version
+        version = "1.4.58-dev_2025-10-06_20-40"; # Update this to change the version
         src = pkgs.fetchurl {
-          url = "https://xmage.today/Mage-${version}.zip";
+          url = "https://xmage.today/files/mage-full_${version}.zip";
           sha256 = ""; # Run `nix flake update` after setting the URL, nix will tell you the hash
         };
 
