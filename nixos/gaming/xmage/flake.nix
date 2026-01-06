@@ -22,7 +22,7 @@
         sha256 = "sha256-UOtxV+ykDIH+PLjLrC66Rut92IIw2iDHWwvJ2ytmUAs="; # Update this hash when updating the version
         src = pkgs.fetchurl {
           url = "https://xmage.today/files/mage-full_${version}.zip";
-          sha256 = sha256;
+          inherit sha256;
         };
 
         # Java runtime for XMage
@@ -38,26 +38,53 @@
           nativeBuildInputs = [ pkgs.unzip ];
 
           unpackPhase = ''
-            unzip -q $src
+            # Use unzip with -o to overwrite, ignore exit code since warnings don't prevent extraction
+            unzip -q -o '${src}' || true
           '';
 
           installPhase = ''
                         mkdir -p $out/opt/xmage
-                        cp -r Mage/* $out/opt/xmage/
+                        
+                        # Try different possible directory names
+                        if [ -d "xmage" ]; then
+                          echo "Found xmage directory"
+                          cp -r xmage/* $out/opt/xmage/
+                        elif [ -d "Mage" ]; then
+                          echo "Found Mage directory"
+                          cp -r Mage/* $out/opt/xmage/
+                        elif [ -d "mage" ]; then
+                          echo "Found mage directory"
+                          cp -r mage/* $out/opt/xmage/
+                        else
+                          echo "ERROR: No extraction directory found!"
+                          echo "Current contents:"
+                          ls -la
+                          find . -maxdepth 3 -type d
+                          exit 1
+                        fi
                         
                         # Create wrapper script
                         mkdir -p $out/bin
-                        cat > $out/bin/xmage << 'EOF'
+                        cat > $out/bin/xmage << 'SCRIPT'
             #!/usr/bin/env bash
             set -e
             export XMAGE_HOME="${builtins.placeholder "out"}/opt/xmage"
+
+            # Find the mage-client jar file
+            JAR_FILE=$(find "$XMAGE_HOME/mage-client/lib" -name "mage-client-*.jar" -type f | head -1)
+
+            if [ -z "$JAR_FILE" ]; then
+              echo "Error: Could not find mage-client jar file in $XMAGE_HOME/mage-client/lib"
+              exit 1
+            fi
+
             exec ${javaRuntime}/bin/java \
               -Xmx4000m \
               -Dfile.encoding=UTF-8 \
               -Dsun.jnu.encoding=UTF-8 \
               -Djava.net.preferIPv4Stack=true \
-              -jar "$XMAGE_HOME/mage-client/lib/mage-client-*.jar" "$@"
-            EOF
+              -jar "$JAR_FILE" "$@"
+            SCRIPT
                         chmod +x $out/bin/xmage
                         
                         # Install icon
@@ -66,7 +93,7 @@
                         
                         # Create desktop entry
                         mkdir -p $out/share/applications
-                        cat > $out/share/applications/xmage.desktop << 'EOF'
+                        cat > $out/share/applications/xmage.desktop << 'DESKTOP'
             [Desktop Entry]
             Type=Application
             Name=XMage
@@ -75,7 +102,7 @@
             Icon=xmage
             Categories=Game;CardGame;
             Terminal=false
-            EOF
+            DESKTOP
           '';
 
           meta = with pkgs.lib; {
