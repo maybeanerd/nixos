@@ -16,6 +16,9 @@
     # Downstream dependencies
     aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    xmage.url = "path:./nixos/gaming/xmage";
+    xmage.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -26,6 +29,7 @@
       home-manager,
       sops-nix,
       aagl-gtk-on-nix,
+      xmage,
     }:
     let
       # Helper function to create a system configuration
@@ -131,6 +135,8 @@
             specialArgs = {
               inherit
                 aagl-gtk-on-nix
+                xmage
+                system
                 username
                 platform
                 includePersonal

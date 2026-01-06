@@ -1,10 +1,15 @@
 {
-  config,
   pkgs,
-  lib,
   username,
+  xmage,
+  system,
   ...
 }:
+
+let
+  # Create xmage package from flake
+  xmagePkg = xmage.packages.${system}.default;
+in
 
 {
   # Import game-specific configurations
@@ -24,5 +29,6 @@
     gamescope
     vulkan-tools
     satisfactorymodmanager
+    xmagePkg
   ];
 }
