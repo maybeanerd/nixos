@@ -15,6 +15,14 @@ This will:
 2. Extract it to the Nix store
 3. Launch the client with proper Java configuration for NixOS
 
+### Dev shell
+
+To enter a development shell with XMage dependencies, run:
+
+```bash
+nix develop
+```
+
 ## Updating XMage
 
 To update to a new version:
