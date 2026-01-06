@@ -44,26 +44,7 @@
 
           installPhase = ''
                         mkdir -p $out/opt/xmage
-                        
-                        # Try different possible directory names
-                        if [ -d "xmage" ]; then
-                          echo "Found xmage directory"
-                          cp -r xmage/* $out/opt/xmage/
-                        elif [ -d "Mage" ]; then
-                          echo "Found Mage directory"
-                          cp -r Mage/* $out/opt/xmage/
-                        elif [ -d "mage" ]; then
-                          echo "Found mage directory"
-                          cp -r mage/* $out/opt/xmage/
-                        else
-                          echo "ERROR: No extraction directory found!"
-                          echo "Current contents:"
-                          ls -la
-                          find . -maxdepth 3 -type d
-                          exit 1
-                        fi
-                        
-                        # Create wrapper script
+            cp -r xmage/* $out/opt/xmage/
                         mkdir -p $out/bin
                         cat > $out/bin/xmage << 'SCRIPT'
             #!/usr/bin/env bash
