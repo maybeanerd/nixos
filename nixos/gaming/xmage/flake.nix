@@ -19,9 +19,10 @@
 
         # XMage version and source
         version = "1.4.58-dev_2025-10-06_20-40"; # Update this to change the version
+        sha256 = "sha256-UOtxV+ykDIH+PLjLrC66Rut92IIw2iDHWwvJ2ytmUAs="; # Update this hash when updating the version
         src = pkgs.fetchurl {
           url = "https://xmage.today/files/mage-full_${version}.zip";
-          sha256 = ""; # Run `nix flake update` after setting the URL, nix will tell you the hash
+          sha256 = sha256;
         };
 
         # Java runtime for XMage
