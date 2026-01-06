@@ -48,7 +48,6 @@
                         mkdir -p $out/bin
                         cat > $out/bin/xmage << 'SCRIPT'
             #!/usr/bin/env bash
-            set -e
             export XMAGE_HOME="${builtins.placeholder "out"}/opt/xmage"
 
             # Find the mage-client jar file
@@ -74,7 +73,7 @@
                         
                         # Create desktop entry
                         mkdir -p $out/share/applications
-                        cat > $out/share/applications/xmage.desktop << 'DESKTOP'
+                        cat > $out/share/applications/xmage.desktop << DESKTOP
             [Desktop Entry]
             Type=Application
             Name=XMage
@@ -82,7 +81,7 @@
             Exec=$out/bin/xmage
             Icon=xmage
             Categories=Game;CardGame;
-            Terminal=false
+            Terminal=true
             DESKTOP
           '';
 
