@@ -177,6 +177,10 @@ in
       };
     };
 
+    fastfetch = {
+      enable = true;
+    };
+
     git = {
       enable = true;
       settings = {
