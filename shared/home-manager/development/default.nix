@@ -120,6 +120,8 @@ in
       shellAliases = {
         ll = "ls -la";
         fu = "nix flake update";
+        ff = "fastfetch";
+        neofetch = "fastfetch";
       }
       // (
         if platform == "darwin" then
