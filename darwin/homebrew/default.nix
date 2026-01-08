@@ -2,6 +2,7 @@
   config,
   pkgs,
   includeWork,
+  includePersonal,
   ...
 }:
 let
@@ -16,11 +17,21 @@ let
       ]
     else
       [ ];
+
+  personalCasks =
+    if includePersonal then
+      [
+        "private-internet-access"
+      ]
+    else
+      [ ];
+
   allCasks = [
     "github" # GitHub Desktop
     "tidal"
   ]
-  ++ workCasks;
+  ++ workCasks
+  ++ personalCasks;
 
   workBrews =
     if includeWork then
