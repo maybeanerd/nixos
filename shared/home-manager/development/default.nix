@@ -31,6 +31,7 @@ let
     with pkgs;
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
+      orbstack
     ];
 
   workConfig =
