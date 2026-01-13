@@ -102,7 +102,7 @@ in
   programs = {
     direnv = {
       enable = true;
-      zshIntegration.enable = true;
+      enableZshIntegration = true;
     };
 
     zsh = {
