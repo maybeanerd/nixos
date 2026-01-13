@@ -100,6 +100,11 @@ in
 
   # Home Manager program configurations for development tools
   programs = {
+    direnv = {
+      enable = true;
+      zshIntegration.enable = true;
+    };
+
     zsh = {
       enable = true;
       enableCompletion = true;
