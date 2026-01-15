@@ -89,10 +89,7 @@
             description = "XMage - Magic the Gathering online client";
             homepage = "https://xmage.today/";
             license = licenses.mit;
-            platforms = [
-              "x86_64-linux"
-              "aarch64-linux"
-            ];
+            platforms = flake-utils.lib.defaultSystems;
           };
         };
 
