@@ -17,7 +17,7 @@
     aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    xmage.url = "git+file:./?dir=nixos/gaming/xmage";
+    xmage.url = "path:./nixos/gaming/xmage";
     xmage.inputs.nixpkgs.follows = "nixpkgs";
   };
 
