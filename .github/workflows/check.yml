@@ -20,11 +20,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
 
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
-        with:
-          use-flakehub: false
-
       - name: Check Nix formatting
         run: |
           nix run nixpkgs#nixfmt-rfc-style -- --check $(find . -name '*.nix' ! -name 'hardware-configuration.nix')
@@ -47,11 +42,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
 
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
-        with:
-          use-flakehub: false
-
       - name: Check ${{ matrix.flake.name }} flake
         working-directory: ${{ matrix.flake.path }}
         run: nix flake check --all-systems --no-build
@@ -63,6 +53,41 @@ jobs:
       - name: Show ${{ matrix.flake.name }} flake outputs
         working-directory: ${{ matrix.flake.path }}
         run: nix flake show
+
+  # Build packages from flakes/ directory (with Cachix)
+  flakes-build:
+    runs-on: ${{ matrix.os }}
+    needs: flake-check
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # xmage
+          - flake: xmage
+            system: x86_64-linux
+            os: ubuntu-latest
+          - flake: xmage
+            system: aarch64-darwin
+            os: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: maybeanerd
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Build ${{ matrix.flake }} for ${{ matrix.system }}
+        working-directory: ./flakes/${{ matrix.flake }}
+        run: |
+          nix build .#packages.${{ matrix.system }}.default \
+            --print-build-logs \
+            --fallback
 
   # Build all configurations
   build:
@@ -101,11 +126,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v21
 
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
-        with:
-          use-flakehub: false
-
       - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
         run: |
           if [ "${{ matrix.platform }}" = "nixos" ]; then
@@ -122,12 +142,12 @@ jobs:
   # This allows us to set required status checks on GitHub a lot more "flexible"
   all-builds-complete:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, flakes-build]
     if: always()
     steps:
       - name: Check all builds succeeded
         run: |
-          if [ "${{ needs.build.result }}" != "success" ]; then
+          if [ "${{ needs.build.result }}" != "success" ] || [ "${{ needs.flakes-build.result }}" != "success" ]; then
             echo "One or more builds failed"
             exit 1
           fi
