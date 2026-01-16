@@ -17,7 +17,7 @@
     aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    xmage.url = "path:./flakes/xmage";
+    xmage.url = "git+https://github.com/maybeanerd/nixos?dir=flakes/xmage";
     xmage.inputs.nixpkgs.follows = "nixpkgs";
   };
 
