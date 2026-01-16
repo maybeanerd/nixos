@@ -199,14 +199,20 @@
         ]
       },
       "locked": {
-        "path": "./flakes/xmage",
-        "type": "path"
+        "dir": "flakes/xmage",
+        "lastModified": 1768569055,
+        "narHash": "sha256-kalKkMXYffrmpfqFRHpmnjmC+ZHx0smlg6aKghuc/tg=",
+        "ref": "refs/heads/main",
+        "rev": "eeb915af192283352d8baeccd36e5c493346b15a",
+        "revCount": 101,
+        "type": "git",
+        "url": "https://github.com/maybeanerd/nixos"
       },
       "original": {
-        "path": "./flakes/xmage",
-        "type": "path"
-      },
-      "parent": []
+        "dir": "flakes/xmage",
+        "type": "git",
+        "url": "https://github.com/maybeanerd/nixos"
+      }
     }
   },
   "root": "root",
