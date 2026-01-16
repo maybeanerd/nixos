@@ -128,7 +128,6 @@ in
 
         fu = "nix flake update";
         fl = "nix flake lock";
-        flxmage = "nix flake lock --update-input xmage";
 
         ff = "fastfetch";
         neofetch = "fastfetch";
