@@ -125,7 +125,11 @@ in
       # Shell aliases based on platform
       shellAliases = {
         ll = "ls -la";
+
         fu = "nix flake update";
+        fl = "nix flake lock";
+        flxmage = "nix flake lock --update-input xmage";
+
         ff = "fastfetch";
         neofetch = "fastfetch";
       }
