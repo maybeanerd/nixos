@@ -199,11 +199,11 @@
         ]
       },
       "locked": {
-        "path": "./nixos/gaming/xmage",
+        "path": "./flakes/xmage",
         "type": "path"
       },
       "original": {
-        "path": "./nixos/gaming/xmage",
+        "path": "./flakes/xmage",
         "type": "path"
       },
       "parent": []
