@@ -11,7 +11,6 @@ let
 
   # Software-engineering packages that don't have Home Manager program options
   commonSoftwareEngineering = with pkgs; [
-    asdf-vm
     nixfmt-rfc-style
     nil
     htop
@@ -32,6 +31,7 @@ let
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
       orbstack
+      asdf-vm # dynamic executables wont work on nixos
     ];
 
   workConfig =
@@ -115,9 +115,9 @@ in
         plugins = [
           "git"
           "git-auto-fetch"
-          "asdf"
         ]
         ++ lib.optionals (platform == "darwin") [
+          "asdf"
           "brew"
         ];
         theme = "jonathan";
