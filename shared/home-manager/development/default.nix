@@ -11,7 +11,7 @@ let
 
   # Software-engineering packages that don't have Home Manager program options
   commonSoftwareEngineering = with pkgs; [
-    nixfmt-rfc-style
+    nixfmt
     nil
     htop
     tldr
