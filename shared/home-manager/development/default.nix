@@ -10,7 +10,7 @@ let
   inherit (pkgs) lib;
 
   # Software-engineering packages that don't have Home Manager program options
-  commonSoftwareEngineering = with pkgs; [
+  commonPackages = with pkgs; [
     nixfmt
     nil
     htop
@@ -19,14 +19,14 @@ let
   ];
 
   # Software-engineering packages specific to NixOS/Linux
-  nixosSoftwareEngineering =
+  nixosPackages =
     with pkgs;
     lib.optionals (platform == "nixos") [
       github-desktop # Needs to be installed using brew on darwin
     ];
 
   # Software-engineering packages specific to macOS/Darwin
-  darwinSoftwareEngineering =
+  darwinPackages =
     with pkgs;
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
@@ -62,11 +62,7 @@ let
 in
 {
   # Return packages list (only those without Home Manager program options)
-  packages =
-    commonSoftwareEngineering
-    ++ nixosSoftwareEngineering
-    ++ darwinSoftwareEngineering
-    ++ workConfig.packages;
+  packages = commonPackages ++ nixosPackages ++ darwinPackages ++ workConfig.packages;
 
   file = {
     # YubiKey U2F mapping file deployment (pam_u2f)
