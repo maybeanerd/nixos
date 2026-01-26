@@ -1,12 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>maybeanerd/renovate-config"],
-  "packageRules": [
-    {
-      "matchManagers": ["nix"],
-      "rangeStrategy": "replace",
-      "minimumReleaseAge": "7 days",
-      "schedule": ["before 5am on monday"]
-    }
-  ]
+  "extends": [
+    "local>maybeanerd/renovate-config"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  }
 }
