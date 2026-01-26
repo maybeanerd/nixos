@@ -2,19 +2,20 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Adding the ref allows Renovate to work more reliably
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable?ref=nixos-unstable";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin?ref=master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.url = "github:Mic92/sops-nix?ref=master";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Downstream dependencies
-    aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
+    aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix?ref=main";
     aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     xmage.url = "path:./flakes/xmage";

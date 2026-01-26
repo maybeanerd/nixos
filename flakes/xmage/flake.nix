@@ -2,8 +2,9 @@
   description = "XMage gaming client for NixOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    # Adding the ref allows Renovate to work more reliably
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable?ref=nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils?ref=main";
   };
 
   outputs =
