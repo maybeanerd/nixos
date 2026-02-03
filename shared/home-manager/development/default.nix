@@ -31,7 +31,7 @@ let
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
       orbstack
-      asdf-vm # dynamic executables wont work on nixos
+      mise # dynamic executables wont work on nixos
     ];
 
   workConfig =
@@ -113,7 +113,7 @@ in
           "git-auto-fetch"
         ]
         ++ lib.optionals (platform == "darwin") [
-          "asdf"
+          "mise"
           "brew"
         ];
         theme = "jonathan";
@@ -140,12 +140,16 @@ in
             rbb = "sudo nixos-rebuild build";
           }
       );
-      initContent = ''
-        # Android SDK configuration
-        export ANDROID_HOME=$HOME/Library/Android/sdk
-        export PATH=$PATH:$ANDROID_HOME/emulator
-        export PATH=$PATH:$ANDROID_HOME/platform-tools
-      '';
+      initContent =
+        if platform == "darwin" then
+          ''
+            # Android SDK configuration (macOS only)
+            export ANDROID_HOME=$HOME/Library/Android/sdk
+            export PATH=$PATH:$ANDROID_HOME/emulator
+            export PATH=$PATH:$ANDROID_HOME/platform-tools
+          ''
+        else
+          "";
     };
 
     gpg = {
