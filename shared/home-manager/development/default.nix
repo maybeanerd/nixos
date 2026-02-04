@@ -208,7 +208,7 @@ in
 
     zed-editor = {
       enable = true;
-    }
+    };
 
     vscode = {
       enable = true;
