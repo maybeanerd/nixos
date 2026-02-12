@@ -192,6 +192,10 @@ in
       enable = true;
     };
 
+    gh = {
+      enable = true;
+    };
+
     git = {
       enable = true;
       settings = {
