@@ -5,6 +5,7 @@ let
 
   commonPersonal = with pkgs; [
     immich-go
+    prusa-slicer
   ];
 
   nixosPersonal =
