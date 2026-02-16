@@ -141,7 +141,7 @@ in
           }
       );
       initContent =
-        if platform == "darwin" then
+        if platform == "darwin" && includeWork then
           ''
             # Android SDK configuration (macOS only)
             export ANDROID_HOME=$HOME/Library/Android/sdk
