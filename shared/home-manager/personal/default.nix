@@ -14,7 +14,7 @@ let
       discord
       signal-desktop
       element-desktop
-      cinny-desktop
+      fluffychat
       tidal-hifi
       vlc
       libreoffice-fresh
