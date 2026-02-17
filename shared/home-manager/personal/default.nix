@@ -14,6 +14,7 @@ let
       discord
       signal-desktop
       element-desktop
+      cinny-desktop
       tidal-hifi
       vlc
       libreoffice-fresh
