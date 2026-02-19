@@ -66,6 +66,11 @@ in
         home.file = allFiles;
 
         home.stateVersion = "25.11";
+
+        # On managed (work) darwin: use linkApps so activation works without App Management (Kandji/MDM).
+        # On personal darwin: use default copyApps so Spotlight can find the apps.
+        targets.darwin.copyApps.enable = !includeWork;
+        targets.darwin.linkApps.enable = includeWork;
       }
 
       # Merge development programs
