@@ -66,12 +66,15 @@ in
         home.file = allFiles;
 
         home.stateVersion = "25.11";
+      }
 
-        # On managed (work) darwin: use linkApps so activation works without App Management (Kandji/MDM).
-        # On personal darwin: use default copyApps so Spotlight can find the apps.
+      # Only set darwin app targets on darwin; the module asserts platform and breaks NixOS evaluation.
+      (lib.mkIf (platform == "darwin") {
+        # On managed (work): linkApps so activation works without App Management (Kandji/MDM).
+        # On personal: copyApps so Spotlight can find the apps.
         targets.darwin.copyApps.enable = !includeWork;
         targets.darwin.linkApps.enable = includeWork;
-      }
+      })
 
       # Merge development programs
       ({ inherit (developmentConfig) programs; })
