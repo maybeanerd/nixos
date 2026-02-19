@@ -92,7 +92,7 @@ in
                 };
               in
               {
-                home.activationScripts.appAliases = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                home.activation.appAliases = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
                   echo "setting up ~/Applications/Home Manager Apps (aliases)..." >&2
                   rm -rf "$HOME/Applications/Home Manager Apps"
                   mkdir -p "$HOME/Applications/Home Manager Apps"
