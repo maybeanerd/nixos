@@ -53,7 +53,12 @@ in
   home-manager.backupFileExtension = "backup";
 
   home-manager.users.${username} =
-    { pkgs, ... }:
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     lib.mkMerge [
       # Base configuration
       {
@@ -68,13 +73,31 @@ in
         home.stateVersion = "25.11";
       }
 
-      # Only set darwin app targets on darwin; the module asserts platform and breaks NixOS evaluation.
-      (lib.mkIf (platform == "darwin") {
-        # On managed (work): linkApps so activation works without App Management (Kandji/MDM).
-        # On personal: copyApps so Spotlight can find the apps.
-        targets.darwin.copyApps.enable = !includeWork;
-        targets.darwin.linkApps.enable = includeWork;
-      })
+      # Darwin-only: fix spotlight indexing of applications
+      # On managed (work): create macOS aliases as App Management permissions are blocked by MDM.
+      (lib.mkIf (platform == "darwin" && includeWork) (
+        let
+          hmAppsEnv = pkgs.buildEnv {
+            name = "hm-applications";
+            paths = allPackages;
+            pathsToLink = [ "/Applications" ];
+          };
+        in
+        {
+          targets.darwin.copyApps.enable = false;
+          home.activation.appAliases = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            echo "setting up ~/Applications/Home Manager Apps (aliases)..." >&2
+            rm -rf "$HOME/Applications/Home Manager Apps"
+            mkdir -p "$HOME/Applications/Home Manager Apps"
+            for app in "${hmAppsEnv}/Applications"/*; do
+              [ -e "$app" ] || continue
+              name=$(basename "$app")
+              target=$(readlink "$app" || echo "$app")
+              ${pkgs.mkalias}/bin/mkalias "$target" "$HOME/Applications/Home Manager Apps/$name"
+            done
+          '';
+        }
+      ))
 
       # Merge development programs
       ({ inherit (developmentConfig) programs; })
