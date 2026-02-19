@@ -65,7 +65,7 @@ in
         home.packages = allPackages;
         home.file = allFiles;
 
-        home.stateVersion = "25.05";
+        home.stateVersion = "25.11";
       }
 
       # Merge development programs
