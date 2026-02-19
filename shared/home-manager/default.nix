@@ -94,7 +94,7 @@ in
                 let
                   hmAppsEnv = pkgs.buildEnv {
                     name = "hm-applications";
-                    paths = allPackages ++ [ pkgs.mkalias ];
+                    paths = allPackages;
                     pathsToLink = [ "/Applications" ];
                   };
                 in
