@@ -74,40 +74,29 @@ in
       }
 
       # Darwin-only: fix spotlight indexing of applications
-      (lib.mkIf (platform == "darwin") (
+      # On managed (work): create macOS aliases as App Management permissions are blocked by MDM.
+      (lib.mkIf (platform == "darwin" && includeWork) (
         let
-          copyApps = {
-            # On personal: copyApps so Spotlight can find the apps.
-            targets.darwin.copyApps.enable = !includeWork;
+          hmAppsEnv = pkgs.buildEnv {
+            name = "hm-applications";
+            paths = allPackages;
+            pathsToLink = [ "/Applications" ];
           };
-          aliasApps =
-            # On managed (work): create macOS aliases so launchers find apps without App Management permissions
-            # which are required by copyApps (blocked by MDM).
-            if includeWork then
-              let
-                hmAppsEnv = pkgs.buildEnv {
-                  name = "hm-applications";
-                  paths = allPackages;
-                  pathsToLink = [ "/Applications" ];
-                };
-              in
-              {
-                home.activation.appAliases = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                  echo "setting up ~/Applications/Home Manager Apps (aliases)..." >&2
-                  rm -rf "$HOME/Applications/Home Manager Apps"
-                  mkdir -p "$HOME/Applications/Home Manager Apps"
-                  for app in "${hmAppsEnv}/Applications"/*; do
-                    [ -e "$app" ] || continue
-                    name=$(basename "$app")
-                    target=$(readlink "$app" || echo "$app")
-                    ${pkgs.mkalias}/bin/mkalias "$target" "$HOME/Applications/Home Manager Apps/$name"
-                  done
-                '';
-              }
-            else
-              { };
         in
-        copyApps // aliasApps
+        {
+          targets.darwin.copyApps.enable = false;
+          home.activation.appAliases = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            echo "setting up ~/Applications/Home Manager Apps (aliases)..." >&2
+            rm -rf "$HOME/Applications/Home Manager Apps"
+            mkdir -p "$HOME/Applications/Home Manager Apps"
+            for app in "${hmAppsEnv}/Applications"/*; do
+              [ -e "$app" ] || continue
+              name=$(basename "$app")
+              target=$(readlink "$app" || echo "$app")
+              ${pkgs.mkalias}/bin/mkalias "$target" "$HOME/Applications/Home Manager Apps/$name"
+            done
+          '';
+        }
       ))
 
       # Merge development programs
