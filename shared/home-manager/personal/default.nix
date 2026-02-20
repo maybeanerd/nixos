@@ -1,4 +1,9 @@
-{ pkgs, platform, ... }:
+{
+  pkgs,
+  platform,
+  config,
+  ...
+}:
 
 let
   inherit (pkgs) lib;
@@ -37,6 +42,53 @@ in
       enable = true;
       profiles.default = {
         isDefault = true;
+      };
+    };
+  };
+
+  accounts = {
+    # Configure diluz.io Account
+    email.accounts.diluzio = {
+      realName = "Sebastian Di Luzio";
+      address = "sebastian@diluz.io";
+      userName = "sebastian@diluz.io";
+      imap = {
+        host = "imap.servivum.com";
+        port = 993;
+      };
+      smtp = {
+        host = "smtp.servivum.com";
+        port = 587;
+        tls.useStartTls = true;
+      };
+
+      passwordCommand = "cat ${config.sops.secrets.smtp_password.path}";
+
+      thunderbird = {
+        enable = true;
+        profiles = [ "default" ];
+      };
+    };
+
+    # Configure Gmail Account
+    email.accounts.gmail = {
+      primary = true;
+      realName = "Sebastian Di Luzio";
+      address = "sebidiluzio@gmail.com";
+      userName = "sebidiluzio@gmail.com";
+      imap.host = "imap.gmail.com";
+      smtp.host = "smtp.gmail.com";
+
+      passwordCommand = "cat ${config.sops.secrets.gmail_password.path}";
+
+      thunderbird = {
+        enable = true;
+        profiles = [ "default" ];
+        # Force OAuth2 (value 10) for both incoming and outgoing servers
+        settings = id: {
+          "mail.server.server_${id}.authMethod" = 10;
+          "mail.smtpserver.smtp_${id}.authMethod" = 10;
+        };
       };
     };
   };

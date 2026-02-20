@@ -4,5 +4,6 @@ let
   };
 in
 {
-  sops.secrets."empty-value" = fromShared;
+  sops.secrets.gmail_password = fromShared;
+  sops.secrets.smtp_password = fromShared;
 }

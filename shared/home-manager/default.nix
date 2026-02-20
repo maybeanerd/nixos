@@ -18,7 +18,7 @@ let
   personalConfig =
     if includePersonal then
       import ./personal {
-        inherit platform pkgs;
+        inherit platform pkgs config;
       }
     else
       {
@@ -73,13 +73,13 @@ in
         home.stateVersion = "25.11";
       }
 
-      # Merge development programs
+      # Merge development config
       ({ inherit (developmentConfig) programs; })
-      # Merge development services
       ({ inherit (developmentConfig) services; })
 
-      # Merge personal programs
+      # Merge personal config
       ({ inherit (personalConfig) programs; })
+      ({ inherit (personalConfig) accounts; })
 
     ];
 }
