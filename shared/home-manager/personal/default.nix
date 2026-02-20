@@ -5,7 +5,6 @@ let
 
   commonPersonal = with pkgs; [
     immich-go
-    prusa-slicer
   ];
 
   nixosPersonal =
@@ -19,6 +18,7 @@ let
       tidal-hifi
       vlc
       libreoffice-fresh
+      prusa-slicer
       pavucontrol # for audio management
       libation
     ];
