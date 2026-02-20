@@ -5,7 +5,6 @@ let
 
   commonPersonal = with pkgs; [
     immich-go
-    libation
   ];
 
   nixosPersonal =
@@ -20,6 +19,7 @@ let
       vlc
       libreoffice-fresh
       pavucontrol # for audio management
+      libation
     ];
 
   darwinPersonal =
