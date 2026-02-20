@@ -8,9 +8,9 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "f /etc/sops/age/keys.txt 0640 root users -"
+    "f /var/lib/sops-nix/yubikey-identities.txt 0640 root users -"
   ];
-  sops.age.keyFile = "/etc/sops/age/keys.txt";
+  sops.age.keyFile = "/var/lib/sops-nix/yubikey-identities.txt";
 
   sops.defaultSopsFile = ../secrets/nixos.yaml;
 

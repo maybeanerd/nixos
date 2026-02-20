@@ -142,7 +142,7 @@ in
           }
       );
       sessionVariables = {
-        SOPS_AGE_KEY_FILE = "/etc/sops/age/keys.txt";
+        SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
       };
       initContent =
         if platform == "darwin" && includeWork then
