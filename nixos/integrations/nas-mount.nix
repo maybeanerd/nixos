@@ -19,7 +19,7 @@ let
     options = [
       "credentials=${config.sops.secrets.smb-credentials.path}"
       "uid=${toString user.uid}"
-      "gid=${toString user.gid}"
+      "gid=100" # Explicit GID for the 'users' group
       "x-systemd.automount"
       "noauto"
       "_netdev"
