@@ -55,6 +55,7 @@ in
       imap = {
         host = "imap.servivum.com";
         port = 993;
+        tls.enable = true;
       };
       smtp = {
         host = "smtp.servivum.com";
@@ -76,8 +77,15 @@ in
       realName = "Sebastian Di Luzio";
       address = "sebidiluzio@gmail.com";
       userName = "sebidiluzio@gmail.com";
-      imap.host = "imap.gmail.com";
-      smtp.host = "smtp.gmail.com";
+      imap = {
+        host = "imap.gmail.com";
+        port = 993;
+        tls.enable = true;
+      };
+      smtp = {
+        host = "smtp.gmail.com";
+        port = 465;
+      };
 
       passwordCommand = "cat ${config.sops.secrets.gmail_password.path}";
 
