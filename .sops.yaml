@@ -1,0 +1,8 @@
+keys:
+  - &user_gpg 175DFE07EC04518E
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - pgp:
+          - *user_gpg

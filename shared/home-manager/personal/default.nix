@@ -3,13 +3,12 @@
 let
   inherit (pkgs) lib;
 
-  commonPersonal = with pkgs; [
-    immich-go
-  ];
+  commonPersonal = with pkgs; [ ];
 
   nixosPersonal =
     with pkgs;
     lib.optionals (platform == "nixos") [
+      immich-cli
       bitwarden-desktop
       discord
       signal-desktop

@@ -9,6 +9,9 @@
   imports = [
     ./hardware-configuration.nix
     ./gaming
+    ./sops.nix
+    ../shared/sops.nix
+    ./integrations
   ];
 
   # Bootloader
