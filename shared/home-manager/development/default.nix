@@ -23,6 +23,7 @@ let
     with pkgs;
     lib.optionals (platform == "nixos") [
       github-desktop # Needs to be installed using brew on darwin
+      age-plugin-yubikey # to manage secrets with sops using the YubiKey
     ];
 
   # Software-engineering packages specific to macOS/Darwin

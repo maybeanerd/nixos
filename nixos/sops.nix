@@ -7,7 +7,7 @@ let
   user = config.users.users.${username};
 in
 {
-  sops.gnupg.home = "/home/${username}/.gnupg";
+  sops.age.keyFile = "/var/lib/sops-nix/yubikey-identities.txt";
 
   sops.defaultSopsFile = ../secrets/nixos.yaml;
 

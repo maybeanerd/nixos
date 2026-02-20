@@ -6,3 +6,6 @@ creation_rules:
     key_groups:
       - pgp:
           - *user_gpg
+      - age:
+          - age1yubikey1qdh7kds3wxl2y77hn7nv926kyjyxwyknc9z7jrx29wt047s0adcwwxau087
+          - age1yubikey1q0hhlftpf7cllphgd705q8du35ej7tangq5r8pn2r8u9mdhljqe2uww90km
