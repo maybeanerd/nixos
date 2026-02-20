@@ -8,8 +8,10 @@ let
   user = config.users.users.${username};
   nasServer = "cube03";
   nasShares = [
+    "audiobookshelfAudiobooks"
+    "immichExternalLibrary"
     "jellyfinMedia"
-    "audiobookshelfMedia"
+    "PiNAS"
   ];
   mkMount = share: {
     device = "//${nasServer}/${share}";
