@@ -24,6 +24,7 @@ let
       {
         packages = [ ];
         programs = { };
+        accounts = { };
         file = { };
       };
 
