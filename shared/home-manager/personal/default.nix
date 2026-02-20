@@ -18,8 +18,8 @@ let
       tidal-hifi
       vlc
       libreoffice-fresh
-      prusa-slicer
       pavucontrol # for audio management
+      prusa-slicer
       libation
     ];
 
