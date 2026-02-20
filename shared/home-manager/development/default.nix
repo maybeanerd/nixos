@@ -16,6 +16,7 @@ let
     htop
     tldr
     sops
+    age-plugin-yubikey # to manage secrets with sops using the YubiKey
   ];
 
   # Software-engineering packages specific to NixOS/Linux
@@ -140,6 +141,9 @@ in
             rbb = "sudo nixos-rebuild build";
           }
       );
+      sessionVariables = {
+        SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
+      };
       initContent =
         if platform == "darwin" && includeWork then
           ''

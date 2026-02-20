@@ -77,6 +77,8 @@
                 else
                   {
                     isNormalUser = true;
+                    uid = 1000; # Standard first user ID
+                    group = "users"; # This maps to GID 100 on NixOS
                     description = username;
                     extraGroups = [
                       "networkmanager"
