@@ -141,6 +141,9 @@ in
             rbb = "sudo nixos-rebuild build";
           }
       );
+      sessionVariables = {
+        SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
+      };
       initContent =
         if platform == "darwin" && includeWork then
           ''
