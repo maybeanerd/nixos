@@ -83,7 +83,6 @@ in
 
       thunderbird = {
         enable = true;
-        profiles = [ "default" ];
         # Force OAuth2 (value 10) for both incoming and outgoing servers
         settings = id: {
           "mail.server.server_${id}.authMethod" = 10;
