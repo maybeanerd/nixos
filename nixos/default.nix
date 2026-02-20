@@ -107,4 +107,7 @@
       cue = true;
     };
   };
+  environment.systemPackages = [
+    pkgs.age-plugin-yubikey # Needs to exist on system level for sops
+  ];
 }
