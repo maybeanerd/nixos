@@ -136,8 +136,8 @@ in
           }
         else
           {
-            rb = "nixos-rebuild switch --sudo";
-            rbb = "nixos-rebuild build --sudo";
+            rb = "sudo nixos-rebuild switch";
+            rbb = "sudo nixos-rebuild build";
           }
       );
       initContent =

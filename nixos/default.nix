@@ -107,10 +107,4 @@
       cue = true;
     };
   };
-  # Allow gpg+yubikey to be used by sops
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-curses; # Match your HM config
-  };
 }
