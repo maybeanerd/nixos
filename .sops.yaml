@@ -2,5 +2,9 @@ creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
       - age:
+          # Main YubiKey
           - age1yubikey1q0hhlftpf7cllphgd705q8du35ej7tangq5r8pn2r8u9mdhljqe2uww90km
+          # Backup YubiKey
           - age1yubikey1qdh7kds3wxl2y77hn7nv926kyjyxwyknc9z7jrx29wt047s0adcwwxau087
+          # Host ssh key
+          - age1rmak02xy4my3q56480jjswg0q9nfgpn6qssfg8rst4p9whmg5ugs77tnvf
