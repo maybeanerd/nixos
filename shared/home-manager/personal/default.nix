@@ -19,6 +19,7 @@ let
       vlc
       libreoffice-fresh
       pavucontrol # for audio management
+      prusa-slicer
       libation
     ];
 
