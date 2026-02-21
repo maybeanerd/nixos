@@ -8,3 +8,5 @@ creation_rules:
           - age1yubikey1qdh7kds3wxl2y77hn7nv926kyjyxwyknc9z7jrx29wt047s0adcwwxau087
           # NixOS host ssh key
           - age1rmak02xy4my3q56480jjswg0q9nfgpn6qssfg8rst4p9whmg5ugs77tnvf
+          # macOS host ssh key
+          - age13pntr0d08pl90fzm6t6w2kaz2zfmnnt7hy2ss9xczg2pstypqqrqh3p7yw
