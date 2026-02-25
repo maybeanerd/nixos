@@ -14,6 +14,7 @@ let
         "gather"
         "linear-linear"
         "figma"
+        "redis-insight"
       ]
     else
       [ ];
