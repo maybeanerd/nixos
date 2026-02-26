@@ -73,7 +73,15 @@ in
       ({ inherit (developmentConfig) services; })
       ({ inherit (personalConfig) programs; })
       ({ inherit (personalConfig) accounts; })
-      (lib.mkIf (platform == "nixos" && !isWorkDevice) (lib.mkMerge (map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/nixos/default.nix))))
-      (lib.mkIf (platform == "darwin" && !isWorkDevice) (lib.mkMerge (map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/darwin/default.nix))))
+      (lib.mkIf (platform == "nixos" && !isWorkDevice) (
+        lib.mkMerge (
+          map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/nixos/default.nix)
+        )
+      ))
+      (lib.mkIf (platform == "darwin" && !isWorkDevice) (
+        lib.mkMerge (
+          map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/darwin/default.nix)
+        )
+      ))
     ];
 }
