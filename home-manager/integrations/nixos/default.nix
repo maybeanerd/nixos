@@ -1,6 +1,5 @@
 # NixOS-only Home Manager integrations (user-level, after login).
-{
-  imports = [
-    ./immich-screenshot-upload.nix
-  ];
-}
+# List of module paths; expanded and merged by home-manager/default.nix (no nested imports).
+[
+  ./immich-screenshot-upload.nix
+]
