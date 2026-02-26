@@ -140,6 +140,7 @@
                 platform
                 isWorkDevice
                 gitConfig
+                hostname
                 ;
             };
             modules = [

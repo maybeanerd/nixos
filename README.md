@@ -79,30 +79,34 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
 Set the path and create symlinks:
 
 ```bash
-# Set repository path
-NIXOS_REPO="/path/to/your/nixos/repo"
+# Set repository path and this host's name (must match flake.nix nixosConfigurations key)
+export NIXOS_REPO="/path/to/your/nixos/repo"
+export HOSTNAME="nixos"   # e.g. nixos, laptop, etc.
 
 # Create NixOS configuration symlinks
 sudo ln -sf "$NIXOS_REPO/flake.nix" /etc/nixos/flake.nix
 sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nixos/flake.lock
-
-# Link hardware configuration (generated during NixOS installation)
-sudo ln -sf "$NIXOS_REPO/nixos/hardware-configuration.nix" /etc/nixos/hardware-configuration.nix
 ```
 
+Each NixOS host has its own hardware config at `nixos/hardware/<hostname>.nix`. Generate it once (or after hardware changes) and write it into the repo.
+
 ```bash
-# First time use
+# Generate hardware config into the repo (recommended: single copy, no drift)
+sudo nixos-generate-config --show-hardware-config > "$NIXOS_REPO/nixos/hardware/$HOSTNAME.nix"
+
+# During installation from chroot/mounted system:
+sudo nixos-generate-config --root /mnt
+# then copy or symlink the generated hardware-configuration.nix into the repo:
+sudo cp /mnt/etc/nixos/hardware-configuration.nix "$NIXOS_REPO/nixos/hardware/$HOSTNAME.nix"
+```
+
+Then build and switch:
+
+```bash
+# First time use (from the repo directory)
+cd "$NIXOS_REPO"
 sudo nixos-rebuild switch --flake --experimental-features 'flakes'
 
 # Or use the alias (after first build)
 rb
-```
-
-**Note:** For NixOS, you should first generate the hardware configuration. The setup currently only supports a single shared one, though. In any case, you can do so by running:
-
-```bash
-# Generate hardware configuration for your system
-sudo nixos-generate-config --root /mnt  # During installation
-# OR
-sudo nixos-generate-config --show-hardware-config > "$NIXOS_REPO/nixos/hardware-configuration.nix"
 ```
