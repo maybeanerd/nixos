@@ -9,8 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./gaming
-    ./sops.nix
-    ../shared/sops.nix
+    ../sops/nixos.nix
     ./integrations
   ];
 

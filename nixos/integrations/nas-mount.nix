@@ -1,3 +1,4 @@
+# System-level NAS (SMB) mounts. Uses shared NAS config; mount base is platform-specific (here: /mnt/nas).
 {
   config,
   lib,
@@ -6,20 +7,15 @@
 }:
 let
   user = config.users.users.${username};
-  nasServer = "cube03";
-  nasShares = [
-    "audiobookshelfAudiobooks"
-    "immichExternalLibrary"
-    "jellyfinMedia"
-    "PiNAS"
-  ];
+  nasConfig = import ../../home-manager/integrations/shared/nas-config.nix;
+  base = nasConfig.mountBase.nixos;
   mkMount = share: {
-    device = "//${nasServer}/${share}";
+    device = "//${nasConfig.server}/${share}";
     fsType = "cifs";
     options = [
       "credentials=${config.sops.secrets.smb-credentials.path}"
       "uid=${toString user.uid}"
-      "gid=100" # Explicit GID for the 'users' group
+      "gid=100"
       "x-systemd.automount"
       "noauto"
       "_netdev"
@@ -27,7 +23,7 @@ let
   };
 in
 {
-  fileSystems = lib.genAttrs (map (share: "/mnt/nas/${share}") nasShares) (
-    mountPath: mkMount (lib.removePrefix "/mnt/nas/" mountPath)
+  fileSystems = lib.genAttrs (map (share: base + "/" + share) nasConfig.shares) (
+    mountPath: mkMount (lib.removePrefix (base + "/") (toString mountPath))
   );
 }

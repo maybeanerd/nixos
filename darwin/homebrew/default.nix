@@ -1,13 +1,12 @@
 {
   config,
   pkgs,
-  includeWork,
-  includePersonal,
+  isWorkDevice,
   ...
 }:
 let
   workCasks =
-    if includeWork then
+    if isWorkDevice then
       [
         "cursor"
         "android-studio"
@@ -20,7 +19,7 @@ let
       [ ];
 
   personalCasks =
-    if includePersonal then
+    if !isWorkDevice then
       [
         "private-internet-access"
       ]
@@ -35,7 +34,7 @@ let
   ++ personalCasks;
 
   workBrews =
-    if includeWork then
+    if isWorkDevice then
       [
         # TODO: Add more work-specific brews here
       ]

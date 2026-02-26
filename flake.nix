@@ -39,8 +39,7 @@
         {
           username,
           platform,
-          includePersonal ? true,
-          includeWork ? false,
+          isWorkDevice,
           gitConfig ? { },
         }:
         let
@@ -92,12 +91,11 @@
             };
 
           # Home-manager configuration
-          homeManagerConfig = import ./shared/home-manager {
+          homeManagerConfig = import ./home-manager {
             inherit
               username
               platform
-              includePersonal
-              includeWork
+              isWorkDevice
               gitConfig
               ;
           };
@@ -110,8 +108,7 @@
               inherit
                 username
                 platform
-                includePersonal
-                includeWork
+                isWorkDevice
                 gitConfig
                 ;
             };
@@ -141,8 +138,7 @@
                 system
                 username
                 platform
-                includePersonal
-                includeWork
+                isWorkDevice
                 gitConfig
                 ;
             };
@@ -166,15 +162,14 @@
         "Big-M1ac" = {
           username = "basti";
           platform = "darwin";
-          includePersonal = true;
+          isWorkDevice = false;
         };
 
         # Work MacBook Pro @liqid
         "MacBook-Pro-MBP-L1682" = {
           username = "sebastiandiluzio";
           platform = "darwin";
-          includePersonal = false;
-          includeWork = true;
+          isWorkDevice = true;
           gitConfig = {
             email = "sebastian.diluzio@liqid.de";
             sign = false;
@@ -187,7 +182,7 @@
         "nixos" = {
           username = "basti";
           platform = "nixos";
-          includePersonal = true;
+          isWorkDevice = false;
         };
       };
     };

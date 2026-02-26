@@ -1,5 +1,6 @@
+# Secrets live under sops/secrets/. Use: sops sops/secrets/<file>.yaml
 creation_rules:
-  - path_regex: secrets/[^/]+\.yaml$
+  - path_regex: sops/secrets/[^/]+\.yaml$
     key_groups:
       - age:
           # Main YubiKey
