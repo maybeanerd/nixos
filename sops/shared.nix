@@ -6,6 +6,6 @@ in
 {
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-  sops.secrets.gmail_password = fromShared;
   sops.secrets.smtp_password = fromShared;
+  sops.secrets.smb-credentials = fromShared;
 }

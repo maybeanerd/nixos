@@ -9,8 +9,6 @@ in
   # In theory, allow yubikey support for sops decrypt during build, but it doesn't work
   sops.age.keyFile = "/var/lib/sops-nix/yubikey-identities.txt";
 
-  sops.secrets.smb-credentials = { };
-
   sops.secrets.immich-api-key = {
     owner = user.name;
     mode = "0400";
