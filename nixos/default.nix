@@ -2,15 +2,15 @@
   config,
   pkgs,
   lib,
+  hostname,
   ...
 }:
 
 {
   imports = [
-    ./hardware-configuration.nix
+    (./hardware + "/${hostname}.nix")
     ./gaming
-    ./sops.nix
-    ../shared/sops.nix
+    ../sops/nixos.nix
     ./integrations
   ];
 

@@ -1,11 +1,10 @@
-{ lib, includePersonal, ... }:
+{ lib, isWorkDevice, ... }:
 
 {
   imports = [
     ./homebrew
   ]
-  ++ lib.optionals includePersonal [
-    ./sops.nix
-    ../shared/sops.nix
+  ++ lib.optionals (!isWorkDevice) [
+    ../sops/darwin.nix
   ];
 }

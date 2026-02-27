@@ -23,7 +23,7 @@ jobs:
 
       - name: Check Nix formatting
         run: |
-          nix run nixpkgs#nixfmt -- --check $(find . -name '*.nix' ! -name 'hardware-configuration.nix')
+          nix run nixpkgs#nixfmt -- --check $(find . -name '*.nix' ! -path './nixos/hardware/*')
 
   flake-check:
     runs-on: ubuntu-latest

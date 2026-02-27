@@ -1,20 +1,13 @@
-{
-  config,
-  username,
-  ...
-}:
+{ config, username, ... }:
 let
   user = config.users.users.${username};
 in
 {
-  # Allow the system to use its own SSH key for decryption
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  imports = [ ./shared.nix ];
+  sops.defaultSopsFile = ./secrets/nixos.yaml;
+
   # In theory, allow yubikey support for sops decrypt during build, but it doesn't work
   sops.age.keyFile = "/var/lib/sops-nix/yubikey-identities.txt";
-
-  sops.defaultSopsFile = ../secrets/nixos.yaml;
-
-  sops.secrets.smb-credentials = { };
 
   sops.secrets.immich-api-key = {
     owner = user.name;

@@ -86,8 +86,6 @@ in
         port = 465;
       };
 
-      passwordCommand = "cat ${config.sops.secrets.gmail_password.path}";
-
       thunderbird = {
         enable = true;
         # Force OAuth2 (value 10) for both incoming and outgoing servers

@@ -1,8 +1,7 @@
 {
   username,
   platform,
-  includePersonal,
-  includeWork,
+  isWorkDevice,
   gitConfig,
 }:
 
@@ -14,9 +13,8 @@
 }:
 
 let
-  # Import package lists and configs based on what's enabled
   personalConfig =
-    if includePersonal then
+    if !isWorkDevice then
       import ./personal {
         inherit platform pkgs config;
       }
@@ -34,11 +32,10 @@ let
       pkgs
       username
       gitConfig
-      includeWork
+      isWorkDevice
       ;
   };
 
-  # Combine configs
   allPackages = personalConfig.packages ++ developmentConfig.packages;
   allFiles = lib.mkMerge [
     personalConfig.file
@@ -49,7 +46,6 @@ in
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-
   # Keep textual backups of files managed by home-manager with .backup extension
   home-manager.backupFileExtension = "backup";
 
@@ -73,14 +69,19 @@ in
 
         home.stateVersion = "25.11";
       }
-
-      # Merge development config
       ({ inherit (developmentConfig) programs; })
       ({ inherit (developmentConfig) services; })
-
-      # Merge personal config
       ({ inherit (personalConfig) programs; })
       ({ inherit (personalConfig) accounts; })
-
+      (lib.mkIf (platform == "nixos" && !isWorkDevice) (
+        lib.mkMerge (
+          map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/nixos/default.nix)
+        )
+      ))
+      (lib.mkIf (platform == "darwin" && !isWorkDevice) (
+        lib.mkMerge (
+          map (p: (import p) { inherit config pkgs lib; }) (import ./integrations/darwin/default.nix)
+        )
+      ))
     ];
 }

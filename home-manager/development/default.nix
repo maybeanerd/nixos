@@ -3,7 +3,7 @@
   platform,
   username,
   gitConfig,
-  includeWork,
+  isWorkDevice,
 }:
 
 let
@@ -19,14 +19,12 @@ let
     age-plugin-yubikey # to manage secrets with sops using the YubiKey
   ];
 
-  # Software-engineering packages specific to NixOS/Linux
   nixosPackages =
     with pkgs;
     lib.optionals (platform == "nixos") [
       github-desktop # Needs to be installed using brew on darwin
     ];
 
-  # Software-engineering packages specific to macOS/Darwin
   darwinPackages =
     with pkgs;
     lib.optionals (platform == "darwin") [
@@ -36,7 +34,7 @@ let
     ];
 
   workConfig =
-    if includeWork then
+    if isWorkDevice then
       import ./work.nix { inherit pkgs; }
     else
       {
@@ -62,7 +60,6 @@ let
 
 in
 {
-  # Return packages list (only those without Home Manager program options)
   packages = commonPackages ++ nixosPackages ++ darwinPackages ++ workConfig.packages;
 
   file = {
@@ -75,14 +72,12 @@ in
         ":JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence"
         ":V26nRWI7mQpkDaifK6VqzAj4MSzhI2z+rvoeULWQGYYZltWrnn2djgp7Cs3daGm4KpIAFJVaM/SB4WgABzQoYA==,ZpRIVW6cvSuv6Ipj/tkP26Iovym/7Brsil7AFcBFzuPTteD8HYeT/BFQTv34mP05+h3lVOZrIs0AYLVtxJ5qLw==,es256,+presence"
       ];
-
     };
   };
 
   services = {
     gpg-agent = {
       enable = true;
-
       # https://github.com/drduh/config/blob/master/gpg-agent.conf
       defaultCacheTtl = 28800; # 8 hours
       maxCacheTtl = 86400; # 24 hours
@@ -95,7 +90,6 @@ in
     };
   };
 
-  # Home Manager program configurations for development tools
   programs = {
     direnv = {
       enable = true;
@@ -119,7 +113,6 @@ in
         ];
         theme = "jonathan";
       };
-      # Shell aliases based on platform
       shellAliases = {
         ll = "ls -la";
 
@@ -145,9 +138,9 @@ in
         SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
       };
       initContent =
-        if platform == "darwin" && includeWork then
+        if platform == "darwin" && isWorkDevice then
           ''
-            # Android SDK configuration (macOS only)
+            # Android SDK configuration
             export ANDROID_HOME=$HOME/Library/Android/sdk
             export PATH=$PATH:$ANDROID_HOME/emulator
             export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -158,12 +151,10 @@ in
 
     gpg = {
       enable = true;
-
       # https://support.yubico.com/hc/en-us/articles/4819584884124-Resolving-GPG-s-CCID-conflicts
       scdaemonSettings = {
         disable-ccid = true;
       };
-
       # https://github.com/drduh/config/blob/master/gpg.conf
       settings = {
         personal-cipher-preferences = "AES256 AES192 AES";
@@ -188,7 +179,7 @@ in
         use-agent = true;
         throw-keyids = true;
         default-key = gpgKeyID;
-        trusted-key = gpgKeyID; # TODO: check if this makes it unecessary to manually trust the key
+        trusted-key = gpgKeyID;
       };
     };
 
