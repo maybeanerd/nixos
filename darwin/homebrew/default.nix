@@ -22,6 +22,7 @@ let
     if !isWorkDevice then
       [
         "private-internet-access"
+        "calibre"
       ]
     else
       [ ];
