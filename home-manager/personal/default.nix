@@ -43,6 +43,10 @@ in
         isDefault = true;
       };
     };
+
+    calibre = {
+      enable = true;
+    };
   };
 
   accounts = {
