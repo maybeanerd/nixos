@@ -24,6 +24,7 @@ let
       libreoffice-fresh
       pavucontrol # for audio management
       prusa-slicer
+      heroic
     ];
 
   darwinPersonal =
