@@ -29,8 +29,8 @@ let
     with pkgs;
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
-      orbstack
       mise # dynamic executables wont work on nixos
+      ghostty-bin # the ghostty nix package (which hm uses) is not available on darwin https://ghostty.org/docs/install/binary#macos
     ];
 
   workConfig =
@@ -147,6 +147,12 @@ in
           ''
         else
           "";
+    };
+
+    ghostty = {
+      enable = platform == "nixos";
+      enableZshIntegration = true;
+      systemd.enable = true;
     };
 
     gpg = {
