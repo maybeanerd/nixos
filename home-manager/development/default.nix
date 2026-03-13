@@ -211,6 +211,29 @@ in
       };
     };
 
+    zed-editor = {
+      enable = true;
+      extensions = [
+        "catppuccin"
+        "dockerfile"
+        "git-firefly"
+        "helm"
+        "html"
+        "nix"
+        "prisma"
+        "sql"
+        "terraform"
+        "vue"
+      ];
+      userSettings = {
+        "theme" = {
+          "mode" = "system";
+          "light" = "Catppuccin Latte";
+          "dark" = "Catppuccin Macchiato";
+        };
+      };
+    };
+
     vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
