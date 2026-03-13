@@ -214,8 +214,16 @@ in
     zed-editor = {
       enable = true;
       extensions = [
-        "nix"
         "catppuccin"
+        "dockerfile"
+        "git-firefly"
+        "helm"
+        "html"
+        "nix"
+        "prisma"
+        "sql"
+        "terraform"
+        "vue"
       ];
       userSettings = {
         "theme" = {
