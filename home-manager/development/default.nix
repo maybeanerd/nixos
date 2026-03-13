@@ -213,6 +213,17 @@ in
 
     zed-editor = {
       enable = true;
+      extensions = [
+        "nix"
+        "catppuccin"
+      ];
+      userSettings = {
+        "theme" = {
+          "mode" = "system";
+          "light" = "Catppuccin Latte";
+          "dark" = "Catppuccin Macchiato";
+        };
+      };
     };
 
     vscode = {
