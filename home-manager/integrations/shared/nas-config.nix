@@ -3,7 +3,6 @@
 {
   server = "cube03";
   shares = [
-    "audiobookshelfAudiobooks"
     "immichExternalLibrary"
     "jellyfinMedia"
     "PiNAS"
