@@ -12,6 +12,7 @@ let
     watchman
     cocoapods
     maestro
+    cursor-cli
   ];
 in
 {

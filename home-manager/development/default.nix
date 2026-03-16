@@ -31,6 +31,7 @@ let
       stats # macOS only package https://github.com/exelban/stats
       mise # dynamic executables wont work on nixos
       ghostty-bin # the ghostty nix package (which hm uses) is not available on darwin https://ghostty.org/docs/install/binary#macos
+      orbstack
     ];
 
   workConfig =
