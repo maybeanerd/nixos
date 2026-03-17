@@ -13,6 +13,7 @@ let
     cocoapods
     maestro
     cursor-cli
+    terraform
   ];
 in
 {
