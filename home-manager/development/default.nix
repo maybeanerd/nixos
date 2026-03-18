@@ -227,70 +227,13 @@ in
         "vue"
       ];
       userSettings = {
+        "disable_ai" = true;
         "theme" = {
           "mode" = "system";
           "light" = "Catppuccin Latte";
           "dark" = "Catppuccin Macchiato";
         };
       };
-    };
-
-    vscode = {
-      enable = true;
-      profiles.default.extensions = with pkgs.vscode-extensions; [
-        adpyke.codesnap
-        # antfu.goto-alias # seems to be missing
-        # antfu.iconify
-        # antfu.unocss
-        arrterian.nix-env-selector
-        # aster.vscode-subtitles
-        bradlc.vscode-tailwindcss
-        christian-kohler.npm-intellisense
-        # ckolkman.vscode-postgres
-        # csstools.postcss
-        dbaeumer.vscode-eslint
-        # docker.docker
-        # eamodio.gitlens
-        esbenp.prettier-vscode
-        github.copilot
-        github.copilot-chat
-        github.vscode-github-actions
-        github.vscode-pull-request-github
-        gleam.gleam
-        golang.go
-        graphql.vscode-graphql
-        graphql.vscode-graphql-syntax
-        grapecity.gc-excelviewer
-        gruntfuggly.todo-tree
-        # hollowtree.vue-snippets
-        # icrawl.discord-vscode
-        # ipedrazas.kubernetes-snippets
-        jnoortheen.nix-ide
-        lokalise.i18n-ally
-        matthewpi.caddyfile-support
-        mechatroner.rainbow-csv
-        mikestead.dotenv
-        mkhl.direnv
-        ms-azuretools.vscode-docker
-        ms-kubernetes-tools.vscode-kubernetes-tools
-        ms-python.debugpy
-        ms-python.python
-        ms-python.vscode-pylance
-        ms-vsliveshare.vsliveshare
-        # pinage404.nix-extension-pack
-        prisma.prisma
-        redhat.vscode-yaml
-        ritwickdey.liveserver
-        rust-lang.rust-analyzer
-        tauri-apps.tauri-vscode
-        tim-koehler.helm-intellisense
-        tomoki1207.pdf
-        # vitest.explorer
-        vue.volar
-        yoavbls.pretty-ts-errors
-        yzhang.markdown-all-in-one
-        hashicorp.terraform
-      ];
     };
   };
 }
