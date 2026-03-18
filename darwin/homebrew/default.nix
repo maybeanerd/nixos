@@ -8,7 +8,6 @@ let
   workCasks =
     if isWorkDevice then
       [
-        "cursor"
         "android-studio"
         "gather"
         "linear-linear"
