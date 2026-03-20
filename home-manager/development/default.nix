@@ -123,23 +123,22 @@ in
         ff = "fastfetch";
         neofetch = "fastfetch";
       }
-      // (
-        if platform == "darwin" then
-          {
-            rb = "sudo darwin-rebuild switch";
-            rbb = "sudo darwin-rebuild build";
-          }
-        else
-          {
-            rb = "sudo nixos-rebuild switch";
-            rbb = "sudo nixos-rebuild build";
-          }
-      );
+      // lib.optionalAttrs (platform == "nixos") {
+        rb = "sudo nixos-rebuild switch";
+        rbb = "sudo nixos-rebuild build";
+      }
+      // lib.optionalAttrs (platform == "darwin") {
+        rb = "sudo darwin-rebuild switch";
+        rbb = "sudo darwin-rebuild build";
+      }
+      // lib.optionalAttrs isWorkDevice {
+        ca = "cursor-agent";
+      };
       sessionVariables = {
         SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
       };
       initContent =
-        if platform == "darwin" && isWorkDevice then
+        if isWorkDevice then
           ''
             # Android SDK configuration
             export ANDROID_HOME=$HOME/Library/Android/sdk
