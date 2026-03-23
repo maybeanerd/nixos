@@ -17,6 +17,7 @@ let
     tldr
     sops
     age-plugin-yubikey # to manage secrets with sops using the YubiKey
+    kubernetes
   ];
 
   nixosPackages =
@@ -209,6 +210,10 @@ in
         signing.key = gpgKeyID;
         commit.gpgsign = gitConfig.sign or true;
       };
+    };
+
+    k9s = {
+      enable = true;
     };
 
     zed-editor = {
