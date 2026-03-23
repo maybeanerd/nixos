@@ -17,13 +17,13 @@ let
     tldr
     sops
     age-plugin-yubikey # to manage secrets with sops using the YubiKey
-    kubernetes
   ];
 
   nixosPackages =
     with pkgs;
     lib.optionals (platform == "nixos") [
       github-desktop # Needs to be installed using brew on darwin
+      kubernetes
     ];
 
   darwinPackages =
@@ -215,7 +215,7 @@ in
       };
     };
 
-    k9s = {
+    k9s = lib.optionalAttrs (platform == "nixos") {
       enable = true;
     };
 
