@@ -23,6 +23,7 @@ let
     with pkgs;
     lib.optionals (platform == "nixos") [
       github-desktop # Needs to be installed using brew on darwin
+      kubernetes
     ];
 
   darwinPackages =
@@ -112,7 +113,7 @@ in
           "mise"
           "brew"
         ];
-        theme = "jonathan";
+        theme = "awesomepanda";
       };
       shellAliases = {
         ll = "ls -la";
@@ -153,6 +154,9 @@ in
       enable = platform == "nixos";
       enableZshIntegration = true;
       systemd.enable = true;
+      settings = {
+        theme = "Catppuccin Macchiato";
+      };
     };
 
     gpg = {
@@ -209,6 +213,10 @@ in
         signing.key = gpgKeyID;
         commit.gpgsign = gitConfig.sign or true;
       };
+    };
+
+    k9s = lib.optionalAttrs (platform == "nixos") {
+      enable = true;
     };
 
     zed-editor = {
