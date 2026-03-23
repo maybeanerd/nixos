@@ -113,7 +113,7 @@ in
           "mise"
           "brew"
         ];
-        theme = "jonathan";
+        theme = "awesomepanda";
       };
       shellAliases = {
         ll = "ls -la";
