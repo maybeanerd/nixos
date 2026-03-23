@@ -154,6 +154,9 @@ in
       enable = platform == "nixos";
       enableZshIntegration = true;
       systemd.enable = true;
+      settings = {
+        theme = "Catppuccin Macchiato";
+      };
     };
 
     gpg = {
