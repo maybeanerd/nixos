@@ -215,7 +215,7 @@ in
       };
     };
 
-    k9s = lib.optionalAttrs (platform == "nixos") {
+    k9s = {
       enable = true;
     };
 
