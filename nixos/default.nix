@@ -45,7 +45,7 @@
     alsa.support32Bit = true;
     jack.enable = false;
     pulse.enable = true;
-    socketActivation = false;
+    socketActivation = true;
 
     extraConfig = {
       pipewire = {
@@ -53,8 +53,6 @@
           "context.properties" = {
             "default.clock.rate" = 48000;
             "default.clock.quantum" = 1024;
-            "default.clock.min-quantum" = 256;
-            "default.clock.max-quantum" = 2048;
           };
         };
       };
