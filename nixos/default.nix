@@ -43,23 +43,51 @@
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    jack.enable = true;
+    jack.enable = false;
     pulse.enable = true;
-    socketActivation = true;
+    socketActivation = false;
 
-    # Prevents audio devices from being suspended when idle
-    extraConfig.pipewire."99-suspend-timeout" = {
-      "context.properties" = {
-        "session.suspend-timeout-seconds" = 0; # Set to 0 to disable
+    extraConfig = {
+      pipewire = {
+        "10-iec958-stability" = {
+          "context.properties" = {
+            "default.clock.rate" = 48000;
+            "default.clock.quantum" = 1024;
+            "default.clock.min-quantum" = 256;
+            "default.clock.max-quantum" = 2048;
+          };
+        };
       };
     };
 
-    # Prevents nodes from being destroyed when unlinked (helpful for games/applications)
-    wireplumber.extraConfig."99-node-dont-destroy" = {
-      "wireplumber.settings" = {
-        "node.autoconnect" = true;
-        "node.dont-reconnect" = false;
-        "node.dont-fallback" = false;
+    wireplumber.extraConfig = {
+      "alsa-tuning" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              { "node.name" = "~alsa_output.*"; }
+            ];
+            actions = {
+              update-props = {
+                "api.alsa.period-size" = 1024;
+                "api.alsa.headroom" = 8192;
+                "api.alsa.disable-batch" = true;
+              };
+            };
+          }
+        ];
+      };
+      "no-suspend-all" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [ { "node.name" = "~alsa_.*"; } ];
+            actions = {
+              update-props = {
+                "session.suspend-timeout-seconds" = 0;
+              };
+            };
+          }
+        ];
       };
     };
   };
