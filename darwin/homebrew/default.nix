@@ -41,7 +41,7 @@ let
     else
       [ ];
   allBrews = [
-    kubectl
+    "kubectl"
   ]
   ++ workBrews;
 
