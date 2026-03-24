@@ -41,7 +41,7 @@ let
     else
       [ ];
   allBrews = [
-    # TODO: Add more shared brews here
+    kubectl
   ]
   ++ workBrews;
 
