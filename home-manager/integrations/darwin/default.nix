@@ -1,5 +1,5 @@
 # Darwin-only Home Manager integrations (personal devices; not loaded when isWorkDevice).
-# List of module paths; expanded and merged by home-manager/default.nix (no nested imports).
+# List of module paths; appended to home-manager.users.<name>.imports when personal Darwin.
 [
   ./nas-mount.nix
 ]

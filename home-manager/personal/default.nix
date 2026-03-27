@@ -1,13 +1,14 @@
+# Personal-only Home Manager settings (not loaded on work machines).
 {
   pkgs,
+  lib,
+  osConfig,
   platform,
-  config,
+  isWorkDevice,
   ...
 }:
 
 let
-  inherit (pkgs) lib;
-
   commonPersonal = with pkgs; [ ];
 
   nixosPersonal =
@@ -34,8 +35,8 @@ let
     ];
 
 in
-{
-  packages = commonPersonal ++ nixosPersonal ++ darwinPersonal;
+lib.mkIf (!isWorkDevice) {
+  home.packages = commonPersonal ++ nixosPersonal ++ darwinPersonal;
 
   programs = {
     thunderbird = {
@@ -47,7 +48,6 @@ in
   };
 
   accounts = {
-    # Configure diluz.io Account
     email.accounts.diluzio = {
       realName = "Sebastian Di Luzio";
       address = "sebastian@diluz.io";
@@ -63,7 +63,7 @@ in
         tls.useStartTls = true;
       };
 
-      passwordCommand = "cat ${config.sops.secrets.smtp_password.path}";
+      passwordCommand = "cat ${osConfig.sops.secrets.smtp_password.path}";
 
       thunderbird = {
         enable = true;
@@ -71,7 +71,6 @@ in
       };
     };
 
-    # Configure Gmail Account
     email.accounts.gmail = {
       primary = true;
       realName = "Sebastian Di Luzio";
@@ -96,8 +95,5 @@ in
         };
       };
     };
-  };
-
-  file = {
   };
 }
