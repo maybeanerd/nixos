@@ -10,7 +10,6 @@
   imports = [
     (./hardware + "/${hostname}.nix")
     ./gaming
-    ../sops/nixos.nix
     ./integrations
   ];
 

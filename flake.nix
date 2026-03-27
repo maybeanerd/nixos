@@ -118,6 +118,7 @@
               homeManagerConfig
               home-manager.darwinModules.home-manager
               sops-nix.darwinModules.sops
+              ./sops
               ./darwin
               {
                 networking.hostName = hostname;
@@ -149,6 +150,7 @@
               homeManagerConfig
               home-manager.nixosModules.home-manager
               sops-nix.nixosModules.sops
+              ./sops
               ./nixos
               {
                 networking.hostName = hostname;

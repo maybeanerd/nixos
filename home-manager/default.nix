@@ -33,13 +33,11 @@ in
   };
 
   home-manager.users.${username} = {
-    imports =
-      [
-        core
-        ./personal
-        ./development
-      ]
-      ++ lib.optionals (platform == "nixos" && !isWorkDevice) (import ./integrations/nixos/default.nix)
-      ++ lib.optionals (platform == "darwin" && !isWorkDevice) (import ./integrations/darwin/default.nix);
+    imports = [
+      core
+      ./personal
+      ./development
+      ./integrations
+    ];
   };
 }
