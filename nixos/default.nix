@@ -104,7 +104,7 @@
 
   # Time zone
   time.timeZone = "Europe/Berlin";
-  # Windows dualboot compatability 
+  # Windows dualboot compatability
   time.hardwareClockInLocalTime = true;
 
   # Localization
