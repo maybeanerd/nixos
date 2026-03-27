@@ -1,9 +1,14 @@
-{ config, username, ... }:
+{
+  config,
+  username,
+  lib,
+  platform,
+  ...
+}:
 let
   user = config.users.users.${username};
 in
-{
-  imports = [ ./shared.nix ];
+lib.mkIf (platform == "nixos") {
   sops.defaultSopsFile = ./secrets/nixos.yaml;
 
   # In theory, allow yubikey support for sops decrypt during build, but it doesn't work
