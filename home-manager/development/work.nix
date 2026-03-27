@@ -1,4 +1,9 @@
-{ lib, pkgs, isWorkDevice, ... }:
+{
+  lib,
+  pkgs,
+  isWorkDevice,
+  ...
+}:
 lib.mkIf isWorkDevice {
   home.packages = with pkgs; [
     _1password-cli

@@ -13,14 +13,16 @@
 }:
 
 let
-  core = { ... }: {
-    programs.firefox = {
-      enable = true;
-      # profiles = { ... };
-    };
+  core =
+    { ... }:
+    {
+      programs.firefox = {
+        enable = true;
+        # profiles = { ... };
+      };
 
-    home.stateVersion = "25.11";
-  };
+      home.stateVersion = "25.11";
+    };
 in
 {
   home-manager.useGlobalPkgs = true;
@@ -29,7 +31,12 @@ in
   home-manager.backupFileExtension = "backup";
 
   home-manager.extraSpecialArgs = {
-    inherit username platform isWorkDevice gitConfig;
+    inherit
+      username
+      platform
+      isWorkDevice
+      gitConfig
+      ;
   };
 
   home-manager.users.${username} = {

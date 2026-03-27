@@ -1,4 +1,10 @@
-{ config, username, lib, platform, ... }:
+{
+  config,
+  username,
+  lib,
+  platform,
+  ...
+}:
 let
   user = config.users.users.${username};
 in
