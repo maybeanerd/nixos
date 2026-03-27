@@ -104,6 +104,8 @@
 
   # Time zone
   time.timeZone = "Europe/Berlin";
+  # Windows dualboot compatability 
+  time.hardwareClockInLocalTime = true;
 
   # Localization
   i18n.defaultLocale = "en_US.UTF-8";
