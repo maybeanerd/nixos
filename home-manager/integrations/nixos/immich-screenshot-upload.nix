@@ -1,13 +1,14 @@
 # Upload screenshots to Immich hourly. User-level so sops secrets are available after login.
 {
   config,
+  osConfig,
   pkgs,
   ...
 }:
 let
   screenshotsDir = "${config.home.homeDirectory}/Pictures/Screenshots";
-  immichServerUrlPath = "/run/secrets/immich-server-url";
-  immichApiKeyPath = "/run/secrets/immich-api-key";
+  immichServerUrlPath = "${osConfig.sops.secrets.immich-server-url.path}";
+  immichApiKeyPath = "${osConfig.sops.secrets.immich-api-key.path}";
   uploadScript = pkgs.writeShellScript "immich-screenshot-upload" ''
     set -e
     URL=$(cat ${immichServerUrlPath})
