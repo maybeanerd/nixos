@@ -1,12 +1,13 @@
 # SMB NAS mount at login. Mount base from nas-config (default ~/mnt/nas).
 {
   config,
+  osConfig,
   pkgs,
   ...
 }:
 let
   nasConfig = import ../shared/nas-config.nix;
-  credentialsPath = "/run/secrets/smb-credentials";
+  credentialsPath = "${osConfig.sops.secrets.smb-credentials.path}";
   mountBase = "${config.home.homeDirectory}/${nasConfig.mountBase.darwin}";
   mountScript = pkgs.writeShellScript "nas-mount-all" ''
     set -e
