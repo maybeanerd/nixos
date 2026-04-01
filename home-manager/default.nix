@@ -2,6 +2,7 @@
   username,
   isWorkDevice,
   gitConfig,
+  pkgs,
   ...
 }:
 
@@ -27,6 +28,7 @@ in
     inherit
       username
       isWorkDevice
+      pkgs
       gitConfig
       ;
   };
