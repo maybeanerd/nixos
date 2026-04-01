@@ -89,15 +89,6 @@
                   };
             };
 
-          # Home-manager configuration
-          homeManagerConfig = import ./home-manager {
-            inherit
-              username
-              isWorkDevice
-              gitConfig
-              ;
-          };
-
         in
         if pkgs.stdenv.isDarwin then
           nix-darwin.lib.darwinSystem {
@@ -112,7 +103,7 @@
             modules = [
               commonConfig
               userConfig
-              homeManagerConfig
+              ./home-manager
               home-manager.darwinModules.home-manager
               sops-nix.darwinModules.sops
               ./sops
@@ -143,7 +134,7 @@
             modules = [
               commonConfig
               userConfig
-              homeManagerConfig
+              ./home-manager
               home-manager.nixosModules.home-manager
               sops-nix.nixosModules.sops
               ./sops

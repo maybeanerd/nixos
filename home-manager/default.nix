@@ -2,12 +2,6 @@
   username,
   isWorkDevice,
   gitConfig,
-}:
-
-{
-  config,
-  pkgs,
-  lib,
   ...
 }:
 
