@@ -1,7 +1,7 @@
 # Darwin-only Home Manager integrations.
-{ lib, platform, ... }:
+{ lib, pkgs, ... }:
 {
-  imports = lib.optionals (platform == "darwin") [
+  imports = lib.optionals (pkgs.stdenv.isDarwin) [
     ./nas-mount.nix
   ];
 }

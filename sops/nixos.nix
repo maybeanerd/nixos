@@ -2,13 +2,13 @@
   config,
   username,
   lib,
-  platform,
+  pkgs,
   ...
 }:
 let
   user = config.users.users.${username};
 in
-lib.mkIf (platform == "nixos") {
+lib.mkIf (pkgs.stdenv.isLinux) {
   sops.defaultSopsFile = ./secrets/nixos.yaml;
 
   # In theory, allow yubikey support for sops decrypt during build, but it doesn't work

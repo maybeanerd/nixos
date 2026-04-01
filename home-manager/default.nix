@@ -1,6 +1,5 @@
 {
   username,
-  platform,
   isWorkDevice,
   gitConfig,
 }:
@@ -33,7 +32,6 @@ in
   home-manager.extraSpecialArgs = {
     inherit
       username
-      platform
       isWorkDevice
       gitConfig
       ;

@@ -38,13 +38,12 @@
         hostname:
         {
           username,
-          platform,
+          system,
           isWorkDevice,
           gitConfig ? { },
         }:
         let
-          # Determine system architecture
-          system = if platform == "darwin" then "aarch64-darwin" else "x86_64-linux";
+          pkgs = nixpkgs.legacyPackages.${system};
 
           # Common configuration shared across all systems
           commonConfig =
@@ -68,7 +67,7 @@
             { pkgs, config, ... }:
             {
               users.users.${username} =
-                if platform == "darwin" then
+                if pkgs.stdenv.isDarwin then
                   {
                     name = username;
                     home = "/Users/${username}";
@@ -94,20 +93,18 @@
           homeManagerConfig = import ./home-manager {
             inherit
               username
-              platform
               isWorkDevice
               gitConfig
               ;
           };
 
         in
-        if platform == "darwin" then
+        if pkgs.stdenv.isDarwin then
           nix-darwin.lib.darwinSystem {
             inherit system;
             specialArgs = {
               inherit
                 username
-                platform
                 isWorkDevice
                 gitConfig
                 ;
@@ -138,7 +135,6 @@
                 xmage
                 system
                 username
-                platform
                 isWorkDevice
                 gitConfig
                 hostname
@@ -160,33 +156,36 @@
           };
     in
     {
-      darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
-        # Personal MacBook Pro
-        "Big-M1ac" = {
-          username = "basti";
-          platform = "darwin";
-          isWorkDevice = false;
-        };
+      darwinConfigurations =
+        nixpkgs.lib.mapAttrs
+          (hostname: cfg: mkSystem hostname (cfg // { system = cfg.system or "aarch64-darwin"; }))
+          {
+            # Personal MacBook Pro
+            "Big-M1ac" = {
+              username = "basti";
+              isWorkDevice = false;
+            };
 
-        # Work MacBook Pro @liqid
-        "MacBook-Pro-MBP-L1682" = {
-          username = "sebastiandiluzio";
-          platform = "darwin";
-          isWorkDevice = true;
-          gitConfig = {
-            email = "sebastian.diluzio@liqid.de";
-            sign = false;
+            # Work MacBook Pro @liqid
+            "MacBook-Pro-MBP-L1682" = {
+              username = "sebastiandiluzio";
+              isWorkDevice = true;
+              gitConfig = {
+                email = "sebastian.diluzio@liqid.de";
+                sign = false;
+              };
+            };
           };
-        };
-      };
 
-      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
-        # Personal gaming PC
-        "nixos" = {
-          username = "basti";
-          platform = "nixos";
-          isWorkDevice = false;
-        };
-      };
+      nixosConfigurations =
+        nixpkgs.lib.mapAttrs
+          (hostname: cfg: mkSystem hostname (cfg // { system = cfg.system or "x86_64-linux"; }))
+          {
+            # Personal gaming PC
+            "nixos" = {
+              username = "basti";
+              isWorkDevice = false;
+            };
+          };
     };
 }

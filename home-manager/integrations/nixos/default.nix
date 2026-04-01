@@ -1,7 +1,7 @@
 # NixOS-only Home Manager integrations (user-level, after login).
-{ lib, platform, ... }:
+{ lib, pkgs, ... }:
 {
-  imports = lib.optionals (platform == "nixos") [
+  imports = lib.optionals (pkgs.stdenv.isLinux) [
     ./immich-screenshot-upload.nix
   ];
 }

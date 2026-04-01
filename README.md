@@ -5,7 +5,6 @@ the nixos config for my PC, laptops, and whatever else I can find
 ## General Config Overview
 The unified flake provides a `mkSystem` function. The hostname is automatically derived from the attribute name. It accepts:
 - `username`: The primary user's username
-- `platform`: Either `"darwin"` or `"nixos"`
 - `isWorkDevice`: If `true`, work-only apps and no personal/sops (default: `false`, i.e. personal device)
 
 ## General Commands
@@ -22,7 +21,6 @@ Edit `flake.nix` and add a new configuration. The hostname is automatically deri
 darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
   "new-hostname" = {
     username = "your-username";
-    platform = "darwin";
     # isWorkDevice = true;  # only for work machines (no personal apps/sops)
   };
 };
@@ -31,7 +29,6 @@ darwinConfigurations = nixpkgs.lib.mapAttrs mkSystem {
 nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem {
   "new-hostname" = {
     username = "your-username";
-    platform = "nixos";
   };
 };
 ```

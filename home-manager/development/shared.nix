@@ -2,7 +2,6 @@
 {
   pkgs,
   lib,
-  platform,
   username,
   gitConfig,
   ...
@@ -20,14 +19,14 @@ let
 
   nixosPackages =
     with pkgs;
-    lib.optionals (platform == "nixos") [
+    lib.optionals (stdenv.isLinux) [
       github-desktop # Needs to be installed using brew on darwin
       kubernetes
     ];
 
   darwinPackages =
     with pkgs;
-    lib.optionals (platform == "darwin") [
+    lib.optionals (stdenv.isDarwin) [
       stats # macOS only package https://github.com/exelban/stats
       mise # dynamic executables wont work on nixos
       orbstack
@@ -94,7 +93,7 @@ in
           "git"
           "git-auto-fetch"
         ]
-        ++ lib.optionals (platform == "darwin") [
+        ++ lib.optionals (pkgs.stdenv.isDarwin) [
           "mise"
           "brew"
         ];
@@ -109,11 +108,11 @@ in
         ff = "fastfetch";
         neofetch = "fastfetch";
       }
-      // lib.optionalAttrs (platform == "nixos") {
+      // lib.optionalAttrs (pkgs.stdenv.isLinux) {
         rb = "sudo nixos-rebuild switch";
         rbb = "sudo nixos-rebuild build";
       }
-      // lib.optionalAttrs (platform == "darwin") {
+      // lib.optionalAttrs (pkgs.stdenv.isDarwin) {
         rb = "sudo darwin-rebuild switch";
         rbb = "sudo darwin-rebuild build";
       };
