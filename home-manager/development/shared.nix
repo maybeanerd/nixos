@@ -129,6 +129,7 @@ in
       systemd.enable = true;
       settings = {
         theme = "Catppuccin Macchiato";
+        shell-integration-features = "ssh-terminfo,ssh-env";
       };
     };
 
