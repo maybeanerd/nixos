@@ -1,4 +1,4 @@
-{ lib, platform, ... }:
-lib.mkIf (platform == "darwin") {
+{ lib, pkgs, ... }:
+lib.mkIf (pkgs.stdenv.isDarwin) {
   sops.defaultSopsFile = ./secrets/darwin.yaml;
 }

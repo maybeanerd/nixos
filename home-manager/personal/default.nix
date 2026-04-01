@@ -3,7 +3,6 @@
   pkgs,
   lib,
   osConfig,
-  platform,
   isWorkDevice,
   ...
 }:
@@ -13,7 +12,7 @@ let
 
   nixosPersonal =
     with pkgs;
-    lib.optionals (platform == "nixos") [
+    lib.optionals (stdenv.isLinux) [
       immich-cli
       bitwarden-desktop
       discord
@@ -30,7 +29,7 @@ let
 
   darwinPersonal =
     with pkgs;
-    lib.optionals (platform == "darwin") [
+    lib.optionals (stdenv.isDarwin) [
       # TODO add supported apps here
     ];
 
