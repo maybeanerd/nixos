@@ -39,11 +39,12 @@
         {
           username,
           system,
-          isDarwin,
           isWorkDevice,
           gitConfig ? { },
         }:
         let
+          pkgs = nixpkgs.legacyPackages.${system};
+
           # Common configuration shared across all systems
           commonConfig =
             { pkgs, config, ... }:
@@ -89,7 +90,7 @@
             };
 
         in
-        if isDarwin then
+        if pkgs.stdenv.isDarwin then
           nix-darwin.lib.darwinSystem {
             inherit system;
             specialArgs = {
@@ -148,16 +149,7 @@
     {
       darwinConfigurations =
         nixpkgs.lib.mapAttrs
-          (
-            hostname: cfg:
-            mkSystem hostname (
-              cfg
-              // {
-                system = cfg.system or "aarch64-darwin";
-                isDarwin = true;
-              }
-            )
-          )
+          (hostname: cfg: mkSystem hostname (cfg // { system = cfg.system or "aarch64-darwin"; }))
           {
             # Personal MacBook Pro
             "Big-M1ac" = {
@@ -178,16 +170,7 @@
 
       nixosConfigurations =
         nixpkgs.lib.mapAttrs
-          (
-            hostname: cfg:
-            mkSystem hostname (
-              cfg
-              // {
-                system = cfg.system or "x86_64-linux";
-                isDarwin = false;
-              }
-            )
-          )
+          (hostname: cfg: mkSystem hostname (cfg // { system = cfg.system or "x86_64-linux"; }))
           {
             # Personal gaming PC
             "nixos" = {
