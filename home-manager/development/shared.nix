@@ -30,7 +30,6 @@ let
     lib.optionals (platform == "darwin") [
       stats # macOS only package https://github.com/exelban/stats
       mise # dynamic executables wont work on nixos
-      ghostty-bin # the ghostty nix package (which hm uses) is not available on darwin https://ghostty.org/docs/install/binary#macos
       orbstack
     ];
 
@@ -124,9 +123,10 @@ in
     };
 
     ghostty = {
-      enable = platform == "nixos";
+      enable = true;
+      package = if pkgs.stdenv.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
       enableZshIntegration = true;
-      systemd.enable = true;
+      systemd.enable = pkgs.stdenv.isLinux;
       settings = {
         theme = "Catppuccin Macchiato";
         shell-integration-features = "ssh-terminfo,ssh-env";
