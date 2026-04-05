@@ -36,7 +36,7 @@
   };
 
   # Audio configuration
-  # Use pulseaudio for stability 
+  # Use pulseaudio for stability
   services.pulseaudio = {
     enable = true;
     support32Bit = true;
