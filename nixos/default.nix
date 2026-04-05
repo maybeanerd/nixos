@@ -36,13 +36,25 @@
   };
 
   # Audio configuration
-  services.pipewire.enable = lib.mkForce false;
+  # Use pulseaudio for stability 
   services.pulseaudio = {
     enable = true;
     support32Bit = true;
     package = pkgs.pulseaudioFull;
   };
   nixpkgs.config.pulseaudio = true;
+
+  # Enable PipeWire for screen sharing only
+  services.pipewire = {
+    enable = true;
+    wireplumber.enable = true;
+
+    # Disable all audio emulation to prevent PulseAudio conflicts
+    alsa.enable = false;
+    pulse.enable = false;
+    jack.enable = false;
+  };
+  security.rtkit.enable = true;
 
   # Networking
   networking.networkmanager.enable = true;
