@@ -46,6 +46,10 @@ let
   */
   gpgKeyID = "175DFE07EC04518E";
 
+  # Supply-chain: only install package versions older than this window.
+  minReleaseAgeDays = 7;
+  minReleaseAgeMinutes = minReleaseAgeDays * 24 * 60;
+
 in
 {
   home.packages = commonPackages ++ nixosPackages ++ darwinPackages;
@@ -60,6 +64,16 @@ in
         ":JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence"
         ":V26nRWI7mQpkDaifK6VqzAj4MSzhI2z+rvoeULWQGYYZltWrnn2djgp7Cs3daGm4KpIAFJVaM/SB4WgABzQoYA==,ZpRIVW6cvSuv6Ipj/tkP26Iovym/7Brsil7AFcBFzuPTteD8HYeT/BFQTv34mP05+h3lVOZrIs0AYLVtxJ5qLw==,es256,+presence"
       ];
+    };
+  }
+  // lib.optionalAttrs (pkgs.stdenv.isDarwin) {
+    "Library/Preferences/pnpm/rc" = {
+      text = "minimum-release-age=${toString minReleaseAgeMinutes}\n";
+    };
+  }
+  // lib.optionalAttrs (pkgs.stdenv.isLinux) {
+    ".config/pnpm/rc" = {
+      text = "minimum-release-age=${toString minReleaseAgeMinutes}\n";
     };
   };
 
@@ -77,6 +91,15 @@ in
   };
 
   programs = {
+    npm = {
+      enable = true;
+      # Do not pull Node here; binary will be provided differently.
+      package = null;
+      settings = {
+        "min-release-age" = minReleaseAgeDays;
+      };
+    };
+
     direnv = {
       enable = true;
       enableZshIntegration = true;
