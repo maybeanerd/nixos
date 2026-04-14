@@ -224,6 +224,7 @@ in
         "helm"
         "html"
         "nix"
+        "oxc"
         "prisma"
         "sql"
         "terraform"
