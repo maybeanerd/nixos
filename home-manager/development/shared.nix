@@ -219,6 +219,7 @@ in
       enable = true;
       extensions = [
         "catppuccin"
+        "catppuccin-icons"
         "dockerfile"
         "git-firefly"
         "helm"
@@ -233,6 +234,11 @@ in
       userSettings = {
         "disable_ai" = true;
         "theme" = {
+          "mode" = "system";
+          "light" = "Catppuccin Latte";
+          "dark" = "Catppuccin Macchiato";
+        };
+        "icon_theme" = {
           "mode" = "system";
           "light" = "Catppuccin Latte";
           "dark" = "Catppuccin Macchiato";
