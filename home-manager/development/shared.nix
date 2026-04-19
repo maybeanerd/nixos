@@ -211,6 +211,11 @@ in
       };
     };
 
+    docker-cli = {
+      # on darwin, we use orbstack instead
+      enable = pkgs.stdenv.isLinux;
+    };
+
     k9s = {
       enable = true;
     };
