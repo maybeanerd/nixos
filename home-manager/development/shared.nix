@@ -21,6 +21,7 @@ let
     with pkgs;
     lib.optionals (stdenv.isLinux) [
       github-desktop # Needs to be installed using brew on darwin
+      docker
       kubernetes
     ];
 
@@ -209,11 +210,6 @@ in
         signing.key = gpgKeyID;
         commit.gpgsign = gitConfig.sign or true;
       };
-    };
-
-    docker-cli = {
-      # on darwin, we use orbstack instead
-      enable = pkgs.stdenv.isLinux;
     };
 
     k9s = {
