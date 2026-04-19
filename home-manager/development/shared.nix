@@ -21,6 +21,7 @@ let
     with pkgs;
     lib.optionals (stdenv.isLinux) [
       github-desktop # Needs to be installed using brew on darwin
+      docker
       kubernetes
     ];
 
