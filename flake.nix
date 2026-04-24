@@ -163,7 +163,6 @@
               isWorkDevice = true;
               gitConfig = {
                 email = "sebastian.diluzio@liqid.de";
-                sign = false;
               };
             };
           };
