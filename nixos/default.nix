@@ -117,4 +117,10 @@
 
   # Enalbe docker daemon
   virtualisation.docker.enable = true;
+
+  # Antivirus
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
+  };
 }
