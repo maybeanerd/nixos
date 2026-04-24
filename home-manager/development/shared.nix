@@ -15,6 +15,7 @@ let
     tldr
     sops
     age-plugin-yubikey # to manage secrets with sops using the YubiKey
+    clamav # antivirus
   ];
 
   nixosPackages =
