@@ -12,11 +12,6 @@ let
 in
 
 {
-  # Import game-specific configurations
-  imports = [
-    ./zenless-zone-zero.nix
-  ];
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -30,5 +25,6 @@ in
     vulkan-tools
     satisfactorymodmanager
     xmagePkg
+    heroic # Game launcher for Epic Games
   ];
 }
