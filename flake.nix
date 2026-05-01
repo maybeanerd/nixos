@@ -14,9 +14,6 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Downstream dependencies
-    aagl-gtk-on-nix.url = "github:ezKEa/aagl-gtk-on-nix";
-    aagl-gtk-on-nix.inputs.nixpkgs.follows = "nixpkgs";
-
     xmage.url = "path:./flakes/xmage";
     xmage.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -28,7 +25,6 @@
       nix-darwin,
       home-manager,
       sops-nix,
-      aagl-gtk-on-nix,
       xmage,
     }:
     let
@@ -122,7 +118,6 @@
             inherit system;
             specialArgs = {
               inherit
-                aagl-gtk-on-nix
                 xmage
                 system
                 username
