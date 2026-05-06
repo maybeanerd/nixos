@@ -208,6 +208,7 @@ in
         };
         init.defaultBranch = "main";
         pull.rebase = true;
+        push.autoSetupRemote = true;
         signing.key = gpgKeyID;
         commit.gpgsign = gitConfig.sign or false;
       };
