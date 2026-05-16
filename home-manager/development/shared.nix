@@ -132,6 +132,8 @@ in
 
         ff = "fastfetch";
         neofetch = "fastfetch";
+
+        sops = "sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops";
       }
       // lib.optionalAttrs (pkgs.stdenv.isLinux) {
         rb = "sudo nixos-rebuild switch";
@@ -141,9 +143,7 @@ in
         rb = "sudo darwin-rebuild switch";
         rbb = "sudo darwin-rebuild build";
       };
-      sessionVariables = {
-        SOPS_AGE_KEY_FILE = "/var/lib/sops-nix/yubikey-identities.txt";
-      };
+      sessionVariables = { };
     };
 
     ghostty = {
