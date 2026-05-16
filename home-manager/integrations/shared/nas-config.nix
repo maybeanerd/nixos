@@ -3,9 +3,8 @@
 {
   server = "cube03";
   shares = [
-    "immichExternalLibrary"
     "jellyfinMedia"
-    "PiNAS"
+    "nas"
   ];
   mountBase = {
     nixos = "/mnt/nas";
