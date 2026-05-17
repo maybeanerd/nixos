@@ -8,7 +8,9 @@
 }:
 
 let
-  commonPersonal = with pkgs; [ ];
+  commonPersonal = with pkgs; [
+    qbittorrent
+  ];
 
   nixosPersonal =
     with pkgs;
