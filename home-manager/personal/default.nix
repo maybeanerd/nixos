@@ -30,7 +30,7 @@ let
   darwinPersonal =
     with pkgs;
     lib.optionals (stdenv.isDarwin) [
-      # TODO add supported apps here
+      localsend
     ];
 
 in
