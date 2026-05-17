@@ -8,7 +8,9 @@
 }:
 
 let
-  commonPersonal = with pkgs; [ ];
+  commonPersonal = with pkgs; [
+    qbittorrent
+  ];
 
   nixosPersonal =
     with pkgs;
@@ -28,7 +30,7 @@ let
   darwinPersonal =
     with pkgs;
     lib.optionals (stdenv.isDarwin) [
-      # TODO add supported apps here
+      localsend
     ];
 
 in
