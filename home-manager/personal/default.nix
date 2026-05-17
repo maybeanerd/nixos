@@ -8,7 +8,9 @@
 }:
 
 let
-  commonPersonal = with pkgs; [ ];
+  commonPersonal = with pkgs; [
+    localsend
+  ];
 
   nixosPersonal =
     with pkgs;
@@ -29,7 +31,6 @@ let
     with pkgs;
     lib.optionals (stdenv.isDarwin) [
       qbittorrent
-      localsend
     ];
 
 in
