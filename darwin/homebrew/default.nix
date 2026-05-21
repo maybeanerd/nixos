@@ -10,7 +10,7 @@ let
       [
         "android-studio"
         "gather"
-        "linear-linear"
+        "linear"
         "figma"
         "redis-insight"
       ]
