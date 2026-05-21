@@ -46,6 +46,13 @@ lib.mkIf (!isWorkDevice) {
     };
   };
 
+  services = {
+    nextcloud-client = {
+      enable = pkgs.stdenv.isLinux;
+      startInBackground = true;
+    };
+  };
+
   accounts = {
     email.accounts.diluzio = {
       realName = "Sebastian Di Luzio";
