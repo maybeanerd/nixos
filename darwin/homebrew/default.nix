@@ -22,6 +22,7 @@ let
       [
         "private-internet-access"
         "calibre"
+        "nextcloud"
       ]
     else
       [ ];
