@@ -46,14 +46,12 @@ lib.mkIf (!isWorkDevice) {
     };
   };
 
-  services =
-    { }
-    // lib.optionalAttrs (pkgs.stdenv.isLinux) {
-      nextcloud-client = {
-        enable = true;
-        startInBackground = true;
-      };
+  services = {
+    nextcloud-client = {
+      enable = pkgs.stdenv.isLinux;
+      startInBackground = true;
     };
+  };
 
   accounts = {
     email.accounts.diluzio = {
