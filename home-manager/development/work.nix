@@ -16,6 +16,7 @@ lib.mkIf isWorkDevice {
     maestro
     cursor-cli
     terraform
+    cyberduck
   ];
 
   programs.zsh = {
