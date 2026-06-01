@@ -11,6 +11,7 @@ let
   commonPersonal = with pkgs; [
     localsend
     audacity
+    ffmpeg # necessary for audacity video file support
   ];
 
   nixosPersonal =
