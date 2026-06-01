@@ -10,6 +10,7 @@
 let
   commonPersonal = with pkgs; [
     localsend
+    audacity
   ];
 
   nixosPersonal =
