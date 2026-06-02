@@ -2,13 +2,17 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
+    # for nixOS
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # for nix-darwin
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # Do NOT set home-manager.inputs.nixpkgs.follows here, since we can set it to follow global/user pkgs
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +26,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-darwin,
       nix-darwin,
       home-manager,
       sops-nix,
@@ -39,7 +44,8 @@
           gitConfig ? { },
         }:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          isDarwin = builtins.match ".*-darwin" system != null;
+          pkgs = (if isDarwin then nixpkgs-darwin else nixpkgs).legacyPackages.${system};
 
           # Common configuration shared across all systems
           commonConfig =
