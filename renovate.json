@@ -1,8 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>maybeanerd/renovate-config"
+    "local>maybeanerd/renovate-config",
+    ":automergeMinor"
   ],
+  "dependencyDashboardApproval": false,
   "lockFileMaintenance": {
     "enabled": true
   }
