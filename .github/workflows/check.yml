@@ -107,7 +107,7 @@ jobs:
           - config: Big-M1ac
             platform: darwin
             os: macos-latest
-          - config: MacBook-Pro-MBP-L1682
+          - config: Sebastian-Di-Luzio-MacBook-Pro-MBP-L1682
             platform: darwin
             os: macos-latest
     steps:

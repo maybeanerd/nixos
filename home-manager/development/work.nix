@@ -19,13 +19,21 @@ lib.mkIf isWorkDevice {
     cyberduck
   ];
 
-  programs.zsh = {
-    shellAliases.ca = "cursor-agent";
-    initContent = ''
-      # Android SDK configuration
-      export ANDROID_HOME=$HOME/Library/Android/sdk
-      export PATH=$PATH:$ANDROID_HOME/emulator
-      export PATH=$PATH:$ANDROID_HOME/platform-tools
-    '';
+  programs = {
+    claude-code = {
+      enable = true;
+    };
+
+    zsh = {
+      shellAliases = {
+        ca = "cursor-agent";
+      };
+      initContent = ''
+        # Android SDK configuration
+        export ANDROID_HOME=$HOME/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME/emulator
+        export PATH=$PATH:$ANDROID_HOME/platform-tools
+      '';
+    };
   };
 }

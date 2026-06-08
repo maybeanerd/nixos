@@ -153,7 +153,7 @@
             };
 
             # Work MacBook Pro @liqid
-            "MacBook-Pro-MBP-L1682" = {
+            "Sebastian-Di-Luzio-MacBook-Pro-MBP-L1682" = {
               username = "sebastiandiluzio";
               isWorkDevice = true;
               gitConfig = {

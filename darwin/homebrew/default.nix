@@ -56,6 +56,9 @@ in
       autoUpdate = true;
       upgrade = true;
       cleanup = "uninstall";
+      # Homebrew requires --force-cleanup when using --cleanup,
+      # which is currently not being passed yet by nix-darwin when setting cleanup to uninstall.
+      extraFlags = [ "--force-cleanup" ];
     };
 
     # CLI tools installed via Homebrew formulas
