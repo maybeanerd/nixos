@@ -9,7 +9,6 @@ lib.mkIf isWorkDevice {
     _1password-cli
     bruno
     cocoapods
-    crowdin-cli
     cursor-cli
     cyberduck
     google-cloud-sdk
