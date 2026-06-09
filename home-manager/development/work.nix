@@ -7,16 +7,17 @@
 lib.mkIf isWorkDevice {
   home.packages = with pkgs; [
     _1password-cli
-    tableplus
     bruno
-    google-cloud-sql-proxy
-    google-cloud-sdk
-    watchman
     cocoapods
-    maestro
+    crowdin-cli
     cursor-cli
-    terraform
     cyberduck
+    google-cloud-sdk
+    google-cloud-sql-proxy
+    maestro
+    tableplus
+    terraform
+    watchman
   ];
 
   programs = {
