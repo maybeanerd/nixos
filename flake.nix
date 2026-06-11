@@ -48,6 +48,11 @@
               # Allow unfree packages
               nixpkgs.config.allowUnfree = true;
 
+              # Allow already installed version
+              nixpkgs.config.permittedInsecurePackages = [
+                "electron-39.8.10"
+              ];
+
               # Enable flakes
               nix.settings = {
                 experimental-features = [
