@@ -61,6 +61,32 @@
                 ];
                 download-buffer-size = 524288000; # 500 MiB
               };
+
+              # Clean up nix store and remove old generations automatically
+              nix.gc = {
+                automatic = true;
+                options = "--delete-older-than 30d";
+              }
+              // (
+                if pkgs.stdenv.isDarwin then
+                  # On macbook try to run daily since trigger is fire and forget
+                  # so it would not run when device is off
+                  {
+                    interval = {
+                      Hour = 16;
+                      Minute = 0;
+                    };
+                  }
+                else
+                  # On nixOS, this will run the next time the device is on after this was triggered
+                  # so weekly is fine
+                  {
+                    dates = "weekly";
+                  }
+              );
+
+              # Optimize the Nix store periodically
+              nix.optimise.automatic = true;
             };
 
           # User configuration

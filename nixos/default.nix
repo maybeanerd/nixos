@@ -91,14 +91,6 @@
   # Shell completion paths
   environment.pathsToLink = [ "/share/zsh" ];
 
-  # Clean up nix store and remove old generations automatically
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-  nix.optimise.automatic = true; # Optimize the Nix store periodically
-
   # Configure Yubikey support
   # following https://joinemm.dev/blog/yubikey-nixos-guide and https://github.com/drduh/YubiKey-Guide
   services.udev.packages = [ pkgs.yubikey-personalization ];
