@@ -9,7 +9,6 @@ let
     if isWorkDevice then
       [
         "android-studio"
-        "gather"
         "linear"
         "figma"
         "redis-insight"

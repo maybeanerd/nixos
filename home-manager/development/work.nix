@@ -9,7 +9,6 @@ lib.mkIf isWorkDevice {
     _1password-cli
     bruno
     cocoapods
-    cursor-cli
     cyberduck
     google-cloud-sdk
     google-cloud-sql-proxy
@@ -26,7 +25,7 @@ lib.mkIf isWorkDevice {
 
     zsh = {
       shellAliases = {
-        ca = "cursor-agent";
+
       };
       initContent = ''
         # Android SDK configuration
