@@ -21,6 +21,18 @@ lib.mkIf isWorkDevice {
   programs = {
     claude-code = {
       enable = true;
+      settings = {
+        theme = "auto";
+        effortLevel = "medium";
+        includeCoAuthoredBy = false;
+        permissions = {
+          defaultMode = "acceptEdits";
+          deny = [
+            "Read(*.env)"
+            "Read(*.env.*)"
+          ];
+        };
+      };
     };
 
     zsh = {
