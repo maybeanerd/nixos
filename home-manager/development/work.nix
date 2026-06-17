@@ -23,8 +23,15 @@ lib.mkIf isWorkDevice {
       enable = true;
       settings = {
         theme = "auto";
-        defaultMode = "acceptEdits";
         effortLevel = "medium";
+        includeCoAuthoredBy = false;
+        permissions = {
+          defaultMode = "acceptEdits";
+          deny = [
+            "Read(*.env)"
+            "Read(*.env.*)"
+          ];
+        };
       };
     };
 
