@@ -21,6 +21,11 @@ lib.mkIf isWorkDevice {
   programs = {
     claude-code = {
       enable = true;
+      settings = {
+        theme = "auto";
+        defaultMode = "acceptEdits";
+        effortLevel = "medium";
+      };
     };
 
     zsh = {
