@@ -2,7 +2,7 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:DeterminateSystems/nixpkgs-weekly";
+    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
