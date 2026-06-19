@@ -1,16 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["local>maybeanerd/renovate-config", ":automergeMinor"],
-  "dependencyDashboardApproval": false,
-  "lockFileMaintenance": {
-    "enabled": true
-  },
-  "packageRules": [
-    {
-      "matchManagers": ["nix"],
-      "matchPackageNames": ["nixpkgs"],
-      "enabled": false,
-      "description": "Dont track nixpkgs, since flakehub is not supported and will stop lockFileMaintenance from running successfully. We dont track this dependency itself, it wont change. Only the lockfile will, which is included in lockFileMaintenance already."
-    }
-  ]
+  "dependencyDashboardApproval": false
 }
