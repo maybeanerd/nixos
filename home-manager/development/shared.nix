@@ -14,6 +14,7 @@ let
     nil
     helm-ls
     htop
+    kubernetes-helm
     tldr
     sops
     clamav # antivirus
