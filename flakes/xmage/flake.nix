@@ -2,7 +2,7 @@
   description = "XMage gaming client for NixOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -66,11 +66,11 @@
               -jar "$JAR_FILE" "$@"
             SCRIPT
                         chmod +x $out/bin/xmage
-                        
+
                         # Install icon
                         mkdir -p $out/share/icons/hicolor/256x256/apps
                         cp ${./xmage-logo.png} $out/share/icons/hicolor/256x256/apps/xmage.png
-                        
+
                         # Create desktop entry
                         mkdir -p $out/share/applications
                         cat > $out/share/applications/xmage.desktop << DESKTOP
