@@ -2,6 +2,9 @@
   description = "XMage gaming client for NixOS";
 
   inputs = {
+    # To get renovate to resolve this dependency and trigger the flake update flow,
+    # we tell it this is actually just unstable
+    # renovate: "github:NixOS/nixpkgs/nixpkgs-unstable"
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     flake-utils.url = "github:numtide/flake-utils";
   };

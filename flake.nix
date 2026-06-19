@@ -2,6 +2,9 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
+    # To get renovate to resolve this dependency and trigger the flake update flow,
+    # we tell it this is actually just unstable
+    # renovate: "github:NixOS/nixpkgs/nixpkgs-unstable"
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin";
