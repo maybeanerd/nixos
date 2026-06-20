@@ -6,6 +6,6 @@ on:
 
 jobs:
   update:
-    uses: ./.github/workflows/update-flakelock.yaml
+    uses: ./.github/workflows/reusable/update-flakelock.yaml
     with:
       flake-path: "."
