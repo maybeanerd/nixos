@@ -16,10 +16,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.3
       - uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Generate branch name
+        id: branch
+        run: |
+          SANITIZED=$(echo "${{ inputs.flake-path }}" | sed 's|^\./||' | sed 's|[^a-zA-Z0-9]|_|g')
+          echo "name=update_flake_lock_${SANITIZED}" >> $GITHUB_OUTPUT
+
       - uses: DeterminateSystems/update-flake-lock@main
         id: update
         with:
           path-to-flake-dir: ${{ inputs.flake-path }}
+          branch: ${{ steps.branch.outputs.name }}
           pr-title: "Update flake.lock (${{ inputs.flake-path }})"
           pr-labels: dependencies
       - name: Enable auto-merge
