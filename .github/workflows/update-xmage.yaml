@@ -1,0 +1,11 @@
+name: "Update flake.lock (xmage)"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 22 * * 0"
+
+jobs:
+  update:
+    uses: ./.github/workflows/reusable/update-flakelock.yaml
+    with:
+      flake-path: "./flakes/xmage"
