@@ -1,9 +1,11 @@
 name: "Update flake.lock"
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 22 * * 0" # Sundays at 22:00 UTC
+  workflow_call:
+    inputs:
+      flake-path:
+        required: true
+        type: string
 
 jobs:
   update-flake-lock:
@@ -14,21 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.3
       - uses: DeterminateSystems/nix-installer-action@v22
-
-      - name: Update flakes/xmage flake.lock
-        run: |
-          nix flake update --flake ./flakes/xmage
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add flakes/xmage/flake.lock
-          git diff --staged --quiet || git commit -m "flakes/xmage flake.lock: Update"
-
       - uses: DeterminateSystems/update-flake-lock@main
         id: update
         with:
-          pr-title: "Update flake.lock"
+          path-to-flake-dir: ${{ inputs.flake-path }}
+          pr-title: "Update flake.lock (${{ inputs.flake-path }})"
           pr-labels: dependencies
-
       - name: Enable auto-merge
         if: steps.update.outputs.pull-request-number != ''
         run: gh pr merge --auto --squash "${{ steps.update.outputs.pull-request-number }}"
