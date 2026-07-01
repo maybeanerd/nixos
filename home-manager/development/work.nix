@@ -2,9 +2,14 @@
   lib,
   pkgs,
   isWorkDevice,
+  ponytail,
   ...
 }:
 lib.mkIf isWorkDevice {
+  home.file.".claude/CLAUDE.md".text = ''
+    Always apply ponytail principles by default for all coding tasks. Invoke the ponytail skill automatically on any coding request.
+  '';
+
   home.packages = with pkgs; [
     _1password-cli
     bruno
@@ -21,6 +26,7 @@ lib.mkIf isWorkDevice {
   programs = {
     claude-code = {
       enable = true;
+      plugins = [ ponytail ];
       settings = {
         theme = "auto";
         effortLevel = "medium";

@@ -13,6 +13,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    ponytail.url = "github:DietrichGebert/ponytail";
+    ponytail.flake = false;
+
     # Downstream dependencies
     xmage.url = "path:./flakes/xmage";
     xmage.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,6 +28,7 @@
       nix-darwin,
       home-manager,
       sops-nix,
+      ponytail,
       xmage,
     }:
     let
@@ -125,6 +129,7 @@
                 username
                 isWorkDevice
                 gitConfig
+                ponytail
                 ;
             };
             modules = [
@@ -155,6 +160,7 @@
                 isWorkDevice
                 gitConfig
                 hostname
+                ponytail
                 ;
             };
             modules = [
