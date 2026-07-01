@@ -72,11 +72,28 @@
         "url": "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1"
       }
     },
+    "ponytail": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782777888,
+        "narHash": "sha256-1WxdKKGcPjxLMVN2HYErs0uG3Rhy6lZ3Qrf434lWnmo=",
+        "owner": "DietrichGebert",
+        "repo": "ponytail",
+        "rev": "16f6cbf4b87792938e47b0f8c650b6d80fcbc98c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DietrichGebert",
+        "repo": "ponytail",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "ponytail": "ponytail",
         "sops-nix": "sops-nix",
         "xmage": "xmage"
       }

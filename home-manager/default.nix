@@ -2,6 +2,7 @@
   username,
   isWorkDevice,
   gitConfig,
+  ponytail,
   pkgs,
   ...
 }:
@@ -31,6 +32,7 @@ in
       isWorkDevice
       pkgs
       gitConfig
+      ponytail
       ;
   };
 
