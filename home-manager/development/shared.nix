@@ -18,6 +18,7 @@ let
     tldr
     sops
     clamav # antivirus
+    devenv
   ];
 
   nixosPackages =
