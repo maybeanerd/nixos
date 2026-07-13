@@ -18,6 +18,7 @@ let
     tldr
     sops
     clamav # antivirus
+    devenv
   ];
 
   nixosPackages =
@@ -131,7 +132,7 @@ in
 
         fu = "nix flake update";
         fl = "nix flake lock";
-        dev = "nix develop";
+        develop = "nix develop";
 
         ff = "fastfetch";
         neofetch = "fastfetch";
