@@ -59,6 +59,10 @@
 
               # Enable flakes
               nix.settings = {
+                trusted-users = [
+                  "root"
+                  username
+                ];
                 experimental-features = [
                   "nix-command"
                   "flakes"
