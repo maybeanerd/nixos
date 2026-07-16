@@ -8,7 +8,6 @@ let
   workCasks =
     if isWorkDevice then
       [
-        "android-studio"
         "linear"
         "figma"
         "redis-insight"
