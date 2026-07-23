@@ -12,7 +12,14 @@
       nixpkgs,
       flake-utils,
     }:
-    flake-utils.lib.eachDefaultSystem (
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+    in
+    flake-utils.lib.eachSystem systems (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -89,7 +96,7 @@
             description = "XMage - Magic the Gathering online client";
             homepage = "https://xmage.today/";
             license = licenses.mit;
-            platforms = flake-utils.lib.defaultSystems;
+            platforms = systems;
           };
         };
 
