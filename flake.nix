@@ -10,8 +10,11 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
+    # Two home-manager inputs so each can be pinned to a release matching its platform's nixpkgs
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-darwin.url = "github:nix-community/home-manager/release-26.05";
+    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +34,7 @@
       nixpkgs-darwin,
       nix-darwin,
       home-manager,
+      home-manager-darwin,
       sops-nix,
       ponytail,
       xmage,
@@ -145,7 +149,7 @@
               commonConfig
               userConfig
               ./home-manager
-              home-manager.darwinModules.home-manager
+              home-manager-darwin.darwinModules.home-manager
               sops-nix.darwinModules.sops
               ./sops
               ./darwin
