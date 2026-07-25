@@ -2,10 +2,13 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
+    # We use the platform-specific nixpkgs input so we can update each independently.
+    # Often nixos target has dependencies that dont build successfully on darwin
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +26,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       nix-darwin,
       home-manager,
@@ -43,11 +45,12 @@
           gitConfig ? { },
         }:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          # we cant rely on pkgs.stdenv.isDarwin here yet
+          isDarwin = nixpkgs.lib.hasSuffix "-darwin" system;
 
           # Common configuration shared across all systems
           commonConfig =
-            { pkgs, config, ... }:
+            { pkgs, ... }:
             {
               # Allow unfree packages
               nixpkgs.config.allowUnfree = true;
@@ -99,7 +102,7 @@
 
           # User configuration
           userConfig =
-            { pkgs, config, ... }:
+            { pkgs, ... }:
             {
               users.users.${username} =
                 if pkgs.stdenv.isDarwin then
@@ -125,7 +128,7 @@
             };
 
         in
-        if pkgs.stdenv.isDarwin then
+        if isDarwin then
           nix-darwin.lib.darwinSystem {
             inherit system;
             specialArgs = {
