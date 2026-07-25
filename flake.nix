@@ -26,7 +26,9 @@
 
   outputs =
     {
+      self,
       nixpkgs,
+      nixpkgs-darwin,
       nix-darwin,
       home-manager,
       sops-nix,
