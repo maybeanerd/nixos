@@ -2,13 +2,19 @@
   description = "Unified NixOS and nix-darwin configurations";
 
   inputs = {
+    # We use the platform-specific nixpkgs input so we can update each independently.
+    # Often nixos target has dependencies that dont build successfully on darwin
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
+    # Two home-manager inputs so each can be pinned to a release matching its platform's nixpkgs
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-darwin.url = "github:nix-community/home-manager/release-26.05";
+    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,8 +31,10 @@
     {
       self,
       nixpkgs,
+      nixpkgs-darwin,
       nix-darwin,
       home-manager,
+      home-manager-darwin,
       sops-nix,
       ponytail,
       xmage,
@@ -43,11 +51,12 @@
           gitConfig ? { },
         }:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          # we cant rely on pkgs.stdenv.isDarwin here yet
+          isDarwin = nixpkgs.lib.hasSuffix "-darwin" system;
 
           # Common configuration shared across all systems
           commonConfig =
-            { pkgs, config, ... }:
+            { pkgs, ... }:
             {
               # Allow unfree packages
               nixpkgs.config.allowUnfree = true;
@@ -99,7 +108,7 @@
 
           # User configuration
           userConfig =
-            { pkgs, config, ... }:
+            { pkgs, ... }:
             {
               users.users.${username} =
                 if pkgs.stdenv.isDarwin then
@@ -125,7 +134,7 @@
             };
 
         in
-        if pkgs.stdenv.isDarwin then
+        if isDarwin then
           nix-darwin.lib.darwinSystem {
             inherit system;
             specialArgs = {
@@ -140,7 +149,7 @@
               commonConfig
               userConfig
               ./home-manager
-              home-manager.darwinModules.home-manager
+              home-manager-darwin.darwinModules.home-manager
               sops-nix.darwinModules.sops
               ./sops
               ./darwin
