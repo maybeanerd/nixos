@@ -19,6 +19,7 @@ let
     sops
     clamav # antivirus
     devenv
+    speedtest-go
   ];
 
   nixosPackages =
@@ -136,6 +137,8 @@ in
 
         ff = "fastfetch";
         neofetch = "fastfetch";
+
+        speed = "speedtest-go";
 
         sops = "sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops";
       }
