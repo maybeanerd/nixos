@@ -40,6 +40,10 @@ lib.mkIf isWorkDevice {
 
     zed-editor.userSettings = {
       "disable_ai" = false;
+      "agent" = {
+        "enabled" = false;
+        "button" = false;
+      };
       "agent_servers" = {
         "claude-acp" = {
           "type" = "registry";
