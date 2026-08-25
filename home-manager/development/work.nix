@@ -38,6 +38,15 @@ lib.mkIf isWorkDevice {
       };
     };
 
+    zed-editor.userSettings = {
+      "disable_ai" = false;
+      "agent_servers" = {
+        "claude-acp" = {
+          "type" = "registry";
+        };
+      };
+    };
+
     zsh = {
       shellAliases = {
 
