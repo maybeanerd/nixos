@@ -242,7 +242,7 @@ in
         "vue"
       ];
       userSettings = {
-        "disable_ai" = true;
+        "disable_ai" = lib.mkDefault true;
         "theme" = {
           "mode" = "system";
           "light" = "Catppuccin Latte";
