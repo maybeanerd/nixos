@@ -3,6 +3,7 @@
   pkgs,
   isWorkDevice,
   ponytail,
+  username,
   ...
 }:
 lib.mkIf isWorkDevice {
@@ -13,6 +14,7 @@ lib.mkIf isWorkDevice {
   home.packages = with pkgs; [
     _1password-cli
     bruno
+    claude-agent-acp
     cyberduck
     google-cloud-sdk
     google-cloud-sql-proxy
@@ -29,7 +31,7 @@ lib.mkIf isWorkDevice {
         effortLevel = "medium";
         includeCoAuthoredBy = false;
         permissions = {
-          defaultMode = "acceptEdits";
+          defaultMode = "auto";
           deny = [
             "Read(*.env)"
             "Read(*.env.*)"
@@ -40,9 +42,18 @@ lib.mkIf isWorkDevice {
 
     zed-editor.userSettings = {
       "disable_ai" = false;
+      "agent" = {
+        "dock" = "right";
+        "sidebar_side" = "right";
+      };
       "agent_servers" = {
-        "claude-acp" = {
-          "type" = "registry";
+        "claude" = {
+          "type" = "custom";
+          "command" = "${pkgs.claude-agent-acp}/bin/claude-agent-acp";
+          "args" = [ "--acp" ];
+          "env" = {
+            "CLAUDE_CODE_EXECUTABLE" = "/etc/profiles/per-user/${username}/bin/claude";
+          };
         };
       };
     };
