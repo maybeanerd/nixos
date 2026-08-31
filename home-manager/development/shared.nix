@@ -24,7 +24,7 @@ let
 
   nixosPackages =
     with pkgs;
-    lib.optionals (stdenv.isLinux) [
+    lib.optionals (stdenv.hostPlatform.isLinux) [
       github-desktop # Needs to be installed using brew on darwin
       docker
       kubernetes
@@ -32,7 +32,7 @@ let
 
   darwinPackages =
     with pkgs;
-    lib.optionals (stdenv.isDarwin) [
+    lib.optionals (stdenv.hostPlatform.isDarwin) [
       stats # macOS only package https://github.com/exelban/stats
       mise # dynamic executables wont work on nixos
       orbstack
@@ -72,12 +72,12 @@ in
       ];
     };
   }
-  // lib.optionalAttrs (pkgs.stdenv.isDarwin) {
+  // lib.optionalAttrs (pkgs.stdenv.hostPlatform.isDarwin) {
     "Library/Preferences/pnpm/rc" = {
       text = "minimum-release-age=${toString minReleaseAgeMinutes}\n";
     };
   }
-  // lib.optionalAttrs (pkgs.stdenv.isLinux) {
+  // lib.optionalAttrs (pkgs.stdenv.hostPlatform.isLinux) {
     ".config/pnpm/rc" = {
       text = "minimum-release-age=${toString minReleaseAgeMinutes}\n";
     };
@@ -122,7 +122,7 @@ in
           "git"
           "git-auto-fetch"
         ]
-        ++ lib.optionals (pkgs.stdenv.isDarwin) [
+        ++ lib.optionals (pkgs.stdenv.hostPlatform.isDarwin) [
           "mise"
           "brew"
         ];
@@ -142,11 +142,11 @@ in
 
         sops = "sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops";
       }
-      // lib.optionalAttrs (pkgs.stdenv.isLinux) {
+      // lib.optionalAttrs (pkgs.stdenv.hostPlatform.isLinux) {
         rb = "sudo nixos-rebuild switch";
         rbb = "sudo nixos-rebuild build";
       }
-      // lib.optionalAttrs (pkgs.stdenv.isDarwin) {
+      // lib.optionalAttrs (pkgs.stdenv.hostPlatform.isDarwin) {
         rb = "sudo darwin-rebuild switch";
         rbb = "sudo darwin-rebuild build";
       };
@@ -155,9 +155,9 @@ in
 
     ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
+      package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
       enableZshIntegration = true;
-      systemd.enable = pkgs.stdenv.isLinux;
+      systemd.enable = pkgs.stdenv.hostPlatform.isLinux;
       settings = {
         theme = "Catppuccin Macchiato";
         shell-integration-features = "ssh-terminfo,ssh-env";

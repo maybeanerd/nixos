@@ -16,7 +16,7 @@ let
 
   nixosPersonal =
     with pkgs;
-    lib.optionals (stdenv.isLinux) [
+    lib.optionals (stdenv.hostPlatform.isLinux) [
       immich-cli
       bitwarden-desktop
       discord
@@ -31,7 +31,7 @@ let
 
   darwinPersonal =
     with pkgs;
-    lib.optionals (stdenv.isDarwin) [
+    lib.optionals (stdenv.hostPlatform.isDarwin) [
       qbittorrent
     ];
 
@@ -50,7 +50,7 @@ lib.mkIf (!isWorkDevice) {
 
   services = {
     nextcloud-client = {
-      enable = pkgs.stdenv.isLinux;
+      enable = pkgs.stdenv.hostPlatform.isLinux;
       startInBackground = true;
     };
   };
