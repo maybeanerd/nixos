@@ -31,7 +31,7 @@ lib.mkIf isWorkDevice {
         effortLevel = "medium";
         includeCoAuthoredBy = false;
         permissions = {
-          defaultMode = "auto";
+          defaultMode = "acceptEdits";
           deny = [
             "Read(*.env)"
             "Read(*.env.*)"
