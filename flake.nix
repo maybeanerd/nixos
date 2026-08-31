@@ -51,7 +51,7 @@
           gitConfig ? { },
         }:
         let
-          # we cant rely on pkgs.stdenv.isDarwin here yet
+          # we cant rely on pkgs.stdenv.hostPlatform.isDarwin here yet
           isDarwin = nixpkgs.lib.hasSuffix "-darwin" system;
 
           # Common configuration shared across all systems
@@ -85,7 +85,7 @@
                 options = "--delete-older-than 30d";
               }
               // (
-                if pkgs.stdenv.isDarwin then
+                if pkgs.stdenv.hostPlatform.isDarwin then
                   # On macbook try to run daily since trigger is fire and forget
                   # so it would not run when device is off
                   {
@@ -111,7 +111,7 @@
             { pkgs, ... }:
             {
               users.users.${username} =
-                if pkgs.stdenv.isDarwin then
+                if pkgs.stdenv.hostPlatform.isDarwin then
                   {
                     name = username;
                     home = "/Users/${username}";
