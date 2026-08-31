@@ -42,9 +42,15 @@ lib.mkIf isWorkDevice {
 
     zed-editor.userSettings = {
       "disable_ai" = false;
+      "edit_predictions" = {
+        "provider" = "none";
+      };
       "agent" = {
         "dock" = "right";
         "sidebar_side" = "right";
+        "show_turn_stats" = true;
+        "expand_terminal_card" = false;
+        "notify_when_agent_waiting" = "never";
       };
       "agent_servers" = {
         "claude" = {
