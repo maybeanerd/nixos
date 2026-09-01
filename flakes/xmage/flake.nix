@@ -55,7 +55,7 @@
                         mkdir -p $out/bin
                         cat > $out/bin/xmage << 'SCRIPT'
             #!/usr/bin/env bash
-            export XMAGE_HOME="${builtins.placeholder "out"}/opt/xmage"
+            export XMAGE_HOME="${placeholder "out"}/opt/xmage"
 
             # Find the mage-client jar file
             JAR_FILE=$(find "$XMAGE_HOME/mage-client/lib" -name "mage-client-*.jar" -type f | head -1)

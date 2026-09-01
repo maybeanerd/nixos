@@ -36,7 +36,7 @@ let
   workBrews =
     if isWorkDevice then
       [
-        # TODO: Add more work-specific brews here
+        "luckyPipewrench/tap/pipelock"
       ]
     else
       [ ];
