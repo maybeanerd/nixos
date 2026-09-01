@@ -36,7 +36,7 @@ let
   workBrews =
     if isWorkDevice then
       [
-        "luckyPipewrench/tap/pipelock"
+        "luckypipewrench/tap/pipelock"
       ]
     else
       [ ];
