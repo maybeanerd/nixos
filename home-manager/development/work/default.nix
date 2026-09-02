@@ -29,7 +29,9 @@
     programs = {
       claude-code = {
         enable = true;
-        plugins = [ ponytail ];
+        plugins = {
+          inherit ponytail;
+        };
         settings = {
           theme = "auto";
           effortLevel = "medium";
