@@ -102,10 +102,6 @@ jobs:
     needs: [build]
     if: always()
     steps:
-      - name: Check all builds succeeded
-        run: |
-          if [ "${{ needs.build.result }}" != "success" ]; then
-            echo "One or more builds failed"
-            exit 1
-          fi
-          echo "All builds completed successfully"
+      - name: Fail if any build failed
+        if: needs.build.result != 'success'
+        run: exit 1

@@ -9,7 +9,7 @@
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     nixpkgs-darwin.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     # Two home-manager inputs so each can be pinned/updated independently

@@ -3,16 +3,12 @@ name: "Update flake.lock (reusable)"
 on:
   workflow_call:
     inputs:
+      variant:
+        description: "Which flake variant this is for, e.g. nixos or darwin"
+        required: true
+        type: string
       inputs-to-update:
         description: "Space-separated list of flake inputs to update"
-        required: true
-        type: string
-      branch:
-        description: "Branch name for the update PR"
-        required: true
-        type: string
-      pr-title:
-        description: "Title for the update PR"
         required: true
         type: string
 
@@ -30,8 +26,8 @@ jobs:
         id: update
         with:
           inputs: ${{ inputs.inputs-to-update }}
-          branch: ${{ inputs.branch }}
-          pr-title: ${{ inputs.pr-title }}
+          branch: "update-flake-lock-${{ inputs.variant }}"
+          pr-title: "Update flake.lock (${{ inputs.variant }})"
           pr-labels: dependencies
 
       - name: Enable auto-merge
