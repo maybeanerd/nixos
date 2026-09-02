@@ -2,6 +2,6 @@
 {
   imports = [
     ./shared.nix
-    ./work.nix
+    ./work
   ];
 }
