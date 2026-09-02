@@ -12,9 +12,13 @@ lib.mkIf isWorkDevice {
     Always apply ponytail principles by default for all coding tasks. Invoke the ponytail skill automatically on any coding request.
   '';
 
-  home.file.".config/pipelock/pipelock.yaml".text = lib.replaceStrings [ "@PIPELOCK_HOME@" ] [
-    "${config.home.homeDirectory}/.pipelock"
-  ] (builtins.readFile ./configs/pipelock.yaml);
+  home.file.".config/pipelock/pipelock.yaml".text =
+    lib.replaceStrings
+      [ "@PIPELOCK_HOME@" ]
+      [
+        "${config.home.homeDirectory}/.pipelock"
+      ]
+      (builtins.readFile ./configs/pipelock.yaml);
 
   # Routes agent traffic through the pipelock proxy started below, so DLP/SSRF/
   # prompt-injection scanning in pipelock.yaml actually sees outbound requests.
