@@ -30,6 +30,20 @@ lib.mkIf isWorkDevice {
         theme = "auto";
         effortLevel = "medium";
         includeCoAuthoredBy = false;
+        hooks = {
+          PreToolUse = [
+            {
+              matcher = ".*";
+              hooks = [
+                {
+                  type = "command";
+                  command = "pipelock claude hook";
+                  timeout = 10;
+                }
+              ];
+            }
+          ];
+        };
         permissions = {
           defaultMode = "acceptEdits";
           deny = [
