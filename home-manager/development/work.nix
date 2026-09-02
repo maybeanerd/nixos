@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   isWorkDevice,
@@ -10,6 +11,34 @@ lib.mkIf isWorkDevice {
   home.file.".claude/CLAUDE.md".text = ''
     Always apply ponytail principles by default for all coding tasks. Invoke the ponytail skill automatically on any coding request.
   '';
+
+  home.file.".config/pipelock/pipelock.yaml".text = lib.replaceStrings [ "@PIPELOCK_HOME@" ] [
+    "${config.home.homeDirectory}/.pipelock"
+  ] (builtins.readFile ./configs/pipelock.yaml);
+
+  # Routes agent traffic through the pipelock proxy started below, so DLP/SSRF/
+  # prompt-injection scanning in pipelock.yaml actually sees outbound requests.
+  home.sessionVariables = {
+    HTTPS_PROXY = "http://127.0.0.1:8888";
+    HTTP_PROXY = "http://127.0.0.1:8888";
+  };
+
+  launchd.agents.pipelock = {
+    enable = true;
+    config = {
+      Label = "io.nix.pipelock";
+      ProgramArguments = [
+        "/opt/homebrew/bin/pipelock"
+        "run"
+        "--config"
+        "${config.home.homeDirectory}/.config/pipelock/pipelock.yaml"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      StandardErrorPath = "/tmp/pipelock.err";
+      StandardOutPath = "/tmp/pipelock.out";
+    };
+  };
 
   home.packages = with pkgs; [
     _1password-cli
