@@ -1,15 +1,8 @@
 {
   pkgs,
   username,
-  xmage,
-  system,
   ...
 }:
-
-let
-  # Create xmage package from flake
-  xmagePkg = xmage.packages.${system}.default;
-in
 
 {
   programs.steam = {
@@ -24,7 +17,6 @@ in
     gamescope
     vulkan-tools
     satisfactorymodmanager
-    xmagePkg
     heroic # Game launcher for Epic Games
   ];
 }

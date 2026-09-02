@@ -3,17 +3,19 @@
 
   inputs = {
     # We use the platform-specific nixpkgs input so we can update each independently.
-    # Often nixos target has dependencies that dont build successfully on darwin
+    # Often nixos target has dependencies that dont build successfully on darwin.
+    # Both track the same upstream (weekly unstable snapshots) so darwin doesn't
+    # lag behind on fast-moving packages, but stay separately pinned/updated.
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
+    nixpkgs-darwin.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
-    # Two home-manager inputs so each can be pinned to a release matching its platform's nixpkgs
+    # Two home-manager inputs so each can be pinned/updated independently
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager-darwin.url = "github:nix-community/home-manager/release-26.05";
+    home-manager-darwin.url = "github:nix-community/home-manager";
     home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -21,10 +23,6 @@
 
     ponytail.url = "github:DietrichGebert/ponytail";
     ponytail.flake = false;
-
-    # Downstream dependencies
-    xmage.url = "path:./flakes/xmage";
-    xmage.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -37,7 +35,6 @@
       home-manager-darwin,
       sops-nix,
       ponytail,
-      xmage,
     }:
     let
       # Helper function to create a system configuration
@@ -167,7 +164,6 @@
             inherit system;
             specialArgs = {
               inherit
-                xmage
                 system
                 username
                 isWorkDevice

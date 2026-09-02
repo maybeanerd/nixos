@@ -1,0 +1,14 @@
+name: "Update flake.lock (darwin)"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 3"  # Wednesdays at 04:00 UTC
+
+jobs:
+  update-flake-lock:
+    uses: ./.github/workflows/update-flakelock-reusable.yaml
+    with:
+      inputs-to-update: "nixpkgs-darwin home-manager-darwin nix-darwin"
+      branch: "update-flake-lock-darwin"
+      pr-title: "Update flake.lock (darwin)"
