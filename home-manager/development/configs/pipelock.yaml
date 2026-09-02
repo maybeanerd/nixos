@@ -683,8 +683,11 @@ flight_recorder:
     self_audit_interval: 30s
     max_anchor_lag: 24h
   dir: "@PIPELOCK_HOME@/recorder"
-  # signing_key_path unset: run `pipelock keygen` once on this machine and point
-  # this at the generated key to get signed (not just recorded) receipts.
+  # sign_checkpoints defaults to true, which requires signing_key_path to point at
+  # an existing key or pipelock refuses to start. The pipelockReceiptKey activation
+  # script in work.nix generates this key once (idempotent — skips if present), so
+  # it's guaranteed to exist by the time pipelock actually runs.
+  signing_key_path: "@PIPELOCK_HOME@/keys/flight-recorder-signing.key.json"
 
 # ---- dashboard_snapshot (read-only dashboard runtime view) ----
 # Writes counts/limits only to <flight_recorder.dir>/dashboard/runtime-snapshot.json
