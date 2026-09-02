@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   isWorkDevice,
@@ -40,7 +41,7 @@
                 hooks = [
                   {
                     type = "command";
-                    command = "pipelock claude hook";
+                    command = "pipelock claude hook --config ${config.home.homeDirectory}/.config/pipelock/pipelock.yaml";
                     timeout = 10;
                   }
                 ];
