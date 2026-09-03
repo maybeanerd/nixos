@@ -49,17 +49,7 @@ sudo ln -sf "$NIXOS_REPO/flake.lock" /etc/nix-darwin/flake.lock
 ```
 
 
-#### One-time Homebrew install (required for `darwin/homebrew`)
-
-  The `darwin/homebrew` module expects Homebrew to already be installed. Do this **once per machine** as your normal user (no `sudo`):
-
-  ```bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
-
 #### First-time nix-darwin activation
-
-  Once Homebrew is installed:
 
   ```bash
   # First time use

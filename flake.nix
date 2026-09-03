@@ -4,8 +4,7 @@
   inputs = {
     # We use the platform-specific nixpkgs input so we can update each independently.
     # Often nixos target has dependencies that dont build successfully on darwin.
-    # Both track the same upstream (weekly unstable snapshots) so darwin doesn't
-    # lag behind on fast-moving packages, but stay separately pinned/updated.
+    # Both track the same upstream, but stay separately pinned/updated.
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     nixpkgs-darwin.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
 
@@ -21,6 +20,22 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Darwin homebrew inputs
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    # Custom taps
+    homebrew-luckypipewrench-tap = {
+      url = "github:luckypipewrench/homebrew-tap";
+      flake = false;
+    };
+
     ponytail.url = "github:DietrichGebert/ponytail";
     ponytail.flake = false;
   };
@@ -35,6 +50,10 @@
       home-manager-darwin,
       sops-nix,
       ponytail,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-luckypipewrench-tap,
     }:
     let
       # Helper function to create a system configuration
@@ -140,6 +159,9 @@
                 isWorkDevice
                 gitConfig
                 ponytail
+                homebrew-core
+                homebrew-cask
+                homebrew-luckypipewrench-tap
                 ;
             };
             modules = [
@@ -150,6 +172,7 @@
               sops-nix.darwinModules.sops
               ./sops
               ./darwin
+              nix-homebrew.darwinModules.nix-homebrew
               {
                 networking.hostName = hostname;
                 # Required by nix-darwin for options like homebrew.enable

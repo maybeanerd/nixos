@@ -1,4 +1,4 @@
-name: "Update flake.lock (darwin)"
+name: "Update flake.lock (full)"
 
 on:
   workflow_dispatch:
@@ -12,5 +12,4 @@ jobs:
       contents: write
       pull-requests: write
     with:
-      variant: darwin
-      inputs-to-update: "nixpkgs-darwin home-manager-darwin nix-darwin"
+      variant: full
