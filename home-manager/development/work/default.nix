@@ -71,6 +71,7 @@
           "show_turn_stats" = true;
           "expand_terminal_card" = false;
           "notify_when_agent_waiting" = "never";
+          "terminal_init_command" = "claude";
         };
         "agent_servers" = {
           "claude" = {
