@@ -83,12 +83,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v22
 
-      - name: Magic Nix Cache (darwin only)
-        if: matrix.platform == 'darwin'
-        uses: DeterminateSystems/magic-nix-cache-action@v14
-        with:
-          use-flakehub: false
-
       - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
         run: |
           if [ "${{ matrix.platform }}" = "nixos" ]; then
