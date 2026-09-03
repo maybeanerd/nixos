@@ -8,6 +8,9 @@ on:
 jobs:
   update-flake-lock:
     uses: ./.github/workflows/update-flakelock-reusable.yaml
+    permissions:
+      contents: write
+      pull-requests: write
     with:
       variant: nixos
       inputs-to-update: "nixpkgs home-manager sops-nix ponytail"
