@@ -8,9 +8,10 @@ on:
         required: true
         type: string
       inputs-to-update:
-        description: "Space-separated list of flake inputs to update"
-        required: true
+        description: "Space-separated list of flake inputs to update. Empty updates all inputs."
+        required: false
         type: string
+        default: ""
 
 jobs:
   update-flake-lock:

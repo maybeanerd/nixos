@@ -2,6 +2,10 @@
   config,
   pkgs,
   isWorkDevice,
+  username,
+  homebrew-core,
+  homebrew-cask,
+  homebrew-luckypipewrench-tap,
   ...
 }:
 let
@@ -47,18 +51,37 @@ let
 
 in
 {
+  # Declaratively install/manage the Homebrew bin itself
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = username;
+    autoMigrate = true; # move existing homebrew installs
+    mutableTaps = false;
+    taps = {
+      "homebrew/homebrew-core" = homebrew-core;
+      "homebrew/homebrew-cask" = homebrew-cask;
+      "luckypipewrench/homebrew-tap" = homebrew-luckypipewrench-tap;
+    };
+  };
+
   # System-wide Homebrew configuration for all darwin hosts
   homebrew = {
     enable = true;
 
     onActivation = {
-      autoUpdate = true;
+      # autoUpdate omitted: nix-homebrew forces HOMEBREW_NO_AUTO_UPDATE=1 with mutableTaps = false
       upgrade = true;
       cleanup = "uninstall";
-      # Homebrew requires --force-cleanup when using --cleanup,
-      # which is currently not being passed yet by nix-darwin when setting cleanup to uninstall.
-      extraFlags = [ "--force-cleanup" ];
     };
+
+    # Declare the same taps as `nix-homebrew.taps` so `onActivation.cleanup = "uninstall"`
+    # doesn't try to `brew untap` an immutable, nix-managed tap (homebrew/core is always
+    # exempt from cleanup).
+    taps = [
+      "homebrew/cask"
+      "luckypipewrench/tap"
+    ];
 
     # CLI tools installed via Homebrew formulas
     brews = allBrews;
