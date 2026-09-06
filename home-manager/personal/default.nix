@@ -24,7 +24,7 @@ let
       element-desktop
       tidal-hifi
       vlc
-      libreoffice-fresh
+      libreoffice-stable
       pavucontrol # for audio management
       prusa-slicer
     ];
