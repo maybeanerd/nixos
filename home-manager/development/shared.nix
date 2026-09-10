@@ -235,6 +235,7 @@ in
         "git-firefly"
         "helm"
         "html"
+        "likec4"
         "nix"
         "oxc"
         "prisma"
