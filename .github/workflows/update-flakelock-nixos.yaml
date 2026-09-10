@@ -2,8 +2,6 @@ name: "Update flake.lock (nixos)"
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 4 * * 3"  # Wednesdays at 04:00 UTC
 
 jobs:
   update-flake-lock:
