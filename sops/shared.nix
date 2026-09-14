@@ -8,4 +8,5 @@ in
 
   sops.secrets.smtp_password = fromShared;
   sops.secrets.smb-credentials = fromShared;
+  sops.secrets.attic-token = fromShared;
 }
