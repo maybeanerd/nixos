@@ -29,8 +29,13 @@
       nix.settings.post-build-hook = pkgs.writeShellScript "attic-post-build-hook" ''
         set -eu
         set -f
-        export IFS=' '
-        exec ${pkgs.attic-client}/bin/attic push nix $OUT_PATHS
+        export IFS=
+
+        echo "Uploading to Attic cache..."
+        if ! ${pkgs.attic-client}/bin/attic push nix $OUT_PATHS 2>&1; then
+          echo "Warning: Attic push failed, but continuing the build."
+        fi
+        exit 0
       '';
     })
   ];
