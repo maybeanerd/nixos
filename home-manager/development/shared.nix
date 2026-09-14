@@ -227,7 +227,6 @@ in
 
     zed-editor = {
       enable = true;
-      defaultEditor = true;
       extensions = [
         "catppuccin"
         "catppuccin-icons"
