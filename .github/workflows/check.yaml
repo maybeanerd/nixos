@@ -38,7 +38,7 @@ jobs:
         with:
           extra-conf: |
             extra-substituters = https://attic.cluster.diluz.io/nix
-            extra-trusted-public-keys = nix:MFl/jo1emc+Wx7DgeiPo/oc12KPRt5G7M2v7ljqP3OI=
+            extra-trusted-public-keys = nix:cBtilShOB836/+8B2n16OYO6RWg42SVWiUloOgvpLx8=
 
       - name: Check flake
         run: nix flake check --all-systems --no-build
@@ -89,7 +89,7 @@ jobs:
         with:
           extra-conf: |
             extra-substituters = https://attic.cluster.diluz.io/nix
-            extra-trusted-public-keys = nix:MFl/jo1emc+Wx7DgeiPo/oc12KPRt5G7M2v7ljqP3OI=
+            extra-trusted-public-keys = nix:cBtilShOB836/+8B2n16OYO6RWg42SVWiUloOgvpLx8=
 
       - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
         run: |

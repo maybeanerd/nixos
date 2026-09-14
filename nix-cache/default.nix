@@ -19,7 +19,7 @@
     {
       nix.settings = {
         substituters = [ "https://attic.cluster.diluz.io/nix" ];
-        trusted-public-keys = [ "nix:MFl/jo1emc+Wx7DgeiPo/oc12KPRt5G7M2v7ljqP3OI=" ];
+        trusted-public-keys = [ "nix:cBtilShOB836/+8B2n16OYO6RWg42SVWiUloOgvpLx8=" ];
       };
     }
     (lib.mkIf (!isWorkDevice) {
