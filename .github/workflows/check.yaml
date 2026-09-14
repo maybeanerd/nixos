@@ -35,6 +35,10 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          extra-conf: |
+            extra-substituters = https://attic.cluster.diluz.io/nix
+            extra-trusted-public-keys = nix:cBtilShOB836/+8B2n16OYO6RWg42SVWiUloOgvpLx8=
 
       - name: Check flake
         run: nix flake check --all-systems --no-build
@@ -82,6 +86,10 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v23
+        with:
+          extra-conf: |
+            extra-substituters = https://attic.cluster.diluz.io/nix
+            extra-trusted-public-keys = nix:cBtilShOB836/+8B2n16OYO6RWg42SVWiUloOgvpLx8=
 
       - name: Build ${{ matrix.platform }} configuration - ${{ matrix.config }}
         run: |
@@ -93,7 +101,35 @@ jobs:
 
           nix build .#$ATTR \
             --print-build-logs \
-            --fallback
+            --fallback \
+            --no-link \
+            --print-out-paths > out-path.txt
+
+      - name: Push new build outputs to attic cache
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: |
+          # If the secret is missing (e.g. PR from a fork), exit early and gracefully
+          if [ -z "$ATTIC_TOKEN" ]; then
+            echo "ATTIC_TOKEN is empty, skipping attic cache push."
+            exit 0
+          fi
+          nix profile add nixpkgs#attic-client
+          attic login nix https://attic.cluster.diluz.io "$ATTIC_TOKEN"
+
+          # Only push paths cache.nixos.org doesn't already have, no point duplicating them into our own cache.
+          nix-store -qR "$(cat out-path.txt)" | while read -r p; do
+            hash="$(basename "$p" | cut -d- -f1)"
+            if ! curl -sf -o /dev/null "https://cache.nixos.org/${hash}.narinfo"; then
+              echo "$p"
+            fi
+          done > missing-paths.txt
+
+          if [ -s missing-paths.txt ]; then
+            attic push nix $(cat missing-paths.txt)
+          else
+            echo "Nothing new to push"
+          fi
 
   # Final check that all builds succeeded
   # This allows us to set required status checks on GitHub a lot more "flexible"

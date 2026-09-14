@@ -13,10 +13,8 @@ lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
 
   sops.secrets.immich-api-key = {
     owner = user.name;
-    mode = "0400";
   };
   sops.secrets.immich-server-url = {
     owner = user.name;
-    mode = "0400";
   };
 }

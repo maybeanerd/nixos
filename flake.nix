@@ -171,6 +171,8 @@
               home-manager-darwin.darwinModules.home-manager
               sops-nix.darwinModules.sops
               ./sops
+              ./nix-cache
+              ./nix-cache/darwin-push.nix
               ./darwin
               nix-homebrew.darwinModules.nix-homebrew
               {
@@ -202,6 +204,8 @@
               home-manager.nixosModules.home-manager
               sops-nix.nixosModules.sops
               ./sops
+              ./nix-cache
+              ./nix-cache/linux-push.nix
               ./nixos
               {
                 networking.hostName = hostname;
