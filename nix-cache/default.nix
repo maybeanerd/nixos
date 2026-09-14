@@ -19,8 +19,7 @@
     {
       nix.settings = {
         substituters = [ "https://attic.cluster.diluz.io/nix" ];
-        # Get with `attic cache info nix` once logged in.
-        trusted-public-keys = [ "nix:REPLACE_WITH_PUBLIC_KEY" ];
+        trusted-public-keys = [ "nix:gDw3JmKxpj5WInxtiqjqeFOyxd4m12uLgYn21cAS568=" ];
       };
     }
     (lib.mkIf (!isWorkDevice) {
