@@ -98,10 +98,14 @@ jobs:
             --print-out-paths > out-path.txt
 
       - name: Push new build outputs to attic cache
-        if: ${{ secrets.ATTIC_TOKEN != '' }}
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
+          # If the secret is missing (e.g. PR from a fork), exit early and gracefully
+          if [ -z "$ATTIC_TOKEN" ]; then
+            echo "ATTIC_TOKEN is empty, skipping attic cache push."
+            exit 0
+          fi
           nix profile add nixpkgs#attic-client
           attic login nix https://attic.cluster.diluz.io "$ATTIC_TOKEN"
 
