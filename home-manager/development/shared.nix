@@ -160,8 +160,8 @@ in
       enableGitIntegration = true;
       settings = {
         macos_option_as_alt = "left";
-        font_size = 13;
-        window_padding_width = 8;
+        font_size = if pkgs.stdenv.hostPlatform.isLinux then 11 else 13;
+        window_padding_width = 4;
       };
     };
 
