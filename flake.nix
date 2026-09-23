@@ -35,6 +35,10 @@
       url = "github:luckypipewrench/homebrew-tap";
       flake = false;
     };
+    homebrew-skyhookio-tap = {
+      url = "github:skyhook-io/homebrew-tap";
+      flake = false;
+    };
 
     ponytail.url = "github:DietrichGebert/ponytail";
     ponytail.flake = false;
@@ -54,6 +58,7 @@
       homebrew-core,
       homebrew-cask,
       homebrew-luckypipewrench-tap,
+      homebrew-skyhookio-tap,
     }:
     let
       # Helper function to create a system configuration
@@ -162,6 +167,7 @@
                 homebrew-core
                 homebrew-cask
                 homebrew-luckypipewrench-tap
+                homebrew-skyhookio-tap
                 ;
             };
             modules = [

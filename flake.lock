@@ -105,6 +105,22 @@
         "type": "github"
       }
     },
+    "homebrew-skyhookio-tap": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789655387,
+        "narHash": "sha256-wIGJ7WqGYeV7CmYryGuciQLJYO3v7eqQuUSEwKZuZSA=",
+        "owner": "skyhook-io",
+        "repo": "homebrew-tap",
+        "rev": "5e77df054aa8b4b2f8e58482cb3adc22f4ed0c61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "skyhook-io",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -194,6 +210,7 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "homebrew-luckypipewrench-tap": "homebrew-luckypipewrench-tap",
+        "homebrew-skyhookio-tap": "homebrew-skyhookio-tap",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",

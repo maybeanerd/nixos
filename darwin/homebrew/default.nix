@@ -6,6 +6,7 @@
   homebrew-core,
   homebrew-cask,
   homebrew-luckypipewrench-tap,
+  homebrew-skyhookio-tap,
   ...
 }:
 let
@@ -46,6 +47,7 @@ let
       [ ];
   allBrews = [
     "kubectl"
+    "skyhook-io/tap/radar"
   ]
   ++ workBrews;
 
@@ -62,6 +64,7 @@ in
       "homebrew/homebrew-core" = homebrew-core;
       "homebrew/homebrew-cask" = homebrew-cask;
       "luckypipewrench/homebrew-tap" = homebrew-luckypipewrench-tap;
+      "skyhook-io/homebrew-tap" = homebrew-skyhookio-tap;
     };
   };
 
@@ -81,6 +84,7 @@ in
     taps = [
       "homebrew/cask"
       "luckypipewrench/tap"
+      "skyhook-io/tap"
     ];
 
     # CLI tools installed via Homebrew formulas
