@@ -126,7 +126,7 @@ in
           "mise"
           "brew"
         ];
-        theme = "awesomepanda";
+        theme = "jonathan";
       };
       shellAliases = {
         ll = "ls -la";
@@ -153,14 +153,14 @@ in
       sessionVariables = { };
     };
 
-    ghostty = {
+    kitty = {
       enable = true;
-      package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
-      enableZshIntegration = true;
-      systemd.enable = pkgs.stdenv.hostPlatform.isLinux;
+      shellIntegration.enableZshIntegration = true;
+      themeFile = "Catppuccin-Macchiato";
+      enableGitIntegration = true;
       settings = {
-        theme = "Catppuccin Macchiato";
-        shell-integration-features = "ssh-terminfo,ssh-env";
+        macos_option_as_alt = "left";
+        font_size = 13;
       };
     };
 
