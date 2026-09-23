@@ -126,7 +126,7 @@ in
           "mise"
           "brew"
         ];
-        theme = "awesomepanda";
+        theme = "jonathan";
       };
       shellAliases = {
         ll = "ls -la";
@@ -153,14 +153,15 @@ in
       sessionVariables = { };
     };
 
-    ghostty = {
+    kitty = {
       enable = true;
-      package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
-      enableZshIntegration = true;
-      systemd.enable = pkgs.stdenv.hostPlatform.isLinux;
+      shellIntegration.enableZshIntegration = true;
+      themeFile = "Catppuccin-Macchiato";
+      enableGitIntegration = true;
       settings = {
-        theme = "Catppuccin Macchiato";
-        shell-integration-features = "ssh-terminfo,ssh-env";
+        macos_option_as_alt = "left";
+        font_size = 13;
+        window_padding_width = 8;
       };
     };
 
@@ -256,5 +257,11 @@ in
         };
       };
     };
+  };
+
+  # Custom kitty app icon: https://github.com/sodapopcan/kitty-icon
+  xdg.configFile."kitty/kitty.app.png".source = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/sodapopcan/kitty-icon/7496efa44f2f4615580471eebce7333459454731/kitty.app.png";
+    hash = "sha256-5a56y8qzquZocPyWwadhkF+0fZ04Xaqr1z29QqE78LE=";
   };
 }
