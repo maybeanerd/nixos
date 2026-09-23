@@ -161,6 +161,7 @@ in
       settings = {
         macos_option_as_alt = "left";
         font_size = 13;
+        window_padding_width = 8;
       };
     };
 
