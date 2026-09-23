@@ -257,4 +257,10 @@ in
       };
     };
   };
+
+  # Custom kitty app icon: https://github.com/sodapopcan/kitty-icon
+  xdg.configFile."kitty/kitty.app.png".source = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/sodapopcan/kitty-icon/7496efa44f2f4615580471eebce7333459454731/kitty.app.png";
+    hash = "sha256-5a56y8qzquZocPyWwadhkF+0fZ04Xaqr1z29QqE78LE=";
+  };
 }
