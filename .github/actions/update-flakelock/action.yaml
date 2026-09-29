@@ -1,0 +1,29 @@
+name: "Update flake.lock"
+description: "Updates flake.lock inputs and opens an auto-merge PR"
+inputs:
+  variant:
+    description: "Which flake variant this is for, e.g. nixos or darwin"
+    required: true
+  inputs-to-update:
+    description: "Space-separated list of flake inputs to update. Empty updates all inputs."
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - uses: DeterminateSystems/nix-installer-action@v23
+
+    - uses: DeterminateSystems/update-flake-lock@main
+      id: update
+      with:
+        inputs: ${{ inputs.inputs-to-update }}
+        branch: "update-flake-lock-${{ inputs.variant }}"
+        pr-title: "Update flake.lock (${{ inputs.variant }})"
+        pr-labels: dependencies
+
+    - name: Enable auto-merge
+      if: steps.update.outputs.pull-request-number != ''
+      shell: bash
+      run: gh pr merge --auto --squash "${{ steps.update.outputs.pull-request-number }}"
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

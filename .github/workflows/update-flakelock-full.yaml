@@ -7,9 +7,12 @@ on:
 
 jobs:
   update-flake-lock:
-    uses: ./.github/workflows/update-flakelock-reusable.yaml
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    with:
-      variant: full
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ./.github/actions/update-flakelock
+        with:
+          variant: full
