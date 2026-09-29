@@ -97,5 +97,22 @@
         '';
       };
     };
+
+    # GUI apps (GitHub Desktop, Zed, etc.) launch git without devenv/mise on
+    # PATH, so lefthook's `assert_lefthook_installed` aborts their hook runs.
+    # Skip lefthook session-wide for anything launched outside a shell.
+    launchd.agents.lefthook-env = {
+      enable = true;
+      config = {
+        Label = "io.nix.lefthook-env";
+        ProgramArguments = [
+          "/bin/launchctl"
+          "setenv"
+          "LEFTHOOK"
+          "0"
+        ];
+        RunAtLoad = true;
+      };
+    };
   };
 }
