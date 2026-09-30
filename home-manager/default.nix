@@ -11,12 +11,6 @@ let
   core =
     { ... }:
     {
-      programs.firefox = {
-        enable = true;
-        configPath = ".mozilla/firefox";
-        # profiles = { ... };
-      };
-
       home.stateVersion = "25.11";
     };
 in
@@ -39,6 +33,7 @@ in
   home-manager.users.${username} = {
     imports = [
       core
+      ./firefox
       ./personal
       ./development
       ./integrations
