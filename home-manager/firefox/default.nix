@@ -71,7 +71,6 @@ in
         "signon.rememberSignons" = false;
 
         # Sidebar / tabs / toolbar layout
-        "sidebar.revamp" = true;
         "sidebar.verticalTabs" = true;
         "sidebar.main.tools" = "history,bookmarks";
         "browser.toolbars.bookmarks.visibility" = "always";
