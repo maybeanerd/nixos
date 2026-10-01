@@ -16,10 +16,10 @@ let
   sharedExtensions = [
     ublock
     consentOMatic
-  ];
-  personalExtensions = [ passwordManager ];
-  workExtensions = [
     passwordManager
+  ];
+  personalExtensions = [  ];
+  workExtensions = [
     addons.salesforce-inspector-reloaded
   ];
 
@@ -86,11 +86,9 @@ in
         "browser.tabs.groups.smart.userEnabled" = false;
         "browser.uiCustomization.state" = builtins.toJSON uiCustomizationState;
 
-        # AI/ML features off (browser.ai.control.default is a fallback that
-        # covers every feature -- Translations, PdfjsAltText, SmartTabGroups,
-        # LinkPreviewKeyPoints, SidebarChatbot, SmartWindow, SpeechRecognition
-        # -- unless individually overridden, so no per-feature keys needed)
+        # AI features off
         "browser.ai.control.default" = "blocked";
+        # ML have their own feature flags
         "browser.ml.chat.enabled" = false;
         "browser.ml.chat.page" = false;
         "browser.ml.linkPreview.enabled" = false;
