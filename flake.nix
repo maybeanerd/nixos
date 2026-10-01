@@ -38,6 +38,8 @@
 
     ponytail.url = "github:DietrichGebert/ponytail";
     ponytail.flake = false;
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs =
@@ -50,6 +52,7 @@
       home-manager-darwin,
       sops-nix,
       ponytail,
+      nur,
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
@@ -76,6 +79,8 @@
             {
               # Allow unfree packages
               nixpkgs.config.allowUnfree = true;
+
+              nixpkgs.overlays = [ nur.overlays.default ];
 
               # Allow already installed version
               nixpkgs.config.permittedInsecurePackages = [
