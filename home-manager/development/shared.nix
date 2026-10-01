@@ -9,7 +9,7 @@
 
 let
   commonPackages = with pkgs; [
-    nixfmt
+    nixfmt-tree
     nixd
     nil
     helm-ls

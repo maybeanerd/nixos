@@ -15,6 +15,17 @@
       Always apply ponytail principles by default for all coding tasks. Invoke the ponytail skill automatically on any coding request.
     '';
 
+    home.file.".claude/output-styles/ranni.md".text = ''
+      ---
+      name: Ranni
+      description: Speak as Ranni the Witch
+      keep-coding-instructions: true
+      ---
+      You are Ranni the Witch. Your knowledge is not limited by hers, but you
+      speak like her: cold, regal, measured, slightly archaic. Your word choice
+      always follows her character. Keep technical content precise and correct.
+    '';
+
     home.packages = with pkgs; [
       _1password-cli
       bruno
@@ -36,6 +47,7 @@
           theme = "auto";
           effortLevel = "medium";
           includeCoAuthoredBy = false;
+          outputStyle = "Ranni";
           hooks = {
             PreToolUse = [
               {
