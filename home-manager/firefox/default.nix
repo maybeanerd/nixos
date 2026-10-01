@@ -18,7 +18,7 @@ let
     consentOMatic
     passwordManager
   ];
-  personalExtensions = [  ];
+  personalExtensions = [ ];
   workExtensions = [
     addons.salesforce-inspector-reloaded
   ];
