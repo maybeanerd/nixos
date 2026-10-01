@@ -3,31 +3,39 @@
 {
   isWorkDevice,
   pkgs,
+  lib,
   ...
 }:
 let
   addons = pkgs.nur.repos.rycee.firefox-addons;
 
-  sharedExtensions = with addons; [
-    ublock-origin
-    consent-o-matic
+  ublock = addons.ublock-origin;
+  consentOMatic = addons.consent-o-matic;
+  passwordManager = if isWorkDevice then addons."1password-x-password-manager" else addons.bitwarden;
+
+  sharedExtensions = [
+    ublock
+    consentOMatic
   ];
-  personalExtensions = with addons; [ bitwarden ];
-  workExtensions = with addons; [
-    addons."1password-x-password-manager"
-    salesforce-inspector-reloaded
+  personalExtensions = [ passwordManager ];
+  workExtensions = [
+    passwordManager
+    addons.salesforce-inspector-reloaded
   ];
 
   extensions = sharedExtensions ++ (if isWorkDevice then workExtensions else personalExtensions);
 
-  # Toolbar widget id for whichever password manager is installed on this
-  # device, derived from its addon id the same way Firefox does
-  # ("{guid}" -> "_guid_-browser-action").
-  passwordManagerWidgetId =
-    if isWorkDevice then
-      "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
-    else
-      "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action";
+  # Firefox's own widget id scheme for a browser-action button: lowercase
+  # the addon id, replace anything outside [a-z0-9_-] with "_", then append
+  # "-browser-action". Deriving it from the package's addonId means the
+  # toolbar layout below never needs a literal id typed out by hand.
+  toWidgetId =
+    addonId:
+    let
+      allowed = "abcdefghijklmnopqrstuvwxyz0123456789_-";
+      chars = lib.stringToCharacters (lib.toLower addonId);
+    in
+    "${lib.concatMapStrings (c: if lib.hasInfix c allowed then c else "_") chars}-browser-action";
 
   uiCustomizationState = {
     placements = {
@@ -43,9 +51,9 @@ let
         "urlbar-container"
         "customizableui-special-spring2"
         "downloads-button"
-        passwordManagerWidgetId
-        "ublock0_raymondhill_net-browser-action"
-        "gdpr_cavi_au_dk-browser-action"
+        (toWidgetId passwordManager.addonId)
+        (toWidgetId ublock.addonId)
+        (toWidgetId consentOMatic.addonId)
         "unified-extensions-button"
         "alltabs-button"
       ];
@@ -78,14 +86,11 @@ in
         "browser.tabs.groups.smart.userEnabled" = false;
         "browser.uiCustomization.state" = builtins.toJSON uiCustomizationState;
 
-        # AI/ML features off
+        # AI/ML features off (browser.ai.control.default is a fallback that
+        # covers every feature -- Translations, PdfjsAltText, SmartTabGroups,
+        # LinkPreviewKeyPoints, SidebarChatbot, SmartWindow, SpeechRecognition
+        # -- unless individually overridden, so no per-feature keys needed)
         "browser.ai.control.default" = "blocked";
-        "browser.ai.control.linkPreviewKeyPoints" = "blocked";
-        "browser.ai.control.pdfjsAltText" = "blocked";
-        "browser.ai.control.sidebarChatbot" = "blocked";
-        "browser.ai.control.smartTabGroups" = "blocked";
-        "browser.ai.control.smartWindow" = "blocked";
-        "browser.ai.control.translations" = "blocked";
         "browser.ml.chat.enabled" = false;
         "browser.ml.chat.page" = false;
         "browser.ml.linkPreview.enabled" = false;
@@ -98,9 +103,6 @@ in
         "privacy.globalprivacycontrol.enabled" = true;
         "extensions.formautofill.addresses.enabled" = false;
         "extensions.formautofill.creditCards.enabled" = false;
-        "network.dns.disablePrefetch" = true;
-        "network.prefetch-next" = false;
-        "network.http.speculative-parallel-limit" = 0;
 
         # Startup / misc UX
         "browser.startup.page" = 3; # restore previous session
