@@ -161,10 +161,7 @@ in
 
         # New tab
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-        "browser.newtabpage.pinned" = builtins.toJSON [
-          { url = "https://github.com/"; }
-          { url = "https://immich.cluster.diluz.io/"; }
-        ];
+        "browser.newtabpage.pinned" = builtins.toJSON [ ];
 
         # misc UX
         "browser.startup.page" = 3; # restore previous session
