@@ -14,7 +14,7 @@ let
     URL=$(cat ${immichServerUrlPath})
     KEY=$(cat ${immichApiKeyPath})
     ${pkgs.immich-cli}/bin/immich login-key "$URL" "$KEY"
-    ${pkgs.immich-cli}/bin/immich upload --recursive --album --delete "${screenshotsDir}"
+    ${pkgs.immich-cli}/bin/immich upload --recursive --album --delete --delete-duplicates --no-progress "${screenshotsDir}"
   '';
 in
 {
