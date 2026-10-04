@@ -130,6 +130,7 @@ in
       };
       shellAliases = {
         ll = "ls -la";
+        ssh = "kitten ssh";
 
         fu = "nix flake update";
         fl = "nix flake lock";
