@@ -54,7 +54,7 @@ in
   # Declaratively install/manage the Homebrew bin itself
   nix-homebrew = {
     enable = true;
-    enableRosetta = true;
+    enableRosetta = false;
     user = username;
     autoMigrate = true; # move existing homebrew installs
     mutableTaps = false;
