@@ -147,6 +147,7 @@
                       "networkmanager"
                       "wheel"
                       "audio"
+                      "docker"
                     ];
                     shell = pkgs.zsh;
                     ignoreShellProgramCheck = true;
