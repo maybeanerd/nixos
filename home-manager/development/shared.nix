@@ -4,6 +4,7 @@
   lib,
   username,
   gitConfig,
+  isWorkDevice,
   ...
 }:
 
@@ -245,7 +246,7 @@ in
         "vue"
       ];
       userSettings = {
-        "disable_ai" = lib.mkDefault true;
+        "disable_ai" = false;
         "theme" = {
           "mode" = "system";
           "light" = "Catppuccin Latte";
@@ -255,6 +256,39 @@ in
           "mode" = "system";
           "light" = "Catppuccin Latte";
           "dark" = "Catppuccin Macchiato";
+        };
+        "edit_predictions" = {
+          "provider" = "none";
+        };
+        "agent" = {
+          "dock" = "right";
+          "sidebar_side" = "right";
+          "show_turn_stats" = true;
+          "expand_terminal_card" = false;
+          "notify_when_agent_waiting" = "never";
+        };
+      }
+      // lib.optionalAttrs (!isWorkDevice) {
+        "language_models" = {
+          "openai_compatible" = {
+            "Hetzner" = {
+              "api_url" = "https://inference.hetzner.com/api/v1";
+              "available_models" = [
+                {
+                  "name" = "Qwen/Qwen3.6-35B-A3B-FP8";
+                  "display_name" = "Qwen3.6 35B (Hetzner)";
+                  "max_tokens" = 262144;
+                  "max_output_tokens" = 32768;
+                  "capabilities" = {
+                    "tools" = true;
+                    "images" = true;
+                    "parallel_tool_calls" = false;
+                    "prompt_cache_key" = false;
+                  };
+                }
+              ];
+            };
+          };
         };
       };
     };
