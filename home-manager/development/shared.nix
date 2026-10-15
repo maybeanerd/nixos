@@ -224,6 +224,11 @@ in
       };
     };
 
+    lazygit = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     k9s = {
       enable = true;
     };
