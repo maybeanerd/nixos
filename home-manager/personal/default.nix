@@ -22,6 +22,7 @@ let
       discord
       signal-desktop
       element-desktop
+      fluffychat
       tidal-hifi
       vlc
       libreoffice-stable
