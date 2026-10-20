@@ -63,6 +63,7 @@ in
   imports = [
     ./agents/pipelock
     ./agents/opencode.nix
+    ./agents/zed.nix
   ];
 
   home.packages = commonPackages ++ nixosPackages ++ darwinPackages;

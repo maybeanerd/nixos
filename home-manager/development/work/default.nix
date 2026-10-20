@@ -9,7 +9,6 @@
 {
   imports = [
     ../agents/claude.nix
-    ../agents/zed.nix
   ];
 
   config = lib.mkIf isWorkDevice {
