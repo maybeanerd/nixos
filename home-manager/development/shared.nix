@@ -306,6 +306,9 @@ in
         };
       }
       // lib.optionalAttrs (!isWorkDevice) {
+        "agent" = {
+          "terminal_init_command" = "opencode";
+        };
         "language_models" = {
           "openai_compatible" = {
             "Hetzner" = {
