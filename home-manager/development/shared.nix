@@ -62,7 +62,7 @@ in
 {
   imports = [
     ./agents/pipelock
-    ./agents/opencode.nix
+    ./agents/harness
     ./agents/zed.nix
   ];
 

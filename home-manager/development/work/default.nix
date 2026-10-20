@@ -1,16 +1,5 @@
+{ config, lib, pkgs, isWorkDevice, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  isWorkDevice,
-  ponytail,
-  ...
-}:
-{
-  imports = [
-    ../agents/claude.nix
-  ];
-
   config = lib.mkIf isWorkDevice {
     home.packages = with pkgs; [
       _1password-cli
