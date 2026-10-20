@@ -110,7 +110,22 @@ in
           apiKey = "{file:${osConfig.sops.secrets.hetzner-api-key.path}}";
         };
         models."Qwen/Qwen3.6-35B-A3B-FP8" = {
-          name = "Qwen3.6 35B (Hetzner)";
+          name = "Qwen3.6 35B";
+          tool_call = true;
+          limit = {
+            context = 262144;
+            output = 32768;
+          };
+          modalities = {
+            input = [
+              "text"
+              "image"
+            ];
+            output = [ "text" ];
+          };
+        };
+        models."Qwen3.8-27B" = {
+          name = "Qwen3.8 27B";
           tool_call = true;
           limit = {
             context = 262144;
