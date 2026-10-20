@@ -6,15 +6,13 @@
   ...
 }:
 let
-  user = config.users.users.${username};
+  ownedByUser = {
+    owner = config.users.users.${username}.name;
+  };
 in
 lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
   sops.defaultSopsFile = ./secrets/nixos.yaml;
 
-  sops.secrets.immich-api-key = {
-    owner = user.name;
-  };
-  sops.secrets.immich-server-url = {
-    owner = user.name;
-  };
+  sops.secrets.immich-api-key = ownedByUser;
+  sops.secrets.immich-server-url = ownedByUser;
 }
