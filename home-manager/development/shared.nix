@@ -60,6 +60,11 @@ let
 
 in
 {
+  imports = [
+    ./agents/pipelock
+    ./agents/opencode.nix
+  ];
+
   home.packages = commonPackages ++ nixosPackages ++ darwinPackages;
 
   home.file = {
@@ -96,52 +101,6 @@ in
     extraConfig = ''
       ttyname $GPG_TTY
     '';
-  };
-
-  programs.opencode = lib.mkIf (!isWorkDevice) {
-    enable = true;
-    settings = {
-      "$schema" = "https://opencode.ai/config.json";
-      provider.hetzner = {
-        npm = "@ai-sdk/openai-compatible";
-        name = "Hetzner";
-        options = {
-          baseURL = "https://inference.hetzner.com/api/v1";
-          apiKey = "{file:${osConfig.sops.secrets.hetzner-api-key.path}}";
-        };
-        models."Qwen/Qwen3.6-35B-A3B-FP8" = {
-          name = "Qwen3.6 35B";
-          tool_call = true;
-          limit = {
-            context = 262144;
-            output = 32768;
-          };
-          modalities = {
-            input = [
-              "text"
-              "image"
-            ];
-            output = [ "text" ];
-          };
-        };
-        models."Qwen3.8-27B" = {
-          name = "Qwen3.8 27B";
-          tool_call = true;
-          limit = {
-            context = 262144;
-            output = 32768;
-          };
-          modalities = {
-            input = [
-              "text"
-              "image"
-            ];
-            output = [ "text" ];
-          };
-        };
-      };
-      model = "hetzner/Qwen/Qwen3.6-35B-A3B-FP8";
-    };
   };
 
   programs = {
@@ -318,32 +277,6 @@ in
           "show_turn_stats" = true;
           "expand_terminal_card" = false;
           "notify_when_agent_waiting" = "never";
-        };
-      }
-      // lib.optionalAttrs (!isWorkDevice) {
-        "agent" = {
-          "terminal_init_command" = "opencode";
-        };
-        "language_models" = {
-          "openai_compatible" = {
-            "Hetzner" = {
-              "api_url" = "https://inference.hetzner.com/api/v1";
-              "available_models" = [
-                {
-                  "name" = "Qwen/Qwen3.6-35B-A3B-FP8";
-                  "display_name" = "Qwen3.6 35B (Hetzner)";
-                  "max_tokens" = 262144;
-                  "max_output_tokens" = 32768;
-                  "capabilities" = {
-                    "tools" = true;
-                    "images" = true;
-                    "parallel_tool_calls" = false;
-                    "prompt_cache_key" = false;
-                  };
-                }
-              ];
-            };
-          };
         };
       };
     };
