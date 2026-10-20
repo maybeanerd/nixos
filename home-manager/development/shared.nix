@@ -5,6 +5,7 @@
   username,
   gitConfig,
   isWorkDevice,
+  osConfig,
   ...
 }:
 
@@ -108,7 +109,18 @@ in
           baseURL = "https://inference.hetzner.com/api/v1";
           apiKey = "{file:${osConfig.sops.secrets.hetzner-api-key.path}}";
         };
-        models."Qwen/Qwen3.6-35B-A3B-FP8".name = "Qwen3.6 35B";
+        models."Qwen/Qwen3.6-35B-A3B-FP8" = {
+          name = "Qwen3.6 35B (Hetzner)";
+          tool_call = true;
+          limit = {
+            context = 262144;
+            output = 32768;
+          };
+          modalities = {
+            input = [ "text" "image" ];
+            output = [ "text" ];
+          };
+        };
       };
       model = "hetzner/Qwen/Qwen3.6-35B-A3B-FP8";
     };
