@@ -97,6 +97,23 @@ in
     '';
   };
 
+  programs.opencode = lib.mkIf (!isWorkDevice) {
+    enable = true;
+    settings = {
+      "$schema" = "https://opencode.ai/config.json";
+      provider.hetzner = {
+        npm = "@ai-sdk/openai-compatible";
+        name = "Hetzner";
+        options = {
+          baseURL = "https://inference.hetzner.com/api/v1";
+          apiKey = "{file:${osConfig.sops.secrets.hetzner-api-key.path}}";
+        };
+        models."Qwen/Qwen3.6-35B-A3B-FP8".name = "Qwen3.6 35B";
+      };
+      model = "hetzner/Qwen/Qwen3.6-35B-A3B-FP8";
+    };
+  };
+
   programs = {
     npm = {
       enable = true;
