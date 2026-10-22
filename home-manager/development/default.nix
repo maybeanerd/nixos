@@ -62,9 +62,7 @@ let
 in
 {
   imports = [
-    ./agents/pipelock
-    ./agents/harness
-    ./agents/zed.nix
+    ./agents
   ];
 
   config = lib.mkIf isWorkDevice {
