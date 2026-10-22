@@ -158,10 +158,10 @@ in
       enable = true;
       enableZshIntegration = true;
       config = {
-        # Auto-allow in repos
+        # Auto-allow in worktrees
         whitelist.prefix = [
-          "/Users/${username}/Documents/git-repos"
-          "/Users/${username}/Documents/GitHub"
+          "/Users/${username}/Documents/git-repos/worktrees"
+          "/Users/${username}/Documents/GitHub/worktrees"
         ];
       };
     };
