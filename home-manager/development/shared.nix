@@ -157,6 +157,13 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      config = {
+        # Auto-allow in worktrees
+        whitelist.prefix = [
+          "/Users/${username}/Documents/git-repos/worktrees"
+          "/Users/${username}/Documents/GitHub/worktrees"
+        ];
+      };
     };
 
     zsh = {
