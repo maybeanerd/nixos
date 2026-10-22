@@ -157,6 +157,11 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      # Auto-allow in repos
+      direnv.config.whitelist.prefix = [
+        "/Users/${username}/Documents/git-repos"
+        "/Users/${username}/Documents/GitHub"
+      ];
     };
 
     zsh = {
