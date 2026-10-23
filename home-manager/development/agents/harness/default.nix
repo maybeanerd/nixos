@@ -1,4 +1,11 @@
-{ config, lib, pkgs, isWorkDevice, osConfig, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  isWorkDevice,
+  osConfig,
+  ...
+}:
 {
   imports = [
     ./opencode.nix

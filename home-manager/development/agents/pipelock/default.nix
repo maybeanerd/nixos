@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   pipelockHome = "${config.home.homeDirectory}/.pipelock";
   pipelockConfigFile = "${config.home.homeDirectory}/.config/pipelock/pipelock.yaml";
