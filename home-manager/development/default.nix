@@ -41,6 +41,19 @@ let
       orbstack
     ];
 
+  workPackages =
+    with pkgs;
+    lib.optionals isWorkDevice [
+      _1password-cli
+      bruno
+      claude-agent-acp
+      cyberduck
+      google-cloud-sdk
+      google-cloud-sql-proxy
+      tableplus
+      terraform
+    ];
+
   /*
     To add the key from the yubikey:
     gpg --edit-card
@@ -65,43 +78,29 @@ in
     ./agents
   ];
 
-  config = lib.mkIf isWorkDevice {
-    home.packages = with pkgs; [
-      _1password-cli
-      bruno
-      claude-agent-acp
-      cyberduck
-      google-cloud-sdk
-      google-cloud-sql-proxy
-      tableplus
-      terraform
-    ];
+  home.packages = commonPackages ++ nixosPackages ++ darwinPackages ++ workPackages;
 
-    # GUI apps (GitHub Desktop, Zed, etc.) launch git without devenv/mise on
-    # PATH, so lefthook's `assert_lefthook_installed` aborts their hook runs.
-    # Skip lefthook session-wide for anything launched outside a shell.
-    launchd.agents.lefthook-env = {
-      enable = true;
-      config = {
-        Label = "io.nix.lefthook-env";
-        ProgramArguments = [
-          "/bin/launchctl"
-          "setenv"
-          "LEFTHOOK"
-          "0"
-        ];
-        RunAtLoad = true;
-      };
+  # GUI apps (GitHub Desktop, Zed, etc.) launch git without devenv/mise on
+  # PATH, so lefthook's `assert_lefthook_installed` aborts their hook runs.
+  # Skip lefthook session-wide for anything launched outside a shell.
+  launchd.agents.lefthook-env = lib.mkIf isWorkDevice {
+    enable = true;
+    config = {
+      Label = "io.nix.lefthook-env";
+      ProgramArguments = [
+        "/bin/launchctl"
+        "setenv"
+        "LEFTHOOK"
+        "0"
+      ];
+      RunAtLoad = true;
     };
   };
-
-  home.packages = commonPackages ++ nixosPackages ++ darwinPackages;
 
   home.file = {
     # YubiKey U2F mapping file deployment (pam_u2f)
     # This file contains per-user U2F registrations generated via pamu2fcfg.
     ".config/Yubico/u2f_keys" = {
-      target = ".config/Yubico/u2f_keys";
       text = lib.concatStrings [
         username
         ":JCA7Tjva+fImbo3LF4F4Jki0Kh12HLq1uTqZ1Qd/8AKDRpN8NvIrAI3jqNDNFpqkaQEjzFTnpx5f2L2Mq6L8bw==,DVL13wkNExtCeNTvtpcbqWH4GGnexDHmKPj6HQHt+uVHeIXg4w2BUB4lrCqHWdKQRJGIZai+TVTOktysxiz1qg==,es256,+presence"
