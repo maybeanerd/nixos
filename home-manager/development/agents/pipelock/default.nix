@@ -10,7 +10,8 @@ let
   pipelockYaml = builtins.readFile ./pipelock.yaml;
   pipelockConf = lib.replaceStrings [ "@PIPELOCK_HOME@" ] [ "${pipelockHome}" ] pipelockYaml;
 in
-{
+
+lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
   home.file.".config/pipelock/pipelock.yaml".text = pipelockConf;
 
   # Proxy env vars set globally; pipelock daemon must be running for them to take effect
