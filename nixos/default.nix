@@ -42,7 +42,6 @@
     support32Bit = true;
     package = pkgs.pulseaudioFull;
   };
-  nixpkgs.config.pulseaudio = true;
 
   # Enable PipeWire for screen sharing only
   services.pipewire = {
