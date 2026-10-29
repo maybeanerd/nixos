@@ -28,7 +28,6 @@ let
   nixosPackages =
     with pkgs;
     lib.optionals (stdenv.hostPlatform.isLinux) [
-      github-desktop # Needs to be installed using brew on darwin
       docker
       kubernetes
     ];
