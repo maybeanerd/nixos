@@ -12,8 +12,6 @@ let
   workCasks =
     if isWorkDevice then
       [
-        "linear"
-        "figma"
         "redis-insight"
       ]
     else

@@ -233,7 +233,7 @@
 
             # Work MacBook Pro @liqid
             "Sebastian-Di-Luzio-MacBook-Pro-MBP-L1682" = {
-              username = "sebastiandiluzio";
+              username = "sebastian.diluzio";
               isWorkDevice = true;
               gitConfig = {
                 email = "sebastian.diluzio@liqid.de";
