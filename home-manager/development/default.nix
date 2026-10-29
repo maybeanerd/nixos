@@ -37,7 +37,12 @@ let
     lib.optionals (stdenv.hostPlatform.isDarwin) [
       stats # macOS only package https://github.com/exelban/stats
       mise # dynamic executables wont work on nixos
-      orbstack
+    ];
+
+  personalDarwinPackages =
+    with pkgs;
+    lib.optionals (stdenv.hostPlatform.isDarwin && !isWorkDevice) [
+      orbstack # managed on work devices
     ];
 
   workPackages =
@@ -77,7 +82,8 @@ in
     ./agents
   ];
 
-  home.packages = commonPackages ++ nixosPackages ++ darwinPackages ++ workPackages;
+  home.packages =
+    commonPackages ++ nixosPackages ++ darwinPackages ++ personalDarwinPackages ++ workPackages;
 
   # GUI apps (GitHub Desktop, Zed, etc.) launch git without devenv/mise on
   # PATH, so lefthook's `assert_lefthook_installed` aborts their hook runs.
