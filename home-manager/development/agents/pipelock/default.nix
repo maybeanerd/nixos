@@ -7,6 +7,11 @@
 let
   pipelockHome = "${config.home.homeDirectory}/.pipelock";
   pipelockConfigFile = "${config.home.homeDirectory}/.config/pipelock/pipelock.yaml";
+  # Deep-merged over the preset: maps merge per key, lists replace the preset's list.
+  # Comments in overrides.yaml would clobber the preset's, so keep it comment-free.
+  pipelockOverrides = pkgs.writeText "pipelock-overrides.yaml" (
+    lib.replaceStrings [ "@PIPELOCK_HOME@" ] [ pipelockHome ] (builtins.readFile ./overrides.yaml)
+  );
   # Regenerates the config from the installed pipelock's preset on every start, so
   # `brew upgrade pipelock` picks up new preset defaults without a manual step.
   pipelockStart = pkgs.writeShellScript "pipelock-start" ''
@@ -14,10 +19,7 @@ let
     mkdir -p "$(dirname "${pipelockConfigFile}")"
     tmp="${pipelockConfigFile}.tmp"
     /opt/homebrew/bin/pipelock generate config --preset claude-code --output "$tmp"
-    ${pkgs.yq-go}/bin/yq -i '
-      .flight_recorder.dir = "${pipelockHome}/recorder" |
-      .flight_recorder.signing_key_path = "${pipelockHome}/keys/flight-recorder-signing.key.json"
-    ' "$tmp"
+    ${pkgs.yq-go}/bin/yq -i '. *= load("${pipelockOverrides}")' "$tmp"
     mv "$tmp" "${pipelockConfigFile}"
     exec /opt/homebrew/bin/pipelock run --config "${pipelockConfigFile}"
   '';
