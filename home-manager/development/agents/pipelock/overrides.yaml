@@ -1,0 +1,3 @@
+flight_recorder:
+  dir: @PIPELOCK_HOME@/recorder
+  signing_key_path: @PIPELOCK_HOME@/keys/flight-recorder-signing.key.json
