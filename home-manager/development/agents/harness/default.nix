@@ -10,5 +10,6 @@
   imports = [
     ./opencode.nix
     ./claude.nix
+    ./t3code.nix
   ];
 }
