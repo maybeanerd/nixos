@@ -26,6 +26,7 @@
       );
       userSettings = {
         defaultRuntimeMode = "full-access";
+        pullRequestMergeMethod = "squash";
         storageCleanup = {
           worktreeOnMerge = true;
           worktreeOnDelete = true;
