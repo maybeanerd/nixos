@@ -27,6 +27,9 @@
       userSettings = {
         defaultRuntimeMode = "full-access";
         pullRequestMergeMethod = "squash";
+        # Also lets the review diff open worktrees there; it only accepts managed worktree folders.
+        worktreesDirectory =
+          if isWorkDevice then "~/Documents/git-repos/worktrees" else "~/Documents/GitHub/worktrees";
         storageCleanup = {
           worktreeOnMerge = true;
           worktreeOnDelete = true;
