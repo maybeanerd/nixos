@@ -17,5 +17,5 @@ in
   sops.secrets.smtp_password = fromShared;
   sops.secrets.smb-credentials = fromShared;
   sops.secrets.attic-token = fromShared;
-  sops.secrets.hetzner-api-key = fromShared // ownedByUser;
+  sops.secrets.gemini-api-key = fromShared // ownedByUser;
 }
