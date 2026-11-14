@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  isWorkDevice,
   ...
 }:
 let
@@ -25,7 +26,7 @@ let
   '';
 in
 
-lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
+lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin && isWorkDevice) {
   # Proxy env vars set globally; pipelock daemon must be running for them to take effect
   home.sessionVariables = {
     HTTPS_PROXY = "http://127.0.0.1:8888";

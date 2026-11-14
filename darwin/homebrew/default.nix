@@ -34,10 +34,15 @@ let
   ++ workCasks
   ++ personalCasks;
 
-  workBrews = if isWorkDevice then [ ] else [ ];
+  workBrews =
+    if isWorkDevice then
+      [
+        "luckypipewrench/tap/pipelock"
+      ]
+    else
+      [ ];
   allBrews = [
     "kubectl"
-    "luckypipewrench/tap/pipelock"
   ]
   ++ workBrews;
 
