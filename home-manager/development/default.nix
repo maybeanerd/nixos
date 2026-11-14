@@ -70,7 +70,7 @@ let
       rev = "8e1a108ed958c8ef08ed0b61689eaf56071269d0";
       hash = "sha256-Tt2GIMxBkm1uWpxoIJjE6nXnuG4/aXDeFZvLoUowZzk=";
     };
-    vendorHash = "sha256-Tt2GIMxBkm1uWpxoIJjE6nXnuG4/aXDeFZvLoUowZzk=";
+    vendorHash = "sha256-LJiIEppjwVZqyPvZIP3djTDYTWmT1oGXr8jQKtSgldM=";
     # doCheck = false; # tests may touch the keyring
     meta.mainProgram = "git-credential-tangled";
   };
