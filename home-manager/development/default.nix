@@ -58,6 +58,27 @@ let
       terraform
     ];
 
+  # Tangled knot HTTP auth (OAuth via PDS, session stored in OS keyring)
+  # https://tangled.org/pds.dad/git-credential-tangled
+  tangledKnotUrl = "https://knot.bumsco.de";
+  tangledHandle = "maybeanerd.com";
+  git-credential-tangled = pkgs.buildGoModule {
+    pname = "git-credential-tangled";
+    version = "latest";
+    src = pkgs.fetchgit {
+      url = "https://tangled.org/pds.dad/git-credential-tangled";
+      rev = "8e1a108ed958c8ef08ed0b61689eaf56071269d0";
+      hash = "sha256-Tt2GIMxBkm1uWpxoIJjE6nXnuG4/aXDeFZvLoUowZzk=";
+    };
+    vendorHash = "sha256-LJiIEppjwVZqyPvZIP3djTDYTWmT1oGXr8jQKtSgldM=";
+    doCheck = false;
+    meta.mainProgram = "git-credential-tangled";
+  };
+
+  personalPackages = lib.optionals (!isWorkDevice) [
+    git-credential-tangled
+  ];
+
   /*
     To add the key from the yubikey:
     gpg --edit-card
@@ -83,7 +104,12 @@ in
   ];
 
   home.packages =
-    commonPackages ++ nixosPackages ++ darwinPackages ++ personalDarwinPackages ++ workPackages;
+    commonPackages
+    ++ nixosPackages
+    ++ darwinPackages
+    ++ personalDarwinPackages
+    ++ personalPackages
+    ++ workPackages;
 
   # GUI apps (GitHub Desktop, Zed, etc.) launch git without devenv/mise on
   # PATH, so lefthook's `assert_lefthook_installed` aborts their hook runs.
@@ -267,6 +293,14 @@ in
         push.autoSetupRemote = true;
         signing.key = gpgKeyID;
         commit.gpgsign = gitConfig.sign or false;
+      }
+      // lib.optionalAttrs (!isWorkDevice) {
+        # Tangled knot HTTP auth. The empty entry resets the helper list so
+        # no other helper answers for this host.
+        credential.${tangledKnotUrl}.helper = [
+          ""
+          "${lib.getExe git-credential-tangled} --handle ${tangledHandle}"
+        ];
       };
     };
 
