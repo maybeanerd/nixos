@@ -58,6 +58,10 @@
   # Networking
   networking.networkmanager.enable = true;
 
+  # LocalSend (AirDrop alternative). The NixOS module installs the app and opens
+  # TCP/UDP 53317, which is used for multicast discovery and transfers.
+  programs.localsend.enable = true;
+
   # Time zone
   time.timeZone = "Europe/Berlin";
 
