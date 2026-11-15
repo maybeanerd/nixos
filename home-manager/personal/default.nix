@@ -9,7 +9,6 @@
 
 let
   commonPersonal = with pkgs; [
-    localsend
     audacity
     ffmpeg # necessary for audacity video file support
   ];
@@ -34,6 +33,7 @@ let
     with pkgs;
     lib.optionals (stdenv.hostPlatform.isDarwin) [
       qbittorrent
+      localsend # on NixOS this comes from programs.localsend (opens the firewall)
     ];
 
 in
