@@ -307,6 +307,21 @@ in
     lazygit = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        git.diffRenderers = [
+          {
+            name = "delta";
+            # stdinFilter (the default): git diff is piped through delta.
+            # lazygit owns scrolling, so delta must not page itself.
+            command = "${lib.getExe pkgs.delta} --dark --paging=never --line-numbers --syntax-theme='Catppuccin Macchiato'";
+          }
+          {
+            # Toggle back to git's raw diff with the `|` key.
+            type = "rawGit";
+            name = "git";
+          }
+        ];
+      };
     };
 
     zed-editor = {
