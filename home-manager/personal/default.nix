@@ -26,6 +26,7 @@ let
       libreoffice-stable
       pavucontrol # for audio management
       prusa-slicer
+      wootility
     ];
 
   darwinPersonal =
