@@ -3,5 +3,6 @@
 {
   imports = [
     ./nas-mount.nix
+    ./wooting.nix
   ];
 }
