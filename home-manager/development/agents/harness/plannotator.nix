@@ -25,17 +25,25 @@ let
     };
   };
 
-  # Claude Code plugin.
   plannotatorSrc = pkgs.fetchFromGitHub {
     owner = "backnotprop";
     repo = "plannotator";
     rev = "v${version}";
     hash = "sha256-pgyd3GwXY3HD3PQhjH/bFLznW75ZAlLwHWWc/PV5wlQ=";
   };
+
+  # Claude Code plugin: apps/hook ships hooks only. The skills (/plannotator-review etc.)
+  # live in apps/skills and are normally copied by the upstream installer, so graft them in.
+  plannotatorPlugin = pkgs.runCommand "plannotator-plugin" { } ''
+    cp -r ${plannotatorSrc}/apps/hook $out
+    chmod -R u+w $out
+    mkdir $out/skills
+    cp -r ${plannotatorSrc}/apps/skills/claude/* ${plannotatorSrc}/apps/skills/core/plannotator $out/skills/
+  '';
 in
 {
   config = lib.mkIf isWorkDevice {
     home.packages = [ plannotator ];
-    home.file.".claude/skills/plannotator".source = "${plannotatorSrc}/apps/hook";
+    home.file.".claude/skills/plannotator".source = plannotatorPlugin;
   };
 }
