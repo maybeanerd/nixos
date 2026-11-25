@@ -356,6 +356,18 @@ in
         "edit_predictions" = {
           "provider" = "none";
         };
+        "git_panel" = {
+          "dock" = "left";
+        };
+        "project_panel" = {
+          "dock" = "left";
+        };
+        "terminal" = {
+          "dock" = "bottom";
+        };
+        "debugger" = {
+          "dock" = "bottom";
+        };
         "agent" = {
           "dock" = "right";
           "sidebar_side" = "right";
