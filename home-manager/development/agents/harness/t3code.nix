@@ -7,6 +7,9 @@
 }:
 {
   config = {
+    # No settings key exists for this; the desktop app copies it from the login shell.
+    home.sessionVariables.T3CODE_TELEMETRY_ENABLED = "false";
+
     programs.t3code = {
       enable = true;
       package = pkgs.t3code.override (
