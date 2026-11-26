@@ -11,6 +11,5 @@
     ./opencode.nix
     ./claude.nix
     ./t3code.nix
-    ./plannotator.nix
   ];
 }

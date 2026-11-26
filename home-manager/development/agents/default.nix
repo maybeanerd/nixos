@@ -10,6 +10,7 @@
 {
   imports = [
     ./harness
+    ./skills
     ./pipelock
     ./zed.nix
   ];
