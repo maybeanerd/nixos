@@ -3,7 +3,6 @@
   lib,
   pkgs,
   isWorkDevice,
-  osConfig,
   ...
 }:
 {
@@ -14,7 +13,6 @@
       enable = true;
       settings = {
         "$schema" = "https://opencode.ai/config.json";
-        provider.google.options.apiKey = "{file:${osConfig.sops.secrets.gemini-api-key.path}}";
       };
     };
   };
