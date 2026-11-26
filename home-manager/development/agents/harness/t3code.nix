@@ -29,6 +29,8 @@
       );
       userSettings = {
         defaultRuntimeMode = "full-access";
+        # Providers are pinned by nix; the "update available" notices are noise.
+        enableProviderUpdateChecks = false;
         pullRequestMergeMethod = "squash";
         # Also lets the review diff open worktrees there; it only accepts managed worktree folders.
         worktreesDirectory = "~/Documents/git-repos/worktrees";
